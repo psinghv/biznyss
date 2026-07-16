@@ -40,15 +40,15 @@ const featuredWork = [
 ];
 
 const industryItems = [
-  { name: 'Healthcare',                icon: HeartPulse,    from: '#ef4444', to: '#f97316' },
-  { name: 'Education',                 icon: GraduationCap, from: '#f59e0b', to: '#fbbf24' },
-  { name: 'E-Commerce',                icon: ShoppingCart,  from: '#10b981', to: '#34d399' },
-  { name: 'Logistics & Transportation',icon: Truck,         from: '#3b82f6', to: '#38bdf8' },
-  { name: 'Travel & Hospitality',      icon: Plane,         from: '#06b6d4', to: '#0ea5e9' },
-  { name: 'Real Estate',               icon: Building2,     from: '#059669', to: '#14b8a6' },
-  { name: 'Finance & FinTech',         icon: Landmark,      from: '#1e40af', to: '#3b82f6' },
-  { name: 'Manufacturing',             icon: Factory,       from: '#ea580c', to: '#f59e0b' },
-  { name: 'Startups',                  icon: Rocket,        from: '#e11d48', to: '#fb923c' },
+  { name: 'Healthcare',                icon: HeartPulse,    bg: '#ef4444', from: '#ef4444', to: '#f97316' },
+  { name: 'Education',                 icon: GraduationCap, bg: '#d97706', from: '#f59e0b', to: '#fbbf24' },
+  { name: 'E-Commerce',                icon: ShoppingCart,  bg: '#059669', from: '#10b981', to: '#34d399' },
+  { name: 'Logistics & Transportation',icon: Truck,         bg: '#2563eb', from: '#3b82f6', to: '#38bdf8' },
+  { name: 'Travel & Hospitality',      icon: Plane,         bg: '#0891b2', from: '#06b6d4', to: '#0ea5e9' },
+  { name: 'Real Estate',               icon: Building2,     bg: '#0f766e', from: '#059669', to: '#14b8a6' },
+  { name: 'Finance & FinTech',         icon: Landmark,      bg: '#1e40af', from: '#1e40af', to: '#3b82f6' },
+  { name: 'Manufacturing',             icon: Factory,       bg: '#c2410c', from: '#ea580c', to: '#f59e0b' },
+  { name: 'Startups',                  icon: Rocket,        bg: '#be123c', from: '#e11d48', to: '#fb923c' },
 ];
 
 const processSteps = [
@@ -140,10 +140,10 @@ const processSteps = [
         <p class="lead">We bring patterns from multiple industries without forcing one industry's playbook onto another.</p>
       </div>
       <div class="industry-grid">
-        {industryItems.map(({ name, icon: Icon, from, to }) => (
-          <div class="industry-card" style={`--from:${from};--to:${to}`}>
+        {industryItems.map(({ name, icon: Icon, bg, from, to }) => (
+          <div class="industry-card" style={`--bg:${bg};--from:${from};--to:${to}`}>
             <span class="card-icon-wrap">
-              <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
+              <Icon size={28} strokeWidth={1.7} aria-hidden="true" />
             </span>
             <strong>{name}</strong>
           </div>
@@ -321,17 +321,17 @@ const processSteps = [
   .industry-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.10); border-color: rgba(0,0,0,.06); }
   .industry-card:hover::after { transform: scaleX(1); }
   .card-icon-wrap {
-    width: 48px; height: 48px; flex-shrink: 0;
+    width: 58px; height: 58px; flex-shrink: 0;
     display: grid; place-items: center;
-    border-radius: 13px;
-    background: linear-gradient(135deg, var(--from), var(--to));
+    border-radius: 15px;
+    background: var(--bg);
     color: #fff;
-    box-shadow: 0 4px 14px rgba(0,0,0,.18);
+    box-shadow: 0 6px 18px rgba(0,0,0,.22);
     transition: transform .22s ease, box-shadow .22s ease;
   }
   .industry-card:hover .card-icon-wrap {
     transform: scale(1.12) rotate(-5deg);
-    box-shadow: 0 8px 24px rgba(0,0,0,.26);
+    box-shadow: 0 10px 28px rgba(0,0,0,.32);
   }
   .industry-card strong { color: #1e2d45; font-size: .67rem; font-weight: 600; line-height: 1.25; }
   .process-section { padding: 92px 0 100px; background: white; }
