@@ -31,12 +31,12 @@ const leadershipMetrics = [
 ];
 
 const featuredWork = [
-  { slug: 'aether-campaign', category: 'AI Creative', title: 'AI Video Campaign for Real Estate Developer', metric: '3.2M+', result: 'Views Generated', art: 'city' },
-  { slug: 'orbit-commerce', category: 'Software', title: 'SaaS Platform for Assessment Company', metric: '65%', result: 'Increase in Efficiency', art: 'dashboard' },
-  { slug: 'northstar-launch', category: 'Marketing', title: 'Lead Generation Campaign for B2B Company', metric: '300%', result: 'Increase in Qualified Leads', art: 'campaign' },
-  { slug: 'orbit-commerce', category: 'Software', title: 'Enterprise Logistics Management Platform', metric: '90%', result: 'Reduction in Manual Work', art: 'logistics' },
-  { slug: 'careflow-ai', category: 'Automation', title: 'AI Chatbot Automation for E-Commerce Brand', metric: '70%', result: 'Reduction in Support Tickets', art: 'automation' },
-  { slug: 'northstar-launch', category: 'Marketing', title: 'E-Commerce Growth Campaign', metric: '4X', result: 'Revenue Growth', art: 'growth' },
+  { slug: 'aether-campaign', category: 'AI Creative', title: 'AI Video Campaign for Real Estate Developer', metric: '3.2M+', result: 'Views Generated', image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
+  { slug: 'orbit-commerce', category: 'Software', title: 'SaaS Platform for Assessment Company', metric: '65%', result: 'Increase in Efficiency', image: 'https://images.pexels.com/photos/34069/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
+  { slug: 'northstar-launch', category: 'Marketing', title: 'Lead Generation Campaign for B2B Company', metric: '300%', result: 'Increase in Qualified Leads', image: 'https://images.pexels.com/photos/6930549/pexels-photo-6930549.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
+  { slug: 'orbit-commerce', category: 'Software', title: 'Enterprise Logistics Management Platform', metric: '90%', result: 'Reduction in Manual Work', image: 'https://images.pexels.com/photos/4480797/pexels-photo-4480797.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
+  { slug: 'careflow-ai', category: 'Automation', title: 'AI Chatbot Automation for E-Commerce Brand', metric: '70%', result: 'Reduction in Support Tickets', image: 'https://images.pexels.com/photos/5980898/pexels-photo-5980898.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
+  { slug: 'northstar-launch', category: 'Marketing', title: 'E-Commerce Growth Campaign', metric: '4X', result: 'Revenue Growth', image: 'https://images.pexels.com/photos/5632397/pexels-photo-5632397.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
 ];
 
 const industryItems = [
@@ -114,8 +114,8 @@ const processSteps = [
       <div class="work-grid">
         {featuredWork.map((study) => (
           <a class="work-card" href={`/case-studies/${study.slug}`}>
-            <div class:list={['work-art', study.art]}>
-              <span class="art-ui art-ui-one"></span><span class="art-ui art-ui-two"></span><span class="art-glow"></span>
+            <div class="work-art">
+              <img src={study.image} alt={study.title} loading="lazy" decoding="async" />
             </div>
             <div class="work-content">
               <span class="work-category">{study.category}</span>
@@ -263,23 +263,9 @@ const processSteps = [
   .work-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
   .work-card { overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: white; box-shadow: 0 8px 22px rgba(13,23,32,.045); transition: transform .25s ease-out, box-shadow .25s ease-out; }
   .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(13,23,32,.1); }
-  .work-art { position: relative; height: 132px; overflow: hidden; background: linear-gradient(145deg,#17233d,#07111f); }
-  .work-art::before, .work-art::after { position: absolute; content: ""; }
-  .work-art::before { width: 76%; height: 62%; left: 12%; bottom: -5%; border: 1px solid rgba(255,255,255,.22); border-radius: 7px 7px 0 0; background: linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.025)); box-shadow: 0 0 28px rgba(26,139,242,.35); }
-  .work-art::after { width: 2px; height: 66%; left: 50%; bottom: 0; transform: skew(-18deg); background: linear-gradient(transparent,#2e8ee7,transparent); box-shadow: -38px 5px 0 rgba(255,255,255,.1),38px 5px 0 rgba(255,255,255,.1); }
-  .art-ui { position: absolute; z-index: 2; border: 1px solid rgba(255,255,255,.2); border-radius: 4px; background: rgba(6,18,35,.72); }
-  .art-ui-one { width: 42%; height: 12px; left: 18%; top: 30%; }
-  .art-ui-two { width: 28%; height: 30px; right: 13%; top: 48%; }
-  .art-glow { position: absolute; width: 60px; height: 60px; right: 10%; top: 12%; border-radius: 50%; background: #168cf5; filter: blur(28px); opacity: .7; }
-  .work-art.city { background: radial-gradient(circle at 25% 70%,#e96d39,transparent 32%),linear-gradient(145deg,#1d2e50,#08111e); }
-  .work-art.city::before { height: 78%; background: repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 3px,transparent 3px 13px); clip-path: polygon(0 100%,0 45%,17% 45%,17% 10%,32% 10%,32% 58%,48% 58%,48% 28%,63% 28%,63% 0,78% 0,78% 50%,100% 50%,100% 100%); border: 0; }
-  .work-art.campaign { background: radial-gradient(circle at 70% 35%,#f16f3c,transparent 28%),linear-gradient(155deg,#152b50,#0a0f19); }
-  .work-art.campaign::before { width: 65%; height: 40%; transform: rotate(-12deg); background: linear-gradient(135deg,#101923,#df6636); }
-  .work-art.logistics { background: radial-gradient(circle at 25% 65%,#126ec5,transparent 30%),linear-gradient(145deg,#0a1728,#0e3556); }
-  .work-art.automation { background: radial-gradient(circle at 50% 45%,#0c94ee,transparent 27%),linear-gradient(145deg,#081a36,#05101d); }
-  .work-art.automation::before { width: 48%; height: 60%; left: 26%; border-radius: 10px; }
-  .work-art.growth { background: radial-gradient(circle at 75% 30%,#e2396b,transparent 28%),linear-gradient(145deg,#2b1320,#080b13); }
-  .work-art.growth::after { width: 58%; height: 2px; left: 23%; bottom: 42%; transform: rotate(-24deg); background: #f35678; box-shadow: 22px -12px 0 #f35678,-22px 12px 0 #f35678; }
+  .work-art { position: relative; height: 132px; overflow: hidden; background: #17233d; }
+  .work-art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+  .work-card:hover .work-art img { transform: scale(1.06); }
   .work-content { position: relative; min-height: 205px; display: flex; flex-direction: column; padding: 15px 14px; }
   .work-category { align-self: flex-start; margin-top: -24px; margin-bottom: 13px; padding: 4px 8px; border-radius: 4px; color: #5841ac; background: #eeeafe; font-size: .54rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
   .work-card:nth-child(2) .work-category, .work-card:nth-child(4) .work-category { color: #16784a; background: #e6f7ed; }
