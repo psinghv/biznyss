@@ -177,34 +177,34 @@ const processSteps = [
   .hero { position: relative; overflow: hidden; padding: 164px 0 35px; background: linear-gradient(135deg, #f8fafc 0%, #fff 55%, #f0f6fb 100%); }
   .hero::before { position: absolute; width: 700px; height: 700px; left: -500px; top: -360px; border: 1px solid var(--border); border-radius: 50%; content: ""; }
   .hero-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: clamp(42px,5vw,82px); }
-  .hero-copy .eyebrow { padding: 8px 15px; margin-bottom: 24px; border-radius: 999px; color: #0085ff; background: #dff0ff; font-size: .88rem; font-weight: 760; letter-spacing: -.01em; text-transform: none; }
+  .hero-copy .eyebrow { padding: 8px 15px; margin-bottom: 24px; border-radius: 999px; color: #0a5df0; background: #dff0ff; font-size: .8rem; font-weight: 700; letter-spacing: .03em; text-transform: none; }
   .hero-copy .eyebrow::before { display: none; }
-  .hero-copy h1 { max-width: 760px; color: #202124; font-size: clamp(3.15rem, 5.25vw, 5.35rem); font-weight: 790; line-height: .98; letter-spacing: -.065em; }
-  .hero-copy h1 em { color: #202124; font-style: normal; }
-  .hero-copy .lead { max-width: 680px; margin: 28px 0 34px; color: #7b828a; font-size: clamp(1.08rem, 1.5vw, 1.26rem); font-weight: 600; line-height: 1.48; }
+  .hero-copy h1 { max-width: 760px; color: #0d1321; font-size: clamp(3.15rem, 5.25vw, 5.35rem); font-weight: 700; line-height: 1.02; letter-spacing: -.04em; }
+  .hero-copy h1 em { color: #0d1321; font-style: normal; }
+  .hero-copy .lead { max-width: 680px; margin: 28px 0 34px; color: #64748b; font-size: clamp(1.08rem, 1.5vw, 1.22rem); font-weight: 500; line-height: 1.65; }
   .leadership-strip { position: relative; z-index: 3; padding: 24px 0 42px; border-bottom: 1px solid var(--border); background: white; }
   .leadership-panel { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: white; box-shadow: 0 16px 40px rgba(13,23,32,.09); }
   .leadership-item { min-height: 96px; display: flex; align-items: center; gap: 15px; padding: 20px 28px; border-left: 1px solid var(--border); }
   .leadership-item:first-child { border-left: 0; }
   .leadership-icon { width: 48px; height: 48px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #445c9c; background: #f3f5fb; }
   .leadership-item strong, .leadership-item span { display: block; }
-  .leadership-item strong { color: #1870cf; font-size: 1.35rem; line-height: 1; letter-spacing: -.03em; }
-  .leadership-item div > span { max-width: 145px; margin-top: 7px; color: #334052; font-size: .68rem; font-weight: 680; line-height: 1.35; }
+  .leadership-item strong { color: #0d5bb8; font-size: 1.35rem; font-weight: 700; line-height: 1; letter-spacing: -.025em; }
+  .leadership-item div > span { max-width: 145px; margin-top: 7px; color: #374151; font-size: .68rem; font-weight: 600; line-height: 1.35; }
   .solutions-section { padding: 78px 0 52px; }
   .solutions-heading { display: block; max-width: 760px; }
   .solutions-heading .lead { max-width: 660px; margin-top: 24px; }
   .solution-list { border-top: 1px solid var(--border); }
   .solution-row { display: grid; grid-template-columns: 80px 1.3fr 1fr 30px; align-items: center; gap: 28px; padding: 35px 12px; border-bottom: 1px solid var(--border); transition: background .25s ease-out, padding .25s ease-out; }
   .solution-row:hover { padding-inline: 24px; background: var(--surface); }
-  .solution-row .number { font-size: 1rem; }
-  .solution-row p, .solution-audience { color: var(--muted); font-size: .9rem; }
+  .solution-row .number { font-size: .95rem; font-weight: 700; }
+  .solution-row p, .solution-audience { color: var(--muted); font-size: .88rem; font-weight: 500; }
   .solution-row i { color: var(--blue); font-size: 0; font-style: normal; }
   .solution-row i::before { content: "\2197"; font-size: 1.5rem; }
   .featured-work-section { padding: 46px 0 72px; background: white; }
   .compact-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 24px; }
-  .compact-heading span, .compact-kicker { display: block; color: #3473b8; font-size: .67rem; font-weight: 850; letter-spacing: .075em; text-transform: uppercase; }
-  .compact-heading h2 { margin-top: 7px; font-size: clamp(1.55rem,2.6vw,2.4rem); letter-spacing: -.035em; }
-  .compact-heading > a { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); font-size: .72rem; font-weight: 800; white-space: nowrap; }
+  .compact-heading span, .compact-kicker { display: block; color: #0a5df0; font-size: .66rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+  .compact-heading h2 { margin-top: 7px; font-size: clamp(1.55rem,2.6vw,2.4rem); letter-spacing: -.03em; }
+  .compact-heading > a { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); font-size: .72rem; font-weight: 700; white-space: nowrap; }
   .work-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
   .work-card { overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: white; box-shadow: 0 8px 22px rgba(13,23,32,.045); transition: transform .25s ease-out, box-shadow .25s ease-out; }
   .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(13,23,32,.1); }
@@ -226,14 +226,14 @@ const processSteps = [
   .work-art.growth { background: radial-gradient(circle at 75% 30%,#e2396b,transparent 28%),linear-gradient(145deg,#2b1320,#080b13); }
   .work-art.growth::after { width: 58%; height: 2px; left: 23%; bottom: 42%; transform: rotate(-24deg); background: #f35678; box-shadow: 22px -12px 0 #f35678,-22px 12px 0 #f35678; }
   .work-content { position: relative; min-height: 205px; display: flex; flex-direction: column; padding: 15px 14px; }
-  .work-category { align-self: flex-start; margin-top: -24px; margin-bottom: 13px; padding: 4px 7px; border-radius: 3px; color: #5841ac; background: #eeeafe; font-size: .52rem; font-weight: 850; text-transform: uppercase; }
+  .work-category { align-self: flex-start; margin-top: -24px; margin-bottom: 13px; padding: 4px 8px; border-radius: 4px; color: #5841ac; background: #eeeafe; font-size: .54rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
   .work-card:nth-child(2) .work-category, .work-card:nth-child(4) .work-category { color: #16784a; background: #e6f7ed; }
   .work-card:nth-child(3) .work-category, .work-card:nth-child(5) .work-category { color: #bf5a23; background: #fff0e6; }
   .work-card:nth-child(6) .work-category { color: #16784a; background: #e6f7ed; }
-  .work-content h3 { min-height: 47px; font-size: .79rem; line-height: 1.35; letter-spacing: -.015em; }
-  .work-content > strong { margin-top: 13px; color: #236fc3; font-size: 1.25rem; line-height: 1; }
-  .work-content > small { margin-top: 5px; color: var(--muted); font-size: .58rem; }
-  .work-link { display: flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 14px; color: var(--blue); font-size: .6rem; font-weight: 800; }
+  .work-content h3 { min-height: 47px; font-size: .82rem; font-weight: 600; line-height: 1.4; letter-spacing: -.01em; }
+  .work-content > strong { margin-top: 13px; color: #0d5bb8; font-size: 1.25rem; font-weight: 700; line-height: 1; }
+  .work-content > small { margin-top: 5px; color: var(--muted); font-size: .6rem; font-weight: 500; }
+  .work-link { display: flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 14px; color: var(--blue); font-size: .62rem; font-weight: 700; }
   .industry-section { padding: 65px 0 80px; background: #fbfcfe; }
   .compact-kicker { margin-bottom: 12px; }
   .industry-heading { display: block; max-width: 790px; margin-bottom: 30px; }
@@ -242,10 +242,10 @@ const processSteps = [
   .industry-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 12px; }
   .industry-card { min-height: 112px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 15px 8px; border: 1px solid var(--border); border-radius: 10px; color: #455b88; background: white; box-shadow: 0 7px 20px rgba(13,23,32,.035); text-align: center; transition: transform .2s ease-out, border-color .2s ease-out; }
   .industry-card:hover { transform: translateY(-3px); border-color: #b9cce0; }
-  .industry-card strong { color: #263347; font-size: .67rem; line-height: 1.25; }
+  .industry-card strong { color: #1e2d45; font-size: .68rem; font-weight: 600; line-height: 1.25; }
   .process-section { padding: 92px 0 100px; background: white; }
   .process-heading { margin-bottom: 42px; text-align: center; }
-  .process-heading span { display: block; margin-bottom: 7px; color: #3473b8; font-size: .67rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
+  .process-heading span { display: block; margin-bottom: 7px; color: #0a5df0; font-size: .66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
   .process-heading h2 { font-size: clamp(1.85rem, 3vw, 2.85rem); }
   .process-rail { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; }
   .process-rail::before { position: absolute; height: 1px; left: 8%; right: 8%; top: 42px; border-top: 1px dashed #c7d3df; content: ""; }
@@ -255,8 +255,8 @@ const processSteps = [
   .process-step.blue .process-icon { color: #2471c8; background: #eaf3ff; }
   .process-step.orange .process-icon { color: #d66b2f; background: #fff0e6; }
   .process-step.navy .process-icon { color: #1f63b8; background: #eef5ff; }
-  .process-step h3 { font-size: 1rem; letter-spacing: -.02em; }
-  .process-step p { max-width: 190px; margin-top: 10px; color: var(--muted); font-size: .76rem; line-height: 1.55; }
+  .process-step h3 { font-size: .98rem; font-weight: 700; letter-spacing: -.02em; }
+  .process-step p { max-width: 190px; margin-top: 10px; color: var(--muted); font-size: .78rem; font-weight: 500; line-height: 1.6; }
   .why-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 100px; }
   .why-grid .lead { margin-top: 25px; }
   .why-list { border-top: 1px solid var(--border); }
