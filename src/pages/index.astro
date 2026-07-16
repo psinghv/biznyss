@@ -40,15 +40,15 @@ const featuredWork = [
 ];
 
 const industryItems = [
-  { name: 'Healthcare', icon: HeartPulse },
-  { name: 'Education', icon: GraduationCap },
-  { name: 'E-Commerce', icon: ShoppingCart },
-  { name: 'Logistics & Transportation', icon: Truck },
-  { name: 'Travel & Hospitality', icon: Plane },
-  { name: 'Real Estate', icon: Building2 },
-  { name: 'Finance & FinTech', icon: Landmark },
-  { name: 'Manufacturing', icon: Factory },
-  { name: 'Startups', icon: Rocket },
+  { name: 'Healthcare',                icon: HeartPulse,    from: '#ef4444', to: '#f97316' },
+  { name: 'Education',                 icon: GraduationCap, from: '#f59e0b', to: '#fbbf24' },
+  { name: 'E-Commerce',                icon: ShoppingCart,  from: '#10b981', to: '#34d399' },
+  { name: 'Logistics & Transportation',icon: Truck,         from: '#3b82f6', to: '#38bdf8' },
+  { name: 'Travel & Hospitality',      icon: Plane,         from: '#06b6d4', to: '#0ea5e9' },
+  { name: 'Real Estate',               icon: Building2,     from: '#059669', to: '#14b8a6' },
+  { name: 'Finance & FinTech',         icon: Landmark,      from: '#1e40af', to: '#3b82f6' },
+  { name: 'Manufacturing',             icon: Factory,       from: '#ea580c', to: '#f59e0b' },
+  { name: 'Startups',                  icon: Rocket,        from: '#e11d48', to: '#fb923c' },
 ];
 
 const processSteps = [
@@ -140,10 +140,14 @@ const processSteps = [
         <p class="lead">We bring patterns from multiple industries without forcing one industry's playbook onto another.</p>
       </div>
       <div class="industry-grid">
-        {industryItems.map((industry) => {
-          const Icon = industry.icon;
-          return <div class="industry-card"><Icon size={27} strokeWidth={1.6} aria-hidden="true" /><strong>{industry.name}</strong></div>;
-        })}
+        {industryItems.map(({ name, icon: Icon, from, to }) => (
+          <div class="industry-card" style={`--from:${from};--to:${to}`}>
+            <span class="card-icon-wrap">
+              <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
+            </span>
+            <strong>{name}</strong>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -290,10 +294,46 @@ const processSteps = [
   .industry-heading { display: block; max-width: 790px; margin-bottom: 30px; }
   .industry-heading h2 { font-size: clamp(2rem,3.5vw,3.45rem); }
   .industry-heading .lead { max-width: 650px; margin-top: 22px; }
-  .industry-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 12px; }
-  .industry-card { min-height: 112px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 15px 8px; border: 1px solid var(--border); border-radius: 10px; color: #455b88; background: white; box-shadow: 0 7px 20px rgba(13,23,32,.035); text-align: center; transition: transform .2s ease-out, border-color .2s ease-out; }
-  .industry-card:hover { transform: translateY(-3px); border-color: #b9cce0; }
-  .industry-card strong { color: #1e2d45; font-size: .68rem; font-weight: 600; line-height: 1.25; }
+  .industry-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 14px; }
+  .industry-card {
+    min-height: 118px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    padding: 18px 8px 15px;
+    border: 1px solid #e8eef5;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(13,23,32,.04);
+    text-align: center;
+    position: relative; overflow: hidden;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    cursor: default;
+  }
+  .industry-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--from), var(--to));
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform .25s ease;
+    border-radius: 0 0 2px 2px;
+  }
+  .industry-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.10); border-color: rgba(0,0,0,.06); }
+  .industry-card:hover::after { transform: scaleX(1); }
+  .card-icon-wrap {
+    width: 48px; height: 48px; flex-shrink: 0;
+    display: grid; place-items: center;
+    border-radius: 13px;
+    background: linear-gradient(135deg, var(--from), var(--to));
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0,0,0,.18);
+    transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .industry-card:hover .card-icon-wrap {
+    transform: scale(1.12) rotate(-5deg);
+    box-shadow: 0 8px 24px rgba(0,0,0,.26);
+  }
+  .industry-card strong { color: #1e2d45; font-size: .67rem; font-weight: 600; line-height: 1.25; }
   .process-section { padding: 92px 0 100px; background: white; }
   .process-heading { margin-bottom: 42px; text-align: center; }
   .process-heading span { display: block; margin-bottom: 7px; color: #0a5df0; font-size: .66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
