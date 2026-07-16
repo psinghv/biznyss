@@ -301,21 +301,22 @@ const mainNav = [
   .whatsapp-mark svg { width: 20px; height: 20px; display: block; fill: currentColor; }
 
   .mega-menu {
-    position: absolute;
+    position: fixed;
     width: min(1030px, calc(100vw - 40px));
     left: 50%;
-    top: 62px;
+    top: 80px;
     padding: 20px;
     opacity: 0;
     visibility: hidden;
-    transform: translate(-50%, 10px);
+    transform: translateX(-50%) translateY(8px);
     border: 1px solid var(--border);
-    border-radius: 0 0 18px 18px;
+    border-radius: 18px;
     background: rgba(255, 255, 255, .99);
     box-shadow: 0 30px 70px rgba(13, 23, 32, .16);
     transition: opacity .22s ease-out, transform .22s ease-out, visibility .22s;
+    pointer-events: none;
   }
-  .has-mega:hover .mega-menu, .has-mega:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  .has-mega:hover .mega-menu, .has-mega:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
   .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
   .mega-column { min-width: 0; padding: 10px 20px 17px; border-left: 1px solid var(--border); }
   .mega-column:first-child { border-left: 0; }
@@ -388,33 +389,33 @@ const mainNav = [
   .mobile-ctas .whatsapp-link span:last-child { display: inline; }
 
   @media (max-width: 1280px) {
-    .header-inner { gap: 18px; }
-    .brand { min-width: 165px; }
-    .brand-name { font-size: 1.38rem; }
-    .brand-tagline { font-size: .56rem; }
-    .desktop-nav { gap: 15px; }
-    .nav-item > a { font-size: .8rem; }
-    .phone-link, .strategy-link, .whatsapp-link { min-height: 46px; font-size: .74rem; }
-    .strategy-link { padding-inline: 15px; }
+    .header-inner { gap: 14px; }
+    .brand { min-width: 150px; }
+    .brand-name { font-size: 1.32rem; }
+    .brand-tagline { font-size: .54rem; }
+    .desktop-nav { gap: 8px; }
+    .nav-item > a { font-size: .75rem; }
+    .phone-link, .strategy-link, .whatsapp-link { min-height: 40px; font-size: .72rem; }
+    .strategy-link { padding-inline: 14px; }
     .whatsapp-link { padding-inline: 14px; }
-  }
-  @media (max-width: 1140px) {
     .phone-link span, .whatsapp-link span:last-child { display: none; }
     .phone-link { width: 40px; padding: 0; }
-    .whatsapp-link { width: 46px; padding: 0; }
+    .whatsapp-link { width: 44px; padding: 0; }
   }
-  @media (max-width: 1040px) {
+  @media (max-width: 1100px) {
     .header-inner { height: 58px; border-radius: 22px; }
     .brand { min-width: 0; }
-    .brand-name { font-size: 1.55rem; }
+    .brand-name { font-size: 1.5rem; }
     .brand-tagline { font-size: .48rem; }
     .desktop-nav, .header-actions { display: none; }
     .mobile-actions { display: flex; }
     .mobile-nav.open { display: block; }
   }
   @media (max-width: 520px) {
+    .site-header { inset: 8px 0 auto; }
+    .header-inner { height: 54px; gap: 8px; padding: 0 14px; border-radius: 18px; }
+    .brand-name { font-size: 1.35rem; }
+    .brand-tagline { display: none; }
     .mobile-ctas { grid-template-columns: 1fr; }
-    .brand-name { font-size: 1.45rem; }
-    .brand-tagline { font-size: .44rem; }
   }
 </style>
