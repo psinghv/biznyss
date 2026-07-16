@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import { solutions, caseStudies } from '../../data/site';
+export function getStaticPaths(){ return solutions.map((solution) => ({params:{slug:solution.slug},props:{solution}})); }
+const { solution } = Astro.props;
+const related = caseStudies.slice(0,2);
+---
+<BaseLayout title={`${solution.name} Solutions`} description={solution.summary}>
+  <PageHero eyebrow={`The ${solution.name} framework`} title={`${solution.name} with strategy, speed, and a system built to last.`} text={solution.summary} />
+  <section class="section"><div class="container overview-grid">
+    <div><span class="eyebrow">Who it is for</span><h2>{solution.audience}</h2></div>
+    <div><span class="eyebrow">Problems solved</span><ul class="list">{solution.problems.map((item) => <li>{item}</li>)}</ul></div>
+  </div></section>
+  <section class="section dark"><div class="container approach">
+    <div><span class="eyebrow light">Our approach</span><h2>{solution.approach}</h2></div>
+    <div class="grid-2">{solution.deliverables.map((item, i) => <div class="deliverable"><span>0{i+1}</span><h3>{item}</h3></div>)}</div>
+  </div></section>
+  <section class="section section-bg"><div class="container">
+    <div class="section-head"><div><span class="eyebrow">Business outcomes</span><h2>What progress looks like.</h2></div></div>
+    <div class="grid-3">{solution.outcomes.map((item) => <div class="card"><span class="tag">Outcome</span><h3>{item}</h3><p>Designed to be measurable, operationally useful, and durable beyond the first engagement.</p></div>)}</div>
+  </div></section>
+  <section class="section"><div class="container">
+    <div class="section-head"><div><span class="eyebrow">Relevant work</span><h2>See the system in action.</h2></div></div>
+    <div class="grid-2">{related.map((study) => <a class="card" href={`/case-studies/${study.slug}`}><span class="tag">{study.category}</span><h3>{study.title}</h3><p>{study.impact}</p><strong class="text-link">View case study</strong></a>)}</div>
+  </div></section>
+  <CTA title={`Ready to ${solution.name.toLowerCase()}?`} />
+</BaseLayout>
+<style>
+  .overview-grid { display:grid;grid-template-columns:1.2fr .8fr;gap:100px;align-items:start }
+  .overview-grid h2 { font-size:clamp(2.3rem,4vw,4rem) }
+  .overview-grid .list { font-size:1.15rem }
+  .approach { display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center }
+  .deliverable { padding:28px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(255,255,255,.035) }
+  .deliverable span { color:#8db8ff;font-size:.72rem }
+  .deliverable h3 { margin-top:55px }
+  .card h3 { margin-top:48px }
+  @media(max-width:800px){.overview-grid,.approach{grid-template-columns:1fr;gap:45px}}
+</style>

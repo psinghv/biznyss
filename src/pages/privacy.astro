@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<BaseLayout title="Privacy Policy" description="Biznyss privacy policy and information-handling principles.">
+  <PageHero eyebrow="Legal" title="Privacy Policy" text="How Biznyss handles information shared through this website and our business communications." />
+  <section class="section"><div class="container reading legal-copy"><h2>Information we collect</h2><p>We collect information you voluntarily submit through forms, email, calls, or WhatsApp inquiries, together with limited technical analytics used to improve the website.</p><h2>How we use information</h2><p>Information is used to respond to inquiries, provide requested services, improve our digital experience, and meet legal or operational requirements.</p><h2>Contact</h2><p>Questions about privacy can be sent to <a href="mailto:hello@biznyss.com">hello@biznyss.com</a>.</p></div></section>
+</BaseLayout>
+<style>.legal-copy h2{margin:40px 0 14px;font-size:2rem}.legal-copy p{color:var(--muted);line-height:1.85}.legal-copy a{color:var(--blue);font-weight:700}</style>

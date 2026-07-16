@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTA from '../../components/CTA.astro';
+import { caseStudies } from '../../data/site';
+export function getStaticPaths(){return caseStudies.map((study)=>({params:{slug:study.slug},props:{study}}))}
+const { study } = Astro.props;
+---
+<BaseLayout title={`${study.title} Case Study`} description={study.impact}>
+  <section class="case-hero"><div class="container">
+    <div class="case-copy"><span class="eyebrow light">{study.category} · {study.industry}</span><h1>{study.title}</h1><p>{study.impact}</p></div>
+    <div class="case-letter">{study.title.slice(0,1)}</div>
+  </div></section>
+  <section class="section"><div class="container story-grid">
+    <aside><span>Engagement</span><strong>{study.category}</strong><span>Industry</span><strong>{study.industry}</strong><span>Focus</span><strong>Strategy + Execution</strong></aside>
+    <div class="story"><span class="eyebrow">The challenge</span><h2>{study.challenge}</h2><span class="eyebrow">The solution</span><p class="lead">{study.solution}</p></div>
+  </div></section>
+  <section class="section section-bg"><div class="container">
+    <div class="section-head"><div><span class="eyebrow">Results</span><h2>Impact you can see.</h2></div></div>
+    <div class="grid-3">{study.metrics.map((metric)=>{const [value,...label]=metric.split(' ');return <div class="metric-card"><strong>{value}</strong><span>{label.join(' ')}</span></div>})}</div>
+  </div></section>
+  <section class="section"><div class="container quote"><span>“</span><blockquote>{study.quote}</blockquote><p>Executive sponsor, {study.title}</p></div></section>
+  <CTA />
+</BaseLayout>
+<style>
+  .case-hero { overflow:hidden;padding:180px 0 100px;color:white;background:linear-gradient(135deg,var(--navy),var(--navy-dark)) }
+  .case-hero .container { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:60px }
+  .case-copy p { max-width:680px;margin-top:25px;color:#b7c6d1;font-size:1.25rem }
+  .case-copy h1 { font-size:clamp(2.85rem,4.35vw,4.4rem);line-height:1.07 }
+  .case-letter { justify-self:center;color:rgba(255,255,255,.1);font-size:20rem;font-weight:900;line-height:.7 }
+  .story-grid { display:grid;grid-template-columns:.3fr 1fr;gap:100px }
+  aside { display:flex;flex-direction:column;padding-top:15px;border-top:1px solid var(--border) }
+  aside span { margin-top:18px;color:var(--muted);font-size:.72rem;text-transform:uppercase }
+  aside strong { color:var(--navy) }
+  .story h2 { margin-bottom:70px;font-size:clamp(2.3rem,4vw,4rem) }
+  .metric-card { min-height:230px;padding:35px;border-radius:18px;background:white }
+  .metric-card strong,.metric-card span { display:block }
+  .metric-card strong { color:var(--orange);font-size:4rem;line-height:1;letter-spacing:-.06em }
+  .metric-card span { margin-top:60px;color:var(--navy);font-weight:750 }
+  .quote { max-width:940px;text-align:center }
+  .quote>span { color:var(--orange);font-size:5rem;line-height:1 }
+  blockquote { margin:10px 0 20px;font-size:clamp(1.8rem,3.5vw,3.4rem);font-weight:700;line-height:1.25;letter-spacing:-.035em }
+  .quote p { color:var(--muted) }
+  @media(max-width:800px){.case-hero{padding:140px 0 76px}.case-hero .container,.story-grid{grid-template-columns:1fr}.case-copy h1{font-size:clamp(2.45rem,10vw,3.45rem)}.case-letter{display:none}.story-grid{gap:45px}}
+</style>

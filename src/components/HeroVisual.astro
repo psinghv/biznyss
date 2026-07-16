@@ -1,0 +1,23 @@
+<div class="ecosystem" aria-label="An interconnected ecosystem of AI, software, marketing, automation, analytics, and creative production">
+  <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+  <div class="core"><span>B</span><strong>Growth<br/>Ecosystem</strong></div>
+  <div class="node n1"><i></i>AI</div>
+  <div class="node n2"><i></i>Software</div>
+  <div class="node n3"><i></i>Marketing</div>
+  <div class="node n4"><i></i>Automation</div>
+  <div class="node n5"><i></i>Analytics</div>
+  <div class="node n6"><i></i>Creative</div>
+</div>
+<style>
+  .ecosystem { position: relative; aspect-ratio: 1; max-width: 610px; margin-inline: auto; }
+  .ecosystem::before { position: absolute; inset: 12%; border-radius: 50%; background: radial-gradient(circle, rgba(10,93,240,.14), rgba(10,93,240,.025) 52%, transparent 70%); content: ""; }
+  .orbit { position: absolute; inset: 15%; border: 1px solid rgba(18,79,109,.16); border-radius: 50%; }
+  .orbit-two { inset: 29%; border-style: dashed; border-color: rgba(233,113,66,.28); transform: rotate(24deg); }
+  .core { position: absolute; z-index: 2; width: 142px; height: 142px; left: 50%; top: 50%; display: grid; place-content: center; text-align: center; transform: translate(-50%,-50%); border: 1px solid rgba(255,255,255,.7); border-radius: 36px; color: white; background: linear-gradient(145deg, var(--navy), var(--blue)); box-shadow: 0 25px 70px rgba(10,93,240,.25); }
+  .core span { font-size: 1.6rem; font-weight: 900; }
+  .core strong { font-size: .75rem; line-height: 1.3; letter-spacing: .08em; text-transform: uppercase; }
+  .node { position: absolute; z-index: 2; min-width: 104px; display: flex; align-items: center; gap: 8px; padding: 11px 14px; border: 1px solid rgba(220,229,239,.9); border-radius: 12px; color: var(--navy); background: rgba(255,255,255,.9); box-shadow: 0 12px 36px rgba(13,23,32,.09); backdrop-filter: blur(8px); font-size: .77rem; font-weight: 750; }
+  .node i { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 5px rgba(233,113,66,.12); }
+  .n1 { left: 40%; top: 5%; } .n2 { right: 0; top: 28%; } .n3 { right: 5%; bottom: 19%; } .n4 { left: 34%; bottom: 2%; } .n5 { left: 0; bottom: 22%; } .n6 { left: 1%; top: 24%; }
+  @media (max-width: 540px) { .node { min-width: 86px; padding: 8px 10px; font-size: .66rem; } .core { width: 112px; height: 112px; border-radius: 28px; } }
+</style>

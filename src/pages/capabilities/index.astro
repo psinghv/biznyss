@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import { capabilities } from '../../data/site';
+---
+<BaseLayout title="Capabilities" description="Explore Biznyss capabilities across AI creative production, growth marketing, software development, and AI automation.">
+  <PageHero eyebrow="Connected capabilities" title="Everything growth requires, working as one system." text="Strategy, creative, technology, marketing, and automation under one accountable senior team." />
+  <section class="section"><div class="container capability-stack">
+    {capabilities.map((cap, i) => <article class="cap-row"><span class="number">0{i + 1}</span><div><span class="eyebrow">{cap.eyebrow}</span><h2>{cap.name}</h2><p class="lead">{cap.summary}</p><a class="btn btn-secondary" href={`/capabilities/${cap.slug}`}>Explore {cap.name}</a></div><div class="service-panel">{cap.services.map((service) => <span>{service}</span>)}</div></article>)}
+  </div></section>
+  <CTA />
+</BaseLayout>
+<style>
+  .capability-stack { display: grid; gap: 25px; }
+  .cap-row { display: grid; grid-template-columns: 70px 1.25fr .75fr; gap: 35px; padding: 50px; border: 1px solid var(--border); border-radius: 24px; background: var(--surface); }
+  .cap-row .number { font-size: 1.2rem; }
+  .cap-row h2 { font-size: clamp(2.3rem,4vw,4rem); }
+  .cap-row .lead { margin: 20px 0 28px; }
+  .service-panel { display: grid; align-content: center; }
+  .service-panel span { padding: 14px 0; border-bottom: 1px solid var(--border); color: var(--navy); font-weight: 700; }
+  @media(max-width:800px){.cap-row{grid-template-columns:1fr;padding:30px}.cap-row>.number{display:none}}
+</style>

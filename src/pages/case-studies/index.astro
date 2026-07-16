@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import CaseStudyFilter from '../../components/CaseStudyFilter';
+---
+<BaseLayout title="Case Studies" description="Explore how Biznyss combines AI, software, marketing, and automation to create measurable business outcomes.">
+  <PageHero eyebrow="Selected work" title="Complex challenges. Clear thinking. Measurable impact." text="A portfolio of connected strategy and execution across products, campaigns, operations, and growth systems." />
+  <section class="section"><div class="container"><CaseStudyFilter client:load /></div></section>
+  <CTA />
+</BaseLayout>
+<style is:global>
+  .filter-row { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px }
+  .filter-row button { padding:10px 16px;border:1px solid var(--border);border-radius:999px;background:white;color:var(--muted);font-size:.82rem;font-weight:700;cursor:pointer }
+  .filter-row button.active { color:white;border-color:var(--navy);background:var(--navy) }
+  .case-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:25px }
+  .case-card { overflow:hidden;border:1px solid var(--border);border-radius:20px;background:white;transition:transform .3s ease-out,box-shadow .3s ease-out }
+  .case-card:hover { transform:translateY(-5px);box-shadow:var(--shadow) }
+  .case-art { min-height:320px;display:flex;justify-content:space-between;padding:28px;color:white;background:radial-gradient(circle at 66% 44%,#238cc8,transparent 30%),linear-gradient(145deg,#124f6d,#0d1720) }
+  .case-card:nth-child(even) .case-art { background:radial-gradient(circle at 66% 44%,#e97142,transparent 30%),linear-gradient(145deg,#56313a,#0d1720) }
+  .case-art span { align-self:flex-start;padding:7px 11px;border:1px solid rgba(255,255,255,.25);border-radius:999px;font-size:.72rem }
+  .case-art b { align-self:center;margin-right:25%;color:rgba(255,255,255,.14);font-size:9rem }
+  .case-content { padding:30px }
+  .case-content small { color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.08em }
+  .case-content h2 { margin:8px 0 14px;font-size:2rem }
+  .case-content p { color:var(--muted) }
+  .case-content strong { display:flex;justify-content:space-between;margin-top:25px;color:var(--navy) }
+  .case-content i { color:var(--orange);font-style:normal }
+  @media(max-width:750px){.case-grid{grid-template-columns:1fr}}
+</style>

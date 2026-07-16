@@ -1,0 +1,420 @@
+---
+import {
+  ArrowRight,
+  Bot,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  ChevronRight,
+  CodeXml,
+  Cog,
+  Film,
+  Lightbulb,
+  Menu,
+  Phone,
+  Rocket,
+  Sparkles,
+  Target,
+  TrendingUp,
+  X,
+} from 'lucide-react';
+
+const capabilityGroups = [
+  {
+    name: 'AI Creative Studio',
+    href: '/capabilities/ai-creative-studio',
+    tone: 'purple',
+    icon: Film,
+    services: ['AI Video Advertising', 'Commercial Production', 'Product Explainers', 'CGI & Motion Graphics', 'Social Media Creatives'],
+  },
+  {
+    name: 'Growth Marketing',
+    href: '/capabilities/growth-marketing',
+    tone: 'green',
+    icon: TrendingUp,
+    services: ['SEO & Content', 'Google & Meta Ads', 'LinkedIn Marketing', 'Lead Generation', 'Conversion Optimization'],
+  },
+  {
+    name: 'Software & Products',
+    href: '/capabilities/software-products',
+    tone: 'blue',
+    icon: CodeXml,
+    services: ['Web Development', 'Mobile Applications', 'SaaS Development', 'Enterprise Solutions', 'Custom Applications'],
+  },
+  {
+    name: 'AI & Automation',
+    href: '/capabilities/ai-automation',
+    tone: 'orange',
+    icon: Bot,
+    services: ['AI Agents & Assistants', 'Chatbot Development', 'Support Automation', 'Workflow Automation', 'Knowledge Solutions'],
+  },
+];
+
+const solutionGroups = [
+  {
+    name: 'Launch',
+    href: '/solutions/launch',
+    audience: 'For Startups & New Businesses',
+    description: 'Build a strong digital foundation, launch fast, and create a confident market entry.',
+    tone: 'purple',
+    icon: Rocket,
+    included: ['Branding & positioning', 'Website or app development', 'MVP development'],
+    outcomes: ['Faster launch', 'Stronger brand presence'],
+  },
+  {
+    name: 'Scale',
+    href: '/solutions/scale',
+    audience: 'For Growing Businesses',
+    description: 'Increase visibility, generate qualified leads, and turn growth into a repeatable system.',
+    tone: 'green',
+    icon: TrendingUp,
+    included: ['Performance marketing', 'SEO & content strategy', 'Conversion optimization'],
+    outcomes: ['More qualified leads', 'Increased revenue'],
+  },
+  {
+    name: 'Automate',
+    href: '/solutions/automate',
+    audience: 'For Operational Excellence',
+    description: 'Automate workflows, reduce manual tasks, and improve productivity with practical AI.',
+    tone: 'orange',
+    icon: Cog,
+    included: ['AI automation solutions', 'Workflow automation', 'AI agents & assistants'],
+    outcomes: ['Lower operating costs', 'Higher efficiency'],
+  },
+  {
+    name: 'Innovate',
+    href: '/solutions/innovate',
+    audience: 'For Future-Ready Brands',
+    description: 'Use emerging technologies to build differentiated products and stay ahead of change.',
+    tone: 'blue',
+    icon: Lightbulb,
+    included: ['Custom software', 'SaaS product development', 'AI integrations'],
+    outcomes: ['Innovation advantage', 'Sustainable growth'],
+  },
+];
+
+const mainNav = [
+  { label: 'Home', href: '/' },
+  { label: 'Capabilities', href: '/capabilities', menu: 'capabilities' },
+  { label: 'Solutions', href: '/solutions', menu: 'solutions' },
+  { label: 'Work', href: '/case-studies' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Insights', href: '/insights', dropdown: true },
+  { label: 'Contact', href: '/contact' },
+];
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="Biznyss home">
+      <span class="brand-name">Biznyss</span>
+      <span class="brand-tagline">AI-Powered Growth Ecosystem</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {mainNav.map((item) => (
+        <div class:list={['nav-item', item.menu && 'has-mega', item.label === 'Capabilities' && 'is-active']}>
+          <a href={item.href} aria-haspopup={item.menu ? 'true' : undefined}>
+            {item.label}
+            {(item.menu || item.dropdown) && <ChevronDown size={13} strokeWidth={2.2} aria-hidden="true" />}
+          </a>
+
+          {item.menu === 'capabilities' && (
+            <div class="mega-menu capability-menu">
+              <div class="mega-grid">
+                {capabilityGroups.map((group) => {
+                  const Icon = group.icon;
+                  return (
+                    <section class:list={['mega-column', group.tone]}>
+                      <a class="mega-title" href={group.href}>
+                        <span class="mega-icon"><Icon size={20} strokeWidth={2} /></span>
+                        {group.name}
+                      </a>
+                      <ul>
+                        {group.services.map((service) => (
+                          <li><ChevronRight size={14} aria-hidden="true" /><span>{service}</span></li>
+                        ))}
+                      </ul>
+                      <a class="view-all" href={group.href}>View all <ArrowRight size={15} aria-hidden="true" /></a>
+                    </section>
+                  );
+                })}
+              </div>
+              <div class="mega-footer">
+                <div class="transformation">
+                  <span class="spark-icon"><Sparkles size={22} aria-hidden="true" /></span>
+                  <div>
+                    <strong>End-to-End Business Transformation</strong>
+                    <span>Strategy · Technology · Marketing · Automation</span>
+                  </div>
+                </div>
+                <a href="/capabilities">Explore All Capabilities <ArrowRight size={17} aria-hidden="true" /></a>
+              </div>
+            </div>
+          )}
+
+          {item.menu === 'solutions' && (
+            <div class="mega-menu solutions-menu">
+              <div class="solutions-heading">
+                <div>
+                  <span>Business-first frameworks</span>
+                  <strong>Choose the outcome your business needs next.</strong>
+                </div>
+                <a href="/solutions">Explore all solutions <ArrowRight size={16} aria-hidden="true" /></a>
+              </div>
+              <div class="solutions-layout">
+                <div class="solution-grid">
+                  {solutionGroups.map((solution) => {
+                    const Icon = solution.icon;
+                    return (
+                      <a class:list={['solution-card', solution.tone]} href={solution.href}>
+                        <div class="solution-top">
+                          <span class="solution-icon"><Icon size={22} strokeWidth={2} /></span>
+                          <div><strong>{solution.name}</strong><small>{solution.audience}</small></div>
+                        </div>
+                        <p>{solution.description}</p>
+                        <div class="solution-list">
+                          <b>What's included</b>
+                          {solution.included.map((entry) => <span><Check size={12} strokeWidth={2.5} />{entry}</span>)}
+                        </div>
+                        <div class="solution-outcomes">
+                          <b>Outcomes</b>
+                          {solution.outcomes.map((outcome) => <span>{outcome}</span>)}
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+              <div class="solutions-footer">
+                <span><Target size={17} /> Strategy first</span>
+                <span><Sparkles size={17} /> End-to-end delivery</span>
+                <span><TrendingUp size={17} /> Measurable results</span>
+                <a href="/contact">Find the right solution <ArrowRight size={16} /></a>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="phone-link" href="tel:+919876543210" aria-label="Call Biznyss">
+        <Phone size={16} fill="currentColor" aria-hidden="true" />
+        <span>+91 98765 43210</span>
+      </a>
+      <a class="strategy-link" href="/contact">
+        <CalendarDays size={18} aria-hidden="true" />
+        <span>Book Strategy Call</span>
+      </a>
+      <a class="whatsapp-link" href="https://wa.me/919876543210" aria-label="Chat on WhatsApp">
+        <span class="whatsapp-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M6.1 19.1 3 20l.9-3a8.2 8.2 0 1 1 2.2 2.1Z" />
+            <path d="M8.8 7.7c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4.2.4.7 1.6.7 1.7.1.2.1.4 0 .6l-.4.5c-.1.1-.3.3-.1.6.2.4.8 1.2 1.7 1.9 1.1.9 2 1.1 2.4 1.3.3.1.5.1.7-.1l.8-1c.2-.2.4-.2.7-.1l1.6.8c.3.2.5.3.5.5 0 .2-.1 1.3-.9 1.9-.8.6-1.7.7-2 .7-.5 0-1.8-.2-3.4-1.1-2.9-1.6-4.8-4.3-5-4.6-.1-.2-1.2-1.6-1.2-3s.7-2.2 1-2.5Z" />
+          </svg>
+        </span>
+        <span>Chat on WhatsApp</span>
+      </a>
+    </div>
+
+    <div class="mobile-actions">
+      <a href="tel:+919876543210" aria-label="Call Biznyss"><Phone size={20} fill="currentColor" /></a>
+      <a class="mobile-whatsapp" href="https://wa.me/919876543210" aria-label="Chat on WhatsApp">
+        <span class="whatsapp-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M6.1 19.1 3 20l.9-3a8.2 8.2 0 1 1 2.2 2.1Z" />
+            <path d="M8.8 7.7c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4.2.4.7 1.6.7 1.7.1.2.1.4 0 .6l-.4.5c-.1.1-.3.3-.1.6.2.4.8 1.2 1.7 1.9 1.1.9 2 1.1 2.4 1.3.3.1.5.1.7-.1l.8-1c.2-.2.4-.2.7-.1l1.6.8c.3.2.5.3.5.5 0 .2-.1 1.3-.9 1.9-.8.6-1.7.7-2 .7-.5 0-1.8-.2-3.4-1.1-2.9-1.6-4.8-4.3-5-4.6-.1-.2-1.2-1.6-1.2-3s.7-2.2 1-2.5Z" />
+          </svg>
+        </span>
+      </a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+        <Menu className="menu-open-icon" size={23} />
+        <X className="menu-close-icon" size={23} />
+      </button>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <div class="container">
+      {mainNav.map((item) => <a href={item.href}>{item.label}<ChevronRight size={16} aria-hidden="true" /></a>)}
+      <div class="mobile-ctas">
+        <a class="strategy-link" href="/contact"><CalendarDays size={18} />Book Strategy Call</a>
+        <a class="whatsapp-link" href="https://wa.me/919876543210">
+          <span class="whatsapp-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M6.1 19.1 3 20l.9-3a8.2 8.2 0 1 1 2.2 2.1Z" />
+              <path d="M8.8 7.7c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .5.4.2.4.7 1.6.7 1.7.1.2.1.4 0 .6l-.4.5c-.1.1-.3.3-.1.6.2.4.8 1.2 1.7 1.9 1.1.9 2 1.1 2.4 1.3.3.1.5.1.7-.1l.8-1c.2-.2.4-.2.7-.1l1.6.8c.3.2.5.3.5.5 0 .2-.1 1.3-.9 1.9-.8.6-1.7.7-2 .7-.5 0-1.8-.2-3.4-1.1-2.9-1.6-4.8-4.3-5-4.6-.1-.2-1.2-1.6-1.2-3s.7-2.2 1-2.5Z" />
+            </svg>
+          </span>
+          <span>Chat on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const mobileNav = document.querySelector<HTMLElement>('.mobile-nav');
+  button?.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!open));
+    button.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+    mobileNav?.classList.toggle('open', !open);
+    document.body.classList.toggle('menu-open', !open);
+  });
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    z-index: 100;
+    inset: 12px 0 auto;
+    border-bottom: 0;
+    background: transparent;
+    pointer-events: none;
+  }
+  .site-header .container { width: min(100% - 20px, 1560px); }
+  .header-inner { height: 62px; display: flex; align-items: center; gap: 28px; padding: 0 18px; border: 1px solid rgba(13,23,32,.08); border-radius: 999px; background: rgba(255,255,255,.96); box-shadow: 0 18px 45px rgba(13,23,32,.1); backdrop-filter: blur(18px); pointer-events: auto; }
+  .brand { min-width: 190px; display: flex; flex-direction: column; line-height: 1; }
+  .brand-name { color: #202124; font-size: 1.55rem; font-weight: 840; letter-spacing: -.055em; }
+  .brand-name::first-letter { color: #202124; }
+  .brand-tagline { margin-top: 5px; color: #6f7780; font-size: .58rem; font-weight: 650; letter-spacing: -.015em; }
+  .desktop-nav { height: 100%; display: flex; align-items: center; gap: clamp(18px, 1.45vw, 28px); margin-left: auto; }
+  .nav-item { height: 100%; display: flex; align-items: center; }
+  .nav-item > a { position: relative; height: 100%; display: flex; align-items: center; gap: 6px; color: #202124; font-size: .95rem; font-weight: 690; letter-spacing: -.025em; white-space: nowrap; transition: color .2s ease-out; }
+  .nav-item > a:hover, .has-mega:hover > a, .has-mega:focus-within > a, .nav-item.is-active > a { color: #111318; }
+  .nav-item.is-active > a svg { transform: rotate(180deg); }
+  .nav-item > a::after { position: absolute; height: 2px; right: 0; bottom: 10px; left: 0; transform: scaleX(0); border-radius: 999px; background: #111318; content: ""; transition: transform .2s ease-out; }
+  .nav-item > a:hover::after, .has-mega:hover > a::after, .has-mega:focus-within > a::after, .nav-item.is-active > a::after { transform: scaleX(1); }
+
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+  .phone-link, .strategy-link, .whatsapp-link { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; font-size: .88rem; font-weight: 760; letter-spacing: -.02em; white-space: nowrap; }
+  .phone-link { padding: 0 4px; color: #202124; }
+  .phone-link svg { width: 17px; height: 17px; color: #202124; }
+  .strategy-link { padding: 0 22px; color: white; background: #111318; box-shadow: 0 10px 24px rgba(17,19,24,.18); }
+  .strategy-link:hover { background: #202124; }
+  .strategy-link svg { width: 20px; height: 20px; }
+  .whatsapp-link { padding: 0 18px; border: 1.5px solid #d4d8de; border-radius: 999px; color: #202124; background: white; }
+  .whatsapp-link:hover { border-color: #18a760; color: #0c8548; }
+  .whatsapp-mark { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 50%; color: #18a760; background: #e8f8ef; }
+  .whatsapp-mark svg { width: 20px; height: 20px; display: block; fill: currentColor; }
+
+  .mega-menu {
+    position: absolute;
+    width: min(1030px, calc(100vw - 40px));
+    left: 50%;
+    top: 62px;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 10px);
+    border: 1px solid var(--border);
+    border-radius: 0 0 18px 18px;
+    background: rgba(255, 255, 255, .99);
+    box-shadow: 0 30px 70px rgba(13, 23, 32, .16);
+    transition: opacity .22s ease-out, transform .22s ease-out, visibility .22s;
+  }
+  .has-mega:hover .mega-menu, .has-mega:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  .mega-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .mega-column { min-width: 0; padding: 10px 20px 17px; border-left: 1px solid var(--border); }
+  .mega-column:first-child { border-left: 0; }
+  .mega-title { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; color: var(--navy); font-size: .72rem; font-weight: 850; letter-spacing: .025em; text-transform: uppercase; }
+  .mega-icon { width: 31px; height: 31px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 8px; background: #eef3f7; }
+  .purple .mega-title, .purple .mega-icon { color: #7354c8; }
+  .green .mega-title, .green .mega-icon { color: #168d53; }
+  .blue .mega-title, .blue .mega-icon { color: #2471c8; }
+  .orange .mega-title, .orange .mega-icon { color: #d66b2f; }
+  .mega-column ul { display: grid; gap: 10px; padding: 0; margin: 0 0 19px; list-style: none; }
+  .mega-column li { display: flex; align-items: center; gap: 7px; color: #44515f; font-size: .72rem; line-height: 1.35; }
+  .mega-column li svg { flex: 0 0 auto; color: #91a0ae; }
+  .view-all { display: inline-flex; align-items: center; gap: 8px; color: #18233a; font-size: .72rem; font-weight: 800; }
+  .view-all:hover { color: var(--blue); }
+  .mega-footer { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 12px 17px; border: 1px solid var(--border); border-radius: 12px; background: #f8f9fd; }
+  .transformation { display: flex; align-items: center; gap: 13px; }
+  .spark-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; color: #434b85; background: #eceefa; }
+  .transformation strong, .transformation span { display: block; }
+  .transformation strong { color: #152039; font-size: .85rem; }
+  .transformation span { margin-top: 2px; color: var(--muted); font-size: .7rem; }
+  .mega-footer > a { min-height: 42px; display: inline-flex; align-items: center; gap: 24px; padding: 0 22px; border-radius: 8px; color: white; background: #0c1732; font-size: .74rem; font-weight: 750; }
+
+  .solutions-menu { width: min(1040px, calc(100vw - 40px)); padding: 18px; }
+  .solutions-heading { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 3px 5px 15px; }
+  .solutions-heading div > span, .solutions-heading div > strong { display: block; }
+  .solutions-heading div > span { margin-bottom: 3px; color: var(--orange); font-size: .65rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+  .solutions-heading div > strong { color: #111c35; font-size: 1rem; }
+  .solutions-heading > a { display: inline-flex; align-items: center; gap: 8px; color: var(--blue); font-size: .72rem; font-weight: 800; }
+  .solutions-layout { display: block; }
+  .solution-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .solution-card { min-width: 0; display: flex; flex-direction: column; padding: 15px; border: 1px solid var(--border); border-radius: 12px; background: white; transition: transform .2s ease-out, border-color .2s ease-out, box-shadow .2s ease-out; }
+  .solution-card:hover { transform: translateY(-3px); border-color: #becddb; box-shadow: 0 14px 30px rgba(13, 23, 32, .08); }
+  .solution-top { display: flex; align-items: center; gap: 10px; }
+  .solution-icon { width: 39px; height: 39px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #f0edff; }
+  .solution-top strong, .solution-top small { display: block; }
+  .solution-top strong { color: #6547ba; font-size: .8rem; font-weight: 900; text-transform: uppercase; }
+  .solution-top small { max-width: 120px; margin-top: 2px; color: #566270; font-size: .58rem; line-height: 1.3; }
+  .solution-card > p { min-height: 57px; margin: 13px 0 11px; color: #53606d; font-size: .66rem; line-height: 1.45; }
+  .solution-list, .solution-outcomes { display: grid; gap: 5px; padding-top: 9px; border-top: 1px solid var(--border); }
+  .solution-list b, .solution-outcomes b { margin-bottom: 2px; color: #6547ba; font-size: .62rem; }
+  .solution-list span { display: flex; align-items: center; gap: 5px; color: #354251; font-size: .61rem; line-height: 1.35; }
+  .solution-list span svg { flex: 0 0 auto; color: currentColor; }
+  .solution-outcomes { margin-top: 9px; }
+  .solution-outcomes span { color: #53606d; font-size: .6rem; line-height: 1.3; }
+  .solution-outcomes span::before { margin-right: 6px; color: currentColor; content: "✓"; font-weight: 900; }
+  .solution-card.green .solution-icon { color: #168d53; background: #e9f7ef; }
+  .solution-card.green .solution-top strong, .solution-card.green .solution-list b, .solution-card.green .solution-outcomes b { color: #168d53; }
+  .solution-card.orange .solution-icon { color: #d66b2f; background: #fff0e6; }
+  .solution-card.orange .solution-top strong, .solution-card.orange .solution-list b, .solution-card.orange .solution-outcomes b { color: #d66b2f; }
+  .solution-card.blue .solution-icon { color: #2471c8; background: #eaf3ff; }
+  .solution-card.blue .solution-top strong, .solution-card.blue .solution-list b, .solution-card.blue .solution-outcomes b { color: #2471c8; }
+  .solutions-footer { min-height: 48px; display: flex; align-items: center; gap: 24px; margin-top: 10px; padding: 8px 13px; border-radius: 10px; color: white; background: #0c1732; }
+  .solutions-footer > span { display: flex; align-items: center; gap: 6px; font-size: .62rem; font-weight: 700; }
+  .solutions-footer > a { min-height: 32px; display: inline-flex; align-items: center; gap: 10px; margin-left: auto; padding: 0 13px; border: 1px solid rgba(255,255,255,.23); border-radius: 7px; font-size: .63rem; font-weight: 800; }
+
+  .mobile-actions { display: none; align-items: center; gap: 4px; margin-left: auto; }
+  .mobile-actions > a, .menu-toggle { width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 9px; color: #14213a; background: transparent; }
+  .mobile-whatsapp .whatsapp-mark { width: 30px; height: 30px; color: white; background: #18a760; box-shadow: 0 8px 18px rgba(24,167,96,.24); }
+  .mobile-whatsapp .whatsapp-mark svg { width: 21px; height: 21px; }
+  .menu-toggle { cursor: pointer; }
+  .menu-close-icon { display: none; }
+  .menu-toggle[aria-expanded="true"] .menu-open-icon { display: none; }
+  .menu-toggle[aria-expanded="true"] .menu-close-icon { display: block; }
+  .mobile-nav { display: none; max-height: calc(100vh - 74px); overflow-y: auto; border-top: 1px solid var(--border); background: white; }
+  .mobile-nav .container { display: grid; padding-block: 10px 24px; }
+  .mobile-nav a:not(.strategy-link):not(.whatsapp-link) { display: flex; align-items: center; justify-content: space-between; padding: 14px 2px; border-bottom: 1px solid var(--border); color: #1d2938; font-size: .92rem; font-weight: 720; }
+  .mobile-ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 18px; }
+  .mobile-ctas a { min-height: 50px; }
+  .mobile-ctas .whatsapp-link { width: auto; padding: 0 13px; }
+  .mobile-ctas .whatsapp-link span:last-child { display: inline; }
+
+  @media (max-width: 1280px) {
+    .header-inner { gap: 18px; }
+    .brand { min-width: 165px; }
+    .brand-name { font-size: 1.38rem; }
+    .brand-tagline { font-size: .56rem; }
+    .desktop-nav { gap: 15px; }
+    .nav-item > a { font-size: .8rem; }
+    .phone-link, .strategy-link, .whatsapp-link { min-height: 46px; font-size: .74rem; }
+    .strategy-link { padding-inline: 15px; }
+    .whatsapp-link { padding-inline: 14px; }
+  }
+  @media (max-width: 1140px) {
+    .phone-link span, .whatsapp-link span:last-child { display: none; }
+    .phone-link { width: 40px; padding: 0; }
+    .whatsapp-link { width: 46px; padding: 0; }
+  }
+  @media (max-width: 1040px) {
+    .header-inner { height: 58px; border-radius: 22px; }
+    .brand { min-width: 0; }
+    .brand-name { font-size: 1.55rem; }
+    .brand-tagline { font-size: .48rem; }
+    .desktop-nav, .header-actions { display: none; }
+    .mobile-actions { display: flex; }
+    .mobile-nav.open { display: block; }
+  }
+  @media (max-width: 520px) {
+    .mobile-ctas { grid-template-columns: 1fr; }
+    .brand-name { font-size: 1.45rem; }
+    .brand-tagline { font-size: .44rem; }
+  }
+</style>

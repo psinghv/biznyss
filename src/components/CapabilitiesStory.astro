@@ -1,0 +1,273 @@
+---
+import {
+  ArrowUpRight,
+  Bot,
+  Check,
+  CodeXml,
+  Film,
+  TrendingUp,
+} from 'lucide-react';
+import { capabilities } from '../data/site';
+
+const icons = [Film, TrendingUp, CodeXml, Bot];
+const shortNames = ['AI Creative', 'Growth Marketing', 'Software & Products', 'AI Automation'];
+const mockupLabels = [
+  ['Campaign velocity', 'Creative variants', 'Performance lift'],
+  ['Qualified pipeline', 'Conversion rate', 'Acquisition efficiency'],
+  ['Release velocity', 'Product adoption', 'Platform reliability'],
+  ['Hours recovered', 'Response speed', 'Workflow accuracy'],
+];
+---
+<section class="cap-story" data-capabilities-story>
+  <div class="scroll-steps" aria-hidden="true">
+    {capabilities.map((_, index) => <div class="scroll-step" data-step={index}></div>)}
+  </div>
+
+  <div class="story-stage">
+    <div class="container story-grid">
+      <div class="story-left">
+        <span class="eyebrow">Capabilities</span>
+        <h2>Four disciplines.<br/>One growth system.</h2>
+        <p>Scroll to explore how strategy and execution connect across every capability.</p>
+
+        <div class="story-tabs" role="tablist" aria-label="Biznyss capabilities">
+          {capabilities.map((_, index) => {
+            const Icon = icons[index];
+            return (
+              <button
+                class:list={['story-tab', index === 0 && 'active']}
+                type="button"
+                role="tab"
+                aria-selected={index === 0 ? 'true' : 'false'}
+                data-tab={index}
+              >
+                <span class="tab-number">0{index + 1}</span>
+                <span class="tab-icon"><Icon size={19} strokeWidth={1.8} /></span>
+                <span>{shortNames[index]}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div class="story-progress" aria-hidden="true"><span></span></div>
+      </div>
+
+      <div class="story-right">
+        {capabilities.map((capability, index) => (
+          <article class:list={['story-panel', `panel-${index + 1}`, index === 0 && 'active']} data-panel={index}>
+            <div class="panel-copy">
+              <span class="panel-kicker">{capability.eyebrow}</span>
+              <h3>{capability.name}</h3>
+              <p>{capability.summary}</p>
+              <div class="panel-details">
+                <div>
+                  <strong>Services</strong>
+                  {capability.services.slice(0, 3).map((service) => <span><Check size={13} />{service}</span>)}
+                </div>
+                <div>
+                  <strong>Outcomes</strong>
+                  {capability.outcomes.slice(0, 3).map((outcome) => <span><Check size={13} />{outcome}</span>)}
+                </div>
+              </div>
+              <a href={`/capabilities/${capability.slug}`}>Explore capability <ArrowUpRight size={16} /></a>
+            </div>
+
+            <div class="panel-visual" aria-label={`${capability.name} dashboard preview`}>
+              <div class="mock-window">
+                <div class="mock-topbar"><span></span><span></span><span></span><b>Biznyss Intelligence</b></div>
+                <div class="mock-body">
+                  <div class="mock-sidebar"><i></i><i></i><i></i><i></i></div>
+                  <div class="mock-dashboard">
+                    <div class="mock-heading"><span>{shortNames[index]}</span><b>Live performance</b></div>
+                    <div class="mock-kpis">
+                      {mockupLabels[index].map((label, metricIndex) => (
+                        <div><span>{label}</span><strong>{['+42%', '3.8x', '94%'][metricIndex]}</strong><i></i></div>
+                      ))}
+                    </div>
+                    <div class="mock-chart">
+                      <div class="chart-bars">
+                        {[42, 58, 47, 73, 66, 88, 79, 96].map((height) => <i style={`--bar:${height}%`}></i>)}
+                      </div>
+                      <div class="chart-line"></div>
+                    </div>
+                    <div class="mock-rows"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const stories = document.querySelectorAll<HTMLElement>('[data-capabilities-story]');
+
+  stories.forEach((story) => {
+    const tabs = [...story.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+    const panels = [...story.querySelectorAll<HTMLElement>('[data-panel]')];
+    const progress = story.querySelector<HTMLElement>('.story-progress span');
+    let activeIndex = -1;
+    let ticking = false;
+
+    const setActive = (index: number) => {
+      if (index === activeIndex) return;
+      activeIndex = index;
+      tabs.forEach((tab, tabIndex) => {
+        const active = tabIndex === index;
+        tab.classList.toggle('active', active);
+        tab.setAttribute('aria-selected', String(active));
+      });
+      panels.forEach((panel, panelIndex) => panel.classList.toggle('active', panelIndex === index));
+      if (progress) progress.style.transform = `scaleY(${(index + 1) / panels.length})`;
+    };
+
+    const updateFromScroll = () => {
+      ticking = false;
+      if (window.matchMedia('(max-width: 960px)').matches) {
+        setActive(0);
+        return;
+      }
+
+      const sectionTop = story.offsetTop;
+      const viewportStep = window.innerHeight;
+      const distance = window.scrollY - sectionTop;
+      const index = Math.max(0, Math.min(panels.length - 1, Math.floor((distance + 1) / viewportStep)));
+      setActive(index);
+    };
+
+    const requestUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateFromScroll);
+    };
+
+    tabs.forEach((tab, index) => tab.addEventListener('click', () => {
+      const target = story.offsetTop + index * window.innerHeight + 2;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    }));
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    updateFromScroll();
+  });
+</script>
+
+<style>
+  .cap-story { position: relative; height: 400vh; min-height: 2600px; overflow: clip; background: #f5f8fb; }
+  .scroll-steps { position: absolute; inset: 0; }
+  .scroll-step { height: 100vh; }
+  .story-stage { position: sticky; z-index: 2; top: 120px; height: calc(100vh - 140px); min-height: 610px; padding: 24px 0; overflow: hidden; }
+  .story-grid { height: 100%; display: grid; grid-template-columns: minmax(290px,.72fr) minmax(0,1.55fr); align-items: stretch; gap: clamp(45px,6vw,100px); }
+  .story-left { align-self: center; }
+  .story-left h2 { font-size: clamp(2.3rem,3.5vw,3.7rem); }
+  .story-left > p { max-width: 410px; margin-top: 20px; color: var(--muted); font-size: .95rem; }
+  .story-tabs { display: grid; margin-top: 38px; border-top: 1px solid #ccd9e4; }
+  .story-tab { position: relative; min-height: 62px; display: grid; grid-template-columns: 34px 32px 1fr; align-items: center; gap: 8px; padding: 0 10px; border: 0; border-bottom: 1px solid #ccd9e4; color: #71808e; background: transparent; cursor: pointer; text-align: left; font-size: .92rem; font-weight: 750; transition: color .35s ease-out, background .35s ease-out, padding .35s ease-out; }
+  .story-tab::before { position: absolute; width: 3px; inset: 10px auto 10px 0; transform: scaleY(0); border-radius: 4px; background: var(--orange); content: ""; transition: transform .35s ease-out; }
+  .story-tab.active { padding-left: 18px; color: var(--navy); background: rgba(255,255,255,.68); }
+  .story-tab.active::before { transform: scaleY(1); }
+  .tab-number { color: #9aa8b4; font-size: .66rem; }
+  .tab-icon { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; color: var(--blue); background: #e8f0fd; }
+  .story-progress { width: 2px; height: 150px; margin: 28px 0 0 17px; overflow: hidden; background: #d6e0e8; }
+  .story-progress span { width: 100%; height: 100%; display: block; transform: scaleY(.25); transform-origin: top; background: linear-gradient(var(--blue),var(--orange)); transition: transform .5s ease-out; }
+  .story-right { position: relative; min-width: 0; height: 100%; }
+  .story-panel { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(260px,.8fr) minmax(320px,1.2fr); align-items: center; gap: 30px; padding: clamp(28px,3vw,48px); opacity: 0; visibility: hidden; transform: translateY(42px); border: 1px solid rgba(18,79,109,.12); border-radius: 26px; background: rgba(255,255,255,.92); box-shadow: 0 28px 80px rgba(13,23,32,.09); transition: opacity .5s ease-out, transform .5s ease-out, visibility .5s; }
+  .story-panel.active { opacity: 1; visibility: visible; transform: translateY(0); }
+  .panel-kicker { color: var(--blue); font-size: .66rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+  .panel-copy h3 { margin-top: 13px; font-size: clamp(2rem,3vw,3.35rem); }
+  .panel-copy > p { margin-top: 17px; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+  .panel-details { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px; }
+  .panel-details > div { display: grid; gap: 8px; }
+  .panel-details strong { margin-bottom: 3px; color: var(--navy); font-size: .7rem; text-transform: uppercase; }
+  .panel-details span { display: flex; align-items: center; gap: 7px; color: #596877; font-size: .7rem; }
+  .panel-details svg { flex: 0 0 auto; color: var(--orange); }
+  .panel-copy > a { display: inline-flex; align-items: center; gap: 8px; margin-top: 25px; color: var(--blue); font-size: .77rem; font-weight: 800; }
+  .panel-visual { min-width: 0; }
+  .mock-window { overflow: hidden; border: 1px solid rgba(255,255,255,.18); border-radius: 18px; color: white; background: #0b1725; box-shadow: 0 24px 55px rgba(13,23,32,.2); }
+  .mock-topbar { height: 38px; display: flex; align-items: center; gap: 5px; padding: 0 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .mock-topbar > span { width: 6px; height: 6px; border-radius: 50%; background: #e97142; }
+  .mock-topbar > span:nth-child(2) { background: #f5bd45; }
+  .mock-topbar > span:nth-child(3) { background: #4fbf8b; }
+  .mock-topbar b { margin-left: auto; color: #7890a5; font-size: .5rem; letter-spacing: .08em; text-transform: uppercase; }
+  .mock-body { min-height: 380px; display: grid; grid-template-columns: 38px 1fr; }
+  .mock-sidebar { display: grid; align-content: start; gap: 15px; padding: 18px 11px; border-right: 1px solid rgba(255,255,255,.07); }
+  .mock-sidebar i { width: 14px; height: 14px; border: 1px solid #50677b; border-radius: 4px; }
+  .mock-sidebar i:first-child { border-color: #4c95ff; background: rgba(76,149,255,.2); }
+  .mock-dashboard { min-width: 0; padding: 18px; }
+  .mock-heading { display: flex; align-items: end; justify-content: space-between; }
+  .mock-heading span { font-size: .82rem; font-weight: 800; }
+  .mock-heading b { color: #6ed4a1; font-size: .5rem; text-transform: uppercase; }
+  .mock-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 16px; }
+  .mock-kpis div { position: relative; overflow: hidden; min-height: 74px; padding: 10px; border: 1px solid rgba(255,255,255,.08); border-radius: 9px; background: rgba(255,255,255,.035); }
+  .mock-kpis span,.mock-kpis strong { display: block; }
+  .mock-kpis span { min-height: 22px; color: #7890a5; font-size: .45rem; }
+  .mock-kpis strong { margin-top: 5px; font-size: .9rem; }
+  .mock-kpis i { position: absolute; width: 32px; height: 32px; right: -8px; bottom: -8px; border-radius: 50%; background: rgba(10,93,240,.23); }
+  .mock-chart { position: relative; height: 150px; margin-top: 12px; padding: 17px 15px 10px; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; background: linear-gradient(rgba(255,255,255,.025),transparent); }
+  .chart-bars { height: 100%; display: flex; align-items: end; justify-content: space-between; gap: 7px; }
+  .chart-bars i { width: 100%; height: var(--bar); border-radius: 3px 3px 0 0; background: linear-gradient(#268bf3,#124f6d); opacity: .76; }
+  .chart-line { position: absolute; height: 2px; right: 12%; left: 10%; top: 42%; transform: rotate(-7deg); background: var(--orange); box-shadow: 0 0 12px rgba(233,113,66,.5); }
+  .mock-rows { display: grid; gap: 6px; margin-top: 11px; }
+  .mock-rows span { height: 7px; border-radius: 5px; background: linear-gradient(90deg,rgba(255,255,255,.13) 58%,rgba(255,255,255,.04) 58%); }
+  .panel-2 .mock-window { background: #0b1d1a; }
+  .panel-2 .chart-bars i { background: linear-gradient(#36c478,#12684a); }
+  .panel-3 .mock-window { background: #11172b; }
+  .panel-3 .chart-bars i { background: linear-gradient(#6b83ff,#273b99); }
+  .panel-4 .mock-window { background: #1d1713; }
+  .panel-4 .chart-bars i { background: linear-gradient(#ef8b45,#8f4524); }
+  @media (max-width: 1180px) {
+    .story-grid { grid-template-columns: 270px minmax(0,1fr); gap: 35px; }
+    .story-panel { grid-template-columns: 1fr 1fr; padding: 28px; }
+    .mock-body { min-height: 330px; }
+  }
+  @media (max-width: 960px) {
+    .cap-story { height: auto; min-height: 0; padding: 72px 0; overflow: hidden; }
+    .scroll-steps { display: none; }
+    .story-stage { position: static; height: auto; min-height: 0; padding: 0; overflow: visible; }
+    .story-grid { display: block; }
+    .story-left { margin-bottom: 28px; }
+    .story-left > p { max-width: 620px; }
+    .story-tabs,.story-progress { display: none; }
+    .story-right {
+      height: auto;
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 2px 0 18px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .story-right::-webkit-scrollbar { display: none; }
+    .story-panel {
+      position: relative;
+      inset: auto;
+      grid-template-columns: minmax(0,1fr) minmax(230px,.72fr);
+      flex: 0 0 min(78vw, 660px);
+      min-height: 0;
+      padding: 24px;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      scroll-snap-align: start;
+    }
+    .panel-copy h3 { font-size: clamp(1.55rem, 5.8vw, 2.2rem); }
+    .panel-copy > p { font-size: .86rem; line-height: 1.55; }
+    .panel-details { gap: 14px; margin-top: 18px; }
+    .panel-copy > a { margin-top: 18px; }
+    .mock-body { min-height: 260px; }
+  }
+  @media (max-width: 680px) {
+    .cap-story { padding: 54px 0 46px; }
+    .story-left h2 { font-size: clamp(2rem, 9vw, 2.65rem); }
+    .story-left > p { margin-top: 14px; font-size: .9rem; }
+    .story-panel { grid-template-columns: 1fr; flex-basis: 84vw; gap: 20px; padding: 22px; border-radius: 19px; }
+    .panel-details { grid-template-columns: 1fr; gap: 12px; }
+    .panel-details span:nth-of-type(n+3) { display: none; }
+    .panel-visual { display: none; }
+  }
+</style>

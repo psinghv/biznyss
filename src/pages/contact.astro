@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Contact" description="Book a strategy call with Biznyss to discuss your growth, AI, software, creative, marketing, or automation opportunity.">
+  <section class="contact-hero"><div class="container contact-grid">
+    <div><span class="eyebrow light">Start a conversation</span><h1>Let’s turn your next move into measurable growth.</h1><p class="lead">Tell us what you are building, changing, or trying to unlock. A senior member of our team will respond.</p>
+      <div class="contact-options"><a href="https://wa.me/919999999999"><span>WhatsApp</span><strong>Chat with our team ↗</strong></a><a href="mailto:hello@biznyss.com"><span>Email</span><strong>hello@biznyss.com</strong></a><a href="tel:+919999999999"><span>Phone</span><strong>+91 99999 99999</strong></a></div>
+    </div>
+    <form class="contact-form" action="https://formsubmit.co/hello@biznyss.com" method="POST">
+      <input type="hidden" name="_subject" value="New Biznyss strategy inquiry" />
+      <label>Name<input name="name" autocomplete="name" required /></label>
+      <label>Email<input type="email" name="email" autocomplete="email" required /></label>
+      <label>Phone<input type="tel" name="phone" autocomplete="tel" /></label>
+      <label>Company<input name="company" autocomplete="organization" /></label>
+      <label class="full">Service interest<select name="service"><option>AI Creative Studio</option><option>Growth Marketing</option><option>Software & Products</option><option>AI & Automation</option><option>Not sure yet</option></select></label>
+      <label class="full">Message<textarea name="message" rows="5" required placeholder="What opportunity or challenge should we know about?"></textarea></label>
+      <button class="btn btn-primary full" type="submit">Book Strategy Call</button>
+      <p class="form-note full">By submitting, you agree to be contacted about your inquiry.</p>
+    </form>
+  </div></section>
+</BaseLayout>
+<style>
+  .contact-hero { min-height:100vh;padding:165px 0 100px;color:white;background:radial-gradient(circle at 10% 80%,rgba(10,93,240,.3),transparent 30%),var(--navy-dark) }
+  .contact-grid { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;align-items:start }
+  .contact-grid h1 { max-width:740px;font-size:clamp(2.8rem,4.3vw,4.35rem);line-height:1.08 }
+  .contact-grid .lead { margin-top:28px }
+  .contact-options { display:grid;margin-top:50px;border-top:1px solid rgba(255,255,255,.14) }
+  .contact-options a { display:flex;justify-content:space-between;gap:20px;padding:17px 0;border-bottom:1px solid rgba(255,255,255,.14) }
+  .contact-options span { color:#8fa1af;font-size:.8rem }
+  .contact-options strong { font-size:.9rem }
+  .contact-form { display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:38px;border-radius:24px;color:var(--ink);background:white;box-shadow:0 30px 90px rgba(0,0,0,.22) }
+  .contact-form label { display:grid;gap:8px;color:var(--navy);font-size:.78rem;font-weight:750 }
+  .contact-form input,.contact-form select,.contact-form textarea { width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:10px;color:var(--ink);background:var(--surface);outline:none }
+  .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus { border-color:var(--blue);box-shadow:0 0 0 3px rgba(10,93,240,.1) }
+  .full { grid-column:1/-1 }
+  .form-note { color:var(--muted);font-size:.72rem;text-align:center }
+  @media(max-width:900px){.contact-grid{grid-template-columns:1fr}.contact-grid h1{font-size:clamp(2.45rem,9vw,3.5rem)}.contact-form{grid-template-columns:1fr}.contact-form>*{grid-column:1}}
+</style>

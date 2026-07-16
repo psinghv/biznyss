@@ -1,0 +1,143 @@
+---
+import {
+  CalendarDays,
+  Mail,
+  MessageCircle,
+  Phone,
+} from 'lucide-react';
+import { capabilities, solutions } from '../data/site';
+---
+<footer class="footer">
+  <div class="container footer-main">
+    <div class="brand-col">
+      <a class="footer-logo" href="/">Biznyss</a>
+      <span class="footer-tagline">AI-Powered Growth Ecosystem</span>
+      <p>Helping businesses build, market, automate, and scale through AI, technology, creative production, and growth systems.</p>
+      <div class="socials" aria-label="Social links">
+        <a href="#" aria-label="LinkedIn"><span>in</span></a>
+        <a href="#" aria-label="YouTube"><span>YT</span></a>
+        <a href="#" aria-label="Instagram"><span>IG</span></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h3>Capabilities</h3>
+      {capabilities.map((item) => <a href={`/capabilities/${item.slug}`}>{item.name}</a>)}
+    </div>
+
+    <div class="footer-col">
+      <h3>Solutions</h3>
+      {solutions.map((item) => <a href={`/solutions/${item.slug}`}>{item.name}</a>)}
+    </div>
+
+    <div class="footer-col">
+      <h3>Company</h3>
+      <a href="/about">About Us</a>
+      <a href="/case-studies">Case Studies</a>
+      <a href="/insights">Insights</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <div class="footer-col contact-col">
+      <h3>Contact</h3>
+      <a href="mailto:hello@biznyss.com"><Mail size={14} />hello@biznyss.com</a>
+      <a href="tel:+919876543210"><Phone size={14} />+91 98765 43210</a>
+      <a href="https://wa.me/919876543210"><MessageCircle size={14} />Chat on WhatsApp</a>
+      <a href="/contact"><CalendarDays size={14} />Book Strategy Call</a>
+    </div>
+
+    <div class="world-map" aria-label="Global client experience">
+      <svg class="map-svg" viewBox="0 0 560 280" role="img" aria-label="World map">
+        <g class="continent-map">
+          <path class="north-america" d="M27 69 45 49 77 38 112 42 139 55 157 74 148 88 124 91 110 106 95 107 84 126 67 123 62 105 45 99 35 87Z"/>
+          <path class="south-america" d="m120 119 22 10 17 20 8 27-5 30-15 37-13 20-11-22 3-26-11-22-8-28 4-25Z"/>
+          <path class="europe" d="m178 57 18-15 29-5 15 10-7 14-25 5-18 12-13-7Z"/>
+          <path class="asia" d="m243 59 19-14 36-5 35 8 23-7 50 7 35 14 40 1 36 18-10 20-31 4-18 17-31-4-23 11-17-7-19 12-16-5-8-18-26-4-12-17-26-7-21-13Z"/>
+          <path class="africa" d="m273 120 27 3 22 18 7 25-8 44-18 38-22-5-6-29-15-25 5-37Z"/>
+          <path class="australia" d="m431 182 21-12 32 5 21 18-9 22-27 7-25-11-18-15Z"/>
+          <path class="asia" d="m477 113 12-10 9 6-4 14-13 3Z"/>
+          <path class="europe" d="m221 89 9-5 8 7-6 9-10-2Z"/>
+        </g>
+        <g class="map-points">
+          <circle cx="91" cy="89" r="4"/>
+          <circle cx="282" cy="82" r="4"/>
+          <circle cx="358" cy="91" r="4"/>
+          <circle cx="448" cy="90" r="4"/>
+          <circle cx="466" cy="196" r="4"/>
+        </g>
+      </svg>
+      <span>Global client experience</span>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>&copy; {new Date().getFullYear()} Biznyss.com. All rights reserved.</span>
+    <div>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms & Conditions</a>
+      <a href="/sitemap-index.xml">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 0 24px;
+    border-top: 1px solid var(--border);
+    color: #405063;
+    background:
+      radial-gradient(circle at 88% 15%, rgba(10,93,240,.07), transparent 26%),
+      linear-gradient(180deg, #f9fbfd 0%, #f1f5f8 100%);
+  }
+  .footer::before { position: absolute; width: 440px; height: 440px; left: -280px; bottom: -310px; border: 1px solid rgba(18,79,109,.08); border-radius: 50%; content: ""; }
+  .footer-main { position: relative; z-index: 1; display: grid; grid-template-columns: 1.25fr .9fr .65fr .72fr 1.05fr 1.85fr; align-items: start; gap: 16px; }
+  .brand-col { padding-right: 14px; }
+  .footer-logo { display: inline-block; color: #09152e; font-size: 1.65rem; font-weight: 850; letter-spacing: -.055em; line-height: 1; }
+  .footer-logo::first-letter { color: var(--orange); }
+  .footer-tagline { display: block; margin-top: 7px; color: var(--navy); font-size: .6rem; font-weight: 800; }
+  .brand-col p { max-width: 300px; margin-top: 18px; color: #526476; font-size: .93rem; line-height: 1.62; }
+  .socials { display: flex; gap: 8px; margin-top: 22px; }
+  .socials a { width: 31px; height: 31px; display: grid; place-items: center; border: 1px solid #d4dee7; border-radius: 8px; color: var(--navy); background: white; transition: color .2s ease-out, border-color .2s ease-out, transform .2s ease-out; }
+  .socials span { font-size: .7rem; font-weight: 850; line-height: 1; }
+  .socials a:hover { transform: translateY(-2px); border-color: var(--blue); color: var(--blue); }
+  .footer-col { display: flex; flex-direction: column; align-items: stretch; padding-top: 2px; }
+  .footer h3 { min-height: 20px; margin: 0 0 17px; color: #122038; font-size: .84rem; font-weight: 850; line-height: 1.25; letter-spacing: .055em; text-transform: uppercase; }
+  .footer-col > a { display: block; margin: 0 0 10px; color: #495c6f; font-size: .9rem; line-height: 1.4; transition: color .2s ease-out; }
+  .footer-col > a:hover { color: var(--blue); }
+  .contact-col > a { display: grid; grid-template-columns: 17px minmax(0,1fr); align-items: center; gap: 8px; white-space: normal; }
+  .contact-col svg { flex: 0 0 auto; color: var(--navy); }
+  .world-map { position: relative; min-height: 190px; display: flex; align-items: end; justify-content: center; padding: 0 12px 14px; border: 1px solid #dfe7f0; border-radius: 18px; background: #eef3fb; }
+  .world-map span { position: relative; z-index: 2; color: #52687b; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .map-svg { position: absolute; width: calc(100% - 24px); max-width: 360px; height: auto; left: 50%; top: 10px; transform: translateX(-50%); }
+  .continent-map path { stroke: rgba(255,255,255,.78); stroke-width: 2.5; stroke-linejoin: round; }
+  .north-america { fill: #ef4936; }
+  .south-america { fill: #f28a32; }
+  .europe { fill: #48add9; }
+  .asia { fill: #72c943; }
+  .africa { fill: #f6a23a; }
+  .australia { fill: #3f9851; }
+  .map-points { fill: #0a5df0; opacity: .75; }
+  .footer-bottom { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 25px; margin-top: 46px; padding-top: 20px; border-top: 1px solid #d5dfe8; color: #687a8a; font-size: .72rem; }
+  .footer-bottom div { display: flex; gap: 30px; }
+  .footer-bottom a:hover { color: var(--blue); }
+  @media (max-width: 1120px) {
+    .footer-main { grid-template-columns: 1.35fr repeat(3, 1fr); gap: 30px 24px; }
+    .contact-col { grid-column: 2 / 3; }
+    .world-map { grid-column: 3 / 5; }
+  }
+  @media (max-width: 760px) {
+    .footer-main { grid-template-columns: repeat(2, 1fr); }
+    .brand-col { grid-column: 1 / -1; }
+    .contact-col, .world-map { grid-column: auto; }
+    .world-map { min-height: 160px; }
+  }
+  @media (max-width: 520px) {
+    .footer { padding-top: 56px; }
+    .footer-main { grid-template-columns: 1fr 1fr; gap: 34px 22px; }
+    .contact-col, .world-map { grid-column: 1 / -1; }
+    .footer-bottom { align-items: start; flex-direction: column; }
+    .footer-bottom div { flex-wrap: wrap; gap: 13px 22px; }
+  }
+</style>

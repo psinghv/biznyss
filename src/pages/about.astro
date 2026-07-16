@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CTA from '../components/CTA.astro';
+---
+<BaseLayout title="About" description="Biznyss is an AI-powered growth and innovation company connecting strategy, technology, creative production, marketing, and automation.">
+  <PageHero eyebrow="About Biznyss" title="Built for leaders who see growth as a connected system." text="We are a senior, multidisciplinary partner for organizations navigating growth, transformation, and the practical application of AI." />
+  <section class="section"><div class="container vision-grid">
+    <div><span class="eyebrow">Our vision</span><h2>Make intelligent growth accessible, practical, and transformative.</h2></div>
+    <div><span class="eyebrow">Our mission</span><p class="lead">Help ambitious businesses build, market, automate, and scale by bringing AI, technology, creative excellence, and growth strategy into one accountable ecosystem.</p></div>
+  </div></section>
+  <section class="section dark"><div class="container">
+    <div class="section-head"><div><span class="eyebrow light">Our values</span><h2>How we make decisions.</h2></div></div>
+    <div class="grid-3">{[['Clarity over theater','We make complex choices understandable and useful.'],['Outcomes over output','Work matters when it changes business performance.'],['Partnership over transactions','The best results come from context, trust, and continuity.'],['Intelligence in action','AI is valuable when it improves real work.'],['Craft with purpose','Every detail should strengthen the strategy.'],['Momentum with rigor','Move quickly without creating tomorrow’s problems.']].map(([title,text],i)=><div class="value"><span>0{i+1}</span><h3>{title}</h3><p>{text}</p></div>)}</div>
+  </div></section>
+  <section class="section section-bg"><div class="container trust-grid">
+    <div><span class="eyebrow">Leadership driven</span><h2>Senior perspective stays close to the work.</h2><p class="lead">Our model puts experienced technology and growth leadership around every engagement, from the first strategic question through execution and optimization.</p></div>
+    <div class="trust-card"><span>20+</span><strong>Years in technology leadership</strong><span>20+</span><strong>Years in growth marketing leadership</strong><span>1</span><strong>Integrated partner accountable for outcomes</strong></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <div class="section-head"><div><span class="eyebrow">Why clients trust us</span><h2>Commercial thinking.<br/>Technical depth.<br/>Creative ambition.</h2></div></div>
+    <div class="grid-3">{['We begin with the business case','We connect disciplines around one roadmap','We build for adoption, not presentation','We communicate directly and transparently','We measure what matters','We stay for the next stage'].map((item)=><div class="card"><h3>{item}</h3></div>)}</div>
+  </div></section>
+  <CTA />
+</BaseLayout>
+<style>
+  .vision-grid,.trust-grid { display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center }
+  .vision-grid h2 { font-size:clamp(2.4rem,4.3vw,4.3rem) }
+  .value { min-height:270px;padding:30px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.035) }
+  .value span { color:#8db8ff;font-size:.72rem }
+  .value h3 { margin-top:65px }
+  .value p { margin-top:14px;color:#9fb0bd }
+  .trust-card { display:grid;grid-template-columns:110px 1fr;gap:0;padding:20px 35px;border-radius:24px;background:white;box-shadow:var(--shadow) }
+  .trust-card span,.trust-card strong { padding:25px 0;border-bottom:1px solid var(--border) }
+  .trust-card span { color:var(--orange);font-size:2.5rem;font-weight:850;letter-spacing:-.05em }
+  .trust-card strong { align-self:center;color:var(--navy) }
+  .card { min-height:160px;display:flex;align-items:end }
+  @media(max-width:800px){.vision-grid,.trust-grid{grid-template-columns:1fr;gap:45px}}
+</style>

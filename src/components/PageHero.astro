@@ -1,0 +1,16 @@
+---
+import HeroArt from './HeroArt.astro';
+interface Props { eyebrow: string; title: string; text: string; }
+const { eyebrow, title, text } = Astro.props;
+---
+<section class="page-hero">
+  <div class="container page-hero-grid">
+    <div class="page-hero-copy reveal">
+      <span class="eyebrow">{eyebrow}</span>
+      <h1>{title}</h1>
+      <p class="lead">{text}</p>
+      <div class="buttons"><a class="btn btn-primary" href="/contact">Book Strategy Call</a><a class="btn btn-secondary" href="https://wa.me/919999999999">Chat on WhatsApp</a></div>
+    </div>
+    <HeroArt label={eyebrow} />
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTA from '../../components/CTA.astro';
+import HeroArt from '../../components/HeroArt.astro';
+export async function getStaticPaths(){const posts=await getCollection('insights');return posts.map((post)=>({params:{id:post.id},props:{post}}))}
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout title={post.data.title} description={post.data.description} schema={{'@context':'https://schema.org','@type':'Article',headline:post.data.title,description:post.data.description,datePublished:post.data.published.toISOString(),publisher:{'@type':'Organization',name:'Biznyss'}}}>
+  <section class="article-hero"><div class="container article-hero-grid"><div class="article-copy"><span class="eyebrow">{post.data.category}</span><h1>{post.data.title}</h1><p class="lead">{post.data.description}</p><div class="article-meta">{post.data.published.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})} · {post.data.readTime}</div></div><HeroArt label={`${post.data.category} Insight`} /></div></section>
+  <article class="section"><div class="container reading prose"><Content /></div></article>
+  <CTA />
+</BaseLayout>
+<style>
+  .article-hero { padding:154px 0 82px;background:var(--surface) }
+  .article-hero-grid { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(42px,6vw,92px) }
+  .article-copy { min-width:0 }
+  .article-hero h1 { font-size:clamp(2.65rem,4.2vw,4.15rem);line-height:1.08 }
+  .article-hero .lead { max-width:620px;margin:26px 0 20px }
+  .article-meta { color:var(--muted);font-size:.8rem;font-weight:700 }
+  .prose { font-size:1.08rem }
+  .prose :global(h2) { margin:55px 0 18px;font-size:2rem }
+  .prose :global(p) { margin:0 0 24px;color:#3f4d59;line-height:1.85 }
+  @media(max-width:960px){.article-hero-grid{grid-template-columns:1fr}.article-copy{max-width:760px}}
+  @media(max-width:680px){.article-hero{padding:126px 0 64px}.article-hero h1{font-size:clamp(2.3rem,10vw,3.2rem)}}
+</style>

@@ -1,0 +1,75 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  schema?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  image = '/og-default.svg',
+  schema,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title.includes('Biznyss') ? title : `${title} | Biznyss`;
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Biznyss',
+  url: 'https://biznyss.com',
+  description: 'AI-powered growth ecosystem helping businesses build, market, automate, and scale.',
+  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'hello@biznyss.com' },
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#124f6d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema ?? defaultSchema)} />
+    {gaId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .skip-link { position: fixed; z-index: 999; left: 16px; top: -100px; padding: 10px 16px; color: white; border-radius: 8px; background: #0a5df0; }
+  .skip-link:focus { top: 12px; }
+</style>

@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<BaseLayout title="Terms & Conditions" description="Terms governing the use of the Biznyss website.">
+  <PageHero eyebrow="Legal" title="Terms & Conditions" text="The terms that apply when accessing and using the Biznyss website." />
+  <section class="section"><div class="container reading legal-copy"><h2>Website use</h2><p>This website provides general information about Biznyss capabilities, solutions, and perspectives. Content may be updated as our services evolve.</p><h2>Intellectual property</h2><p>Unless otherwise stated, website content, visual systems, and brand materials belong to Biznyss and may not be reproduced without permission.</p><h2>Contact</h2><p>Questions about these terms can be sent to <a href="mailto:hello@biznyss.com">hello@biznyss.com</a>.</p></div></section>
+</BaseLayout>
+<style>.legal-copy h2{margin:40px 0 14px;font-size:2rem}.legal-copy p{color:var(--muted);line-height:1.85}.legal-copy a{color:var(--blue);font-weight:700}</style>

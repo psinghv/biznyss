@@ -1,0 +1,17 @@
+---
+interface Props { title?: string; text?: string; }
+const { title = "Ready to build what's next?", text = 'Bring us the ambition, the bottleneck, or the half-formed idea. We will help you turn it into a focused path to growth.' } = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <div class="cta-panel">
+      <span class="eyebrow light">Start a conversation</span>
+      <h2>{title}</h2>
+      <p>{text}</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="/contact">Book Strategy Call</a>
+        <a class="btn btn-light" href="https://wa.me/919999999999">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>

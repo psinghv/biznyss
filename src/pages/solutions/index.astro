@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import { solutions } from '../../data/site';
+---
+<BaseLayout title="Business Solutions" description="Business-first frameworks to launch, scale, automate, and innovate with Biznyss.">
+  <PageHero eyebrow="Business-first frameworks" title="Solve the constraint standing between now and next." text="We organize technology, marketing, AI, and creative execution around your growth stage and desired business outcome." />
+  <section class="section"><div class="container grid-2">
+    {solutions.map((solution, i) => <a class="card solution-card" href={`/solutions/${solution.slug}`}><span class="number">0{i+1}</span><h2>{solution.name}</h2><p class="lead">{solution.summary}</p><strong>{solution.audience}</strong><span class="text-link">Explore solution</span></a>)}
+  </div></section>
+  <CTA />
+</BaseLayout>
+<style>
+  .solution-card { min-height: 430px; display: flex; flex-direction: column; padding: 45px; }
+  .solution-card .number { font-size: 1rem; }
+  .solution-card h2 { margin-top: 60px; }
+  .solution-card strong { margin: auto 0 25px; color: var(--navy); font-size: .88rem; }
+</style>

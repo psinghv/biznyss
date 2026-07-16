@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import { capabilities, industries } from '../../data/site';
+
+export function getStaticPaths() {
+  return capabilities.map((capability) => ({ params: { slug: capability.slug }, props: { capability } }));
+}
+const { capability } = Astro.props;
+---
+<BaseLayout title={capability.name} description={capability.summary}>
+  <PageHero eyebrow={capability.eyebrow} title={capability.name} text={capability.summary} />
+  <section class="section"><div class="container grid-2 detail-grid">
+    <div><span class="eyebrow">What we do</span><h2>Expert execution, designed around the outcome.</h2><p class="lead">We combine strategic direction with hands-on delivery, creating an integrated team around the work rather than passing it between disconnected specialists.</p></div>
+    <div class="detail-list">{capability.services.map((item, i) => <div><span>0{i + 1}</span><h3>{item}</h3></div>)}</div>
+  </div></section>
+  <section class="section section-bg"><div class="container">
+    <div class="section-head"><div><span class="eyebrow">Use cases</span><h2>Where this creates value.</h2></div></div>
+    <div class="grid-2">{capability.useCases.map((item) => <div class="card"><span class="tag">Use case</span><h3>{item}</h3><p>Focused strategy and delivery built around measurable commercial and operational value.</p></div>)}</div>
+  </div></section>
+  <section class="section"><div class="container">
+    <div class="section-head"><div><span class="eyebrow">Business outcomes</span><h2>Built to move the metrics that matter.</h2></div></div>
+    <div class="grid-4">{capability.outcomes.map((item, i) => <div class="outcome"><span>0{i + 1}</span><h3>{item}</h3></div>)}</div>
+    <div class="industries"><strong>Industry experience</strong><div class="pill-row">{industries.map((item) => <span class="pill">{item}</span>)}</div></div>
+  </div></section>
+  <CTA title={`Put ${capability.name.toLowerCase()} to work for your business.`} />
+</BaseLayout>
+<style>
+  .detail-grid { gap: 90px; }
+  .detail-list { border-top: 1px solid var(--border); }
+  .detail-list div { display: grid; grid-template-columns: 50px 1fr; padding: 23px 0; border-bottom: 1px solid var(--border); }
+  .detail-list span, .outcome span { color: var(--orange); font-size: .72rem; font-weight: 800; }
+  .card h3 { margin-top: 45px; }
+  .outcome { min-height: 200px; padding: 25px; border-top: 2px solid var(--blue); background: var(--surface); }
+  .outcome h3 { margin-top: 70px; }
+  .industries { margin-top: 70px; padding-top: 30px; border-top: 1px solid var(--border); }
+  .industries strong { display: block; margin-bottom: 18px; }
+  @media(max-width:800px){.detail-grid{gap:45px}}
+</style>

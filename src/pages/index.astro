@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import CapabilitiesStory from '../components/CapabilitiesStory.astro';
+import CTA from '../components/CTA.astro';
+import {
+  ArrowRight,
+  Building2,
+  CodeXml,
+  Cpu,
+  Factory,
+  GraduationCap,
+  Handshake,
+  HeartPulse,
+  Landmark,
+  Plane,
+  Rocket,
+  Search,
+  ShoppingCart,
+  Target,
+  TrendingUp,
+  Truck,
+} from 'lucide-react';
+import { solutions } from '../data/site';
+
+const leadershipMetrics = [
+  { value: '20+', label: 'Years Technology Leadership', icon: Cpu },
+  { value: '20+', label: 'Years Growth Marketing Experience', icon: Target },
+  { value: 'Global', label: 'Client Experience', icon: Landmark },
+  { value: 'One Roof', label: 'AI, Software, Marketing & Automation', icon: Handshake },
+];
+
+const featuredWork = [
+  { slug: 'aether-campaign', category: 'AI Creative', title: 'AI Video Campaign for Real Estate Developer', metric: '3.2M+', result: 'Views Generated', art: 'city' },
+  { slug: 'orbit-commerce', category: 'Software', title: 'SaaS Platform for Assessment Company', metric: '65%', result: 'Increase in Efficiency', art: 'dashboard' },
+  { slug: 'northstar-launch', category: 'Marketing', title: 'Lead Generation Campaign for B2B Company', metric: '300%', result: 'Increase in Qualified Leads', art: 'campaign' },
+  { slug: 'orbit-commerce', category: 'Software', title: 'Enterprise Logistics Management Platform', metric: '90%', result: 'Reduction in Manual Work', art: 'logistics' },
+  { slug: 'careflow-ai', category: 'Automation', title: 'AI Chatbot Automation for E-Commerce Brand', metric: '70%', result: 'Reduction in Support Tickets', art: 'automation' },
+  { slug: 'northstar-launch', category: 'Marketing', title: 'E-Commerce Growth Campaign', metric: '4X', result: 'Revenue Growth', art: 'growth' },
+];
+
+const industryItems = [
+  { name: 'Healthcare', icon: HeartPulse },
+  { name: 'Education', icon: GraduationCap },
+  { name: 'E-Commerce', icon: ShoppingCart },
+  { name: 'Logistics & Transportation', icon: Truck },
+  { name: 'Travel & Hospitality', icon: Plane },
+  { name: 'Real Estate', icon: Building2 },
+  { name: 'Finance & FinTech', icon: Landmark },
+  { name: 'Manufacturing', icon: Factory },
+  { name: 'Startups', icon: Rocket },
+];
+
+const processSteps = [
+  { title: 'Discover', icon: Search, tone: 'purple', text: 'We understand your business, audience, challenges, and growth goals.' },
+  { title: 'Strategize', icon: Target, tone: 'green', text: 'We design a clear roadmap across technology, marketing, AI, and automation.' },
+  { title: 'Build', icon: CodeXml, tone: 'blue', text: 'We create the required digital products, campaigns, systems, and content.' },
+  { title: 'Launch', icon: Rocket, tone: 'orange', text: 'We deploy, test, optimize, and prepare your business for market execution.' },
+  { title: 'Scale', icon: TrendingUp, tone: 'navy', text: 'We continuously improve performance, conversions, automation, and growth.' },
+];
+---
+<BaseLayout title="AI-Powered Growth & Innovation Company | Biznyss" description="Biznyss helps organizations launch, scale, automate, and innovate through AI, software, creative production, and growth marketing.">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">AI-powered growth ecosystem</span>
+        <h1>Transforming businesses through <em>AI, technology</em> & growth</h1>
+        <p class="lead">Biznyss helps organizations launch digital products, create AI-powered marketing campaigns, automate operations, and accelerate growth through intelligent technology and performance-driven execution.</p>
+        <div class="buttons"><a class="btn btn-primary" href="/contact">Book Strategy Call</a><a class="btn btn-secondary" href="/case-studies">Explore Case Studies</a></div>
+      </div>
+      <HeroVisual />
+    </div>
+  </section>
+
+  <section class="leadership-strip">
+    <div class="container">
+      <div class="leadership-panel">
+        {leadershipMetrics.map((metric) => {
+          const Icon = metric.icon;
+          return (
+            <div class="leadership-item">
+              <span class="leadership-icon"><Icon size={25} strokeWidth={1.7} aria-hidden="true" /></span>
+              <div><strong>{metric.value}</strong><span>{metric.label}</span></div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <CapabilitiesStory />
+
+  <section class="section solutions-section">
+    <div class="container">
+      <div class="section-head solutions-heading"><div><span class="eyebrow">Business solutions</span><h2>Start with the outcome,<br/>not the service.</h2></div><p class="lead">Different stages demand different systems. Choose the ambition that best describes where your business needs to go.</p></div>
+      <div class="solution-list">
+        {solutions.map((solution, index) => (
+          <a href={`/solutions/${solution.slug}`} class="solution-row">
+            <span class="number">0{index + 1}</span><div><h3>{solution.name}</h3><p>{solution.summary}</p></div><span class="solution-audience">{solution.audience}</span><i>↗</i>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section featured-work-section">
+    <div class="container">
+      <div class="compact-heading">
+        <div><span>Featured Case Studies</span><h2>Work Designed to Deliver Business Impact</h2></div>
+        <a href="/case-studies">View All Case Studies <ArrowRight size={15} aria-hidden="true" /></a>
+      </div>
+      <div class="work-grid">
+        {featuredWork.map((study) => (
+          <a class="work-card" href={`/case-studies/${study.slug}`}>
+            <div class:list={['work-art', study.art]}>
+              <span class="art-ui art-ui-one"></span><span class="art-ui art-ui-two"></span><span class="art-glow"></span>
+            </div>
+            <div class="work-content">
+              <span class="work-category">{study.category}</span>
+              <h3>{study.title}</h3>
+              <strong>{study.metric}</strong>
+              <small>{study.result}</small>
+              <span class="work-link">View Case Study <ArrowRight size={13} aria-hidden="true" /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="industry-section">
+    <div class="container">
+      <div class="industry-heading">
+        <div>
+          <span class="compact-kicker">Industries We Serve</span>
+          <h2>Cross-sector perspective.<br/>Context-specific execution.</h2>
+        </div>
+        <p class="lead">We bring patterns from multiple industries without forcing one industry's playbook onto another.</p>
+      </div>
+      <div class="industry-grid">
+        {industryItems.map((industry) => {
+          const Icon = industry.icon;
+          return <div class="industry-card"><Icon size={27} strokeWidth={1.6} aria-hidden="true" /><strong>{industry.name}</strong></div>;
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section process-section">
+    <div class="container">
+      <div class="process-heading"><span>Our Process</span><h2>From Strategy to Scale</h2></div>
+      <div class="process-rail">
+        {processSteps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <div class:list={['process-step', step.tone]}>
+              <span class="process-icon"><Icon size={28} strokeWidth={1.8} aria-hidden="true" /></span>
+              <h3>{index + 1}. {step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface">
+    <div class="container why-grid">
+      <div><span class="eyebrow">Why Biznyss</span><h2>One partner for the systems that create growth.</h2><p class="lead">Less coordination overhead. More strategic continuity from the boardroom to the build.</p></div>
+      <div class="why-list">{['Strategy first','AI first','Technology + marketing together','Leadership driven','Outcome focused','Long-term partnership'].map((item, i) => <div><span>0{i + 1}</span><strong>{item}</strong></div>)}</div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>
+
+<style>
+  .hero { position: relative; overflow: hidden; padding: 164px 0 35px; background: linear-gradient(135deg, #f8fafc 0%, #fff 55%, #f0f6fb 100%); }
+  .hero::before { position: absolute; width: 700px; height: 700px; left: -500px; top: -360px; border: 1px solid var(--border); border-radius: 50%; content: ""; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: clamp(42px,5vw,82px); }
+  .hero-copy .eyebrow { padding: 8px 15px; margin-bottom: 24px; border-radius: 999px; color: #0085ff; background: #dff0ff; font-size: .88rem; font-weight: 760; letter-spacing: -.01em; text-transform: none; }
+  .hero-copy .eyebrow::before { display: none; }
+  .hero-copy h1 { max-width: 760px; color: #202124; font-size: clamp(3.15rem, 5.25vw, 5.35rem); font-weight: 790; line-height: .98; letter-spacing: -.065em; }
+  .hero-copy h1 em { color: #202124; font-style: normal; }
+  .hero-copy .lead { max-width: 680px; margin: 28px 0 34px; color: #7b828a; font-size: clamp(1.08rem, 1.5vw, 1.26rem); font-weight: 600; line-height: 1.48; }
+  .leadership-strip { position: relative; z-index: 3; padding: 24px 0 42px; border-bottom: 1px solid var(--border); background: white; }
+  .leadership-panel { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: white; box-shadow: 0 16px 40px rgba(13,23,32,.09); }
+  .leadership-item { min-height: 96px; display: flex; align-items: center; gap: 15px; padding: 20px 28px; border-left: 1px solid var(--border); }
+  .leadership-item:first-child { border-left: 0; }
+  .leadership-icon { width: 48px; height: 48px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #445c9c; background: #f3f5fb; }
+  .leadership-item strong, .leadership-item span { display: block; }
+  .leadership-item strong { color: #1870cf; font-size: 1.35rem; line-height: 1; letter-spacing: -.03em; }
+  .leadership-item div > span { max-width: 145px; margin-top: 7px; color: #334052; font-size: .68rem; font-weight: 680; line-height: 1.35; }
+  .solutions-section { padding: 78px 0 52px; }
+  .solutions-heading { display: block; max-width: 760px; }
+  .solutions-heading .lead { max-width: 660px; margin-top: 24px; }
+  .solution-list { border-top: 1px solid var(--border); }
+  .solution-row { display: grid; grid-template-columns: 80px 1.3fr 1fr 30px; align-items: center; gap: 28px; padding: 35px 12px; border-bottom: 1px solid var(--border); transition: background .25s ease-out, padding .25s ease-out; }
+  .solution-row:hover { padding-inline: 24px; background: var(--surface); }
+  .solution-row .number { font-size: 1rem; }
+  .solution-row p, .solution-audience { color: var(--muted); font-size: .9rem; }
+  .solution-row i { color: var(--blue); font-size: 0; font-style: normal; }
+  .solution-row i::before { content: "\2197"; font-size: 1.5rem; }
+  .featured-work-section { padding: 46px 0 72px; background: white; }
+  .compact-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 24px; }
+  .compact-heading span, .compact-kicker { display: block; color: #3473b8; font-size: .67rem; font-weight: 850; letter-spacing: .075em; text-transform: uppercase; }
+  .compact-heading h2 { margin-top: 7px; font-size: clamp(1.55rem,2.6vw,2.4rem); letter-spacing: -.035em; }
+  .compact-heading > a { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); font-size: .72rem; font-weight: 800; white-space: nowrap; }
+  .work-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .work-card { overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: white; box-shadow: 0 8px 22px rgba(13,23,32,.045); transition: transform .25s ease-out, box-shadow .25s ease-out; }
+  .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(13,23,32,.1); }
+  .work-art { position: relative; height: 132px; overflow: hidden; background: linear-gradient(145deg,#17233d,#07111f); }
+  .work-art::before, .work-art::after { position: absolute; content: ""; }
+  .work-art::before { width: 76%; height: 62%; left: 12%; bottom: -5%; border: 1px solid rgba(255,255,255,.22); border-radius: 7px 7px 0 0; background: linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.025)); box-shadow: 0 0 28px rgba(26,139,242,.35); }
+  .work-art::after { width: 2px; height: 66%; left: 50%; bottom: 0; transform: skew(-18deg); background: linear-gradient(transparent,#2e8ee7,transparent); box-shadow: -38px 5px 0 rgba(255,255,255,.1),38px 5px 0 rgba(255,255,255,.1); }
+  .art-ui { position: absolute; z-index: 2; border: 1px solid rgba(255,255,255,.2); border-radius: 4px; background: rgba(6,18,35,.72); }
+  .art-ui-one { width: 42%; height: 12px; left: 18%; top: 30%; }
+  .art-ui-two { width: 28%; height: 30px; right: 13%; top: 48%; }
+  .art-glow { position: absolute; width: 60px; height: 60px; right: 10%; top: 12%; border-radius: 50%; background: #168cf5; filter: blur(28px); opacity: .7; }
+  .work-art.city { background: radial-gradient(circle at 25% 70%,#e96d39,transparent 32%),linear-gradient(145deg,#1d2e50,#08111e); }
+  .work-art.city::before { height: 78%; background: repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 3px,transparent 3px 13px); clip-path: polygon(0 100%,0 45%,17% 45%,17% 10%,32% 10%,32% 58%,48% 58%,48% 28%,63% 28%,63% 0,78% 0,78% 50%,100% 50%,100% 100%); border: 0; }
+  .work-art.campaign { background: radial-gradient(circle at 70% 35%,#f16f3c,transparent 28%),linear-gradient(155deg,#152b50,#0a0f19); }
+  .work-art.campaign::before { width: 65%; height: 40%; transform: rotate(-12deg); background: linear-gradient(135deg,#101923,#df6636); }
+  .work-art.logistics { background: radial-gradient(circle at 25% 65%,#126ec5,transparent 30%),linear-gradient(145deg,#0a1728,#0e3556); }
+  .work-art.automation { background: radial-gradient(circle at 50% 45%,#0c94ee,transparent 27%),linear-gradient(145deg,#081a36,#05101d); }
+  .work-art.automation::before { width: 48%; height: 60%; left: 26%; border-radius: 10px; }
+  .work-art.growth { background: radial-gradient(circle at 75% 30%,#e2396b,transparent 28%),linear-gradient(145deg,#2b1320,#080b13); }
+  .work-art.growth::after { width: 58%; height: 2px; left: 23%; bottom: 42%; transform: rotate(-24deg); background: #f35678; box-shadow: 22px -12px 0 #f35678,-22px 12px 0 #f35678; }
+  .work-content { position: relative; min-height: 205px; display: flex; flex-direction: column; padding: 15px 14px; }
+  .work-category { align-self: flex-start; margin-top: -24px; margin-bottom: 13px; padding: 4px 7px; border-radius: 3px; color: #5841ac; background: #eeeafe; font-size: .52rem; font-weight: 850; text-transform: uppercase; }
+  .work-card:nth-child(2) .work-category, .work-card:nth-child(4) .work-category { color: #16784a; background: #e6f7ed; }
+  .work-card:nth-child(3) .work-category, .work-card:nth-child(5) .work-category { color: #bf5a23; background: #fff0e6; }
+  .work-card:nth-child(6) .work-category { color: #16784a; background: #e6f7ed; }
+  .work-content h3 { min-height: 47px; font-size: .79rem; line-height: 1.35; letter-spacing: -.015em; }
+  .work-content > strong { margin-top: 13px; color: #236fc3; font-size: 1.25rem; line-height: 1; }
+  .work-content > small { margin-top: 5px; color: var(--muted); font-size: .58rem; }
+  .work-link { display: flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 14px; color: var(--blue); font-size: .6rem; font-weight: 800; }
+  .industry-section { padding: 65px 0 80px; background: #fbfcfe; }
+  .compact-kicker { margin-bottom: 12px; }
+  .industry-heading { display: block; max-width: 790px; margin-bottom: 30px; }
+  .industry-heading h2 { font-size: clamp(2rem,3.5vw,3.45rem); }
+  .industry-heading .lead { max-width: 650px; margin-top: 22px; }
+  .industry-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 12px; }
+  .industry-card { min-height: 112px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 15px 8px; border: 1px solid var(--border); border-radius: 10px; color: #455b88; background: white; box-shadow: 0 7px 20px rgba(13,23,32,.035); text-align: center; transition: transform .2s ease-out, border-color .2s ease-out; }
+  .industry-card:hover { transform: translateY(-3px); border-color: #b9cce0; }
+  .industry-card strong { color: #263347; font-size: .67rem; line-height: 1.25; }
+  .process-section { padding: 92px 0 100px; background: white; }
+  .process-heading { margin-bottom: 42px; text-align: center; }
+  .process-heading span { display: block; margin-bottom: 7px; color: #3473b8; font-size: .67rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
+  .process-heading h2 { font-size: clamp(1.85rem, 3vw, 2.85rem); }
+  .process-rail { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; }
+  .process-rail::before { position: absolute; height: 1px; left: 8%; right: 8%; top: 42px; border-top: 1px dashed #c7d3df; content: ""; }
+  .process-step { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .process-icon { width: 78px; height: 78px; display: grid; place-items: center; margin-bottom: 16px; border-radius: 50%; color: #7354c8; background: #f0edff; box-shadow: inset 0 0 0 1px rgba(115,84,200,.12), 0 12px 30px rgba(13,23,32,.05); }
+  .process-step.green .process-icon { color: #168d53; background: #e9f7ef; }
+  .process-step.blue .process-icon { color: #2471c8; background: #eaf3ff; }
+  .process-step.orange .process-icon { color: #d66b2f; background: #fff0e6; }
+  .process-step.navy .process-icon { color: #1f63b8; background: #eef5ff; }
+  .process-step h3 { font-size: 1rem; letter-spacing: -.02em; }
+  .process-step p { max-width: 190px; margin-top: 10px; color: var(--muted); font-size: .76rem; line-height: 1.55; }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 100px; }
+  .why-grid .lead { margin-top: 25px; }
+  .why-list { border-top: 1px solid var(--border); }
+  .why-list div { display: flex; gap: 28px; padding: 19px 0; border-bottom: 1px solid var(--border); }
+  .why-list span { color: var(--orange); font-size: .75rem; }
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-copy { max-width: 780px; }
+    .hero :global(.ecosystem) { max-width: 560px; }
+    .leadership-panel { grid-template-columns: repeat(2,1fr); }
+    .leadership-item:nth-child(3) { border-left: 0; border-top: 1px solid var(--border); }
+    .leadership-item:nth-child(4) { border-top: 1px solid var(--border); }
+    .industry-grid { grid-template-columns: repeat(3,1fr); }
+    .industry-heading { align-items: start; flex-direction: column; }
+    .process-rail { grid-template-columns: 1fr; gap: 24px; }
+    .process-rail::before { width: 1px; height: auto; left: 39px; right: auto; top: 36px; bottom: 36px; border-top: 0; border-left: 1px dashed #c7d3df; }
+    .process-step { min-height: 112px; display: grid; grid-template-columns: 78px 1fr; align-items: center; column-gap: 18px; text-align: left; }
+    .process-icon { margin: 0; }
+    .process-step p { max-width: 520px; }
+    .why-grid { grid-template-columns: 1fr; gap: 45px; }
+  }
+  @media (max-width: 680px) {
+    .hero { padding-top: 132px; }
+    .hero-copy h1 { font-size: clamp(2.55rem, 11vw, 3.45rem); line-height: 1.03; }
+    .leadership-panel { grid-template-columns: 1fr; }
+    .leadership-item, .leadership-item:first-child { border-top: 1px solid var(--border); border-left: 0; }
+    .leadership-item:first-child { border-top: 0; }
+    .solution-row { grid-template-columns: 45px 1fr 28px; }
+    .solution-audience { display: none; }
+    .featured-work-section { padding: 40px 0 56px; overflow: hidden; }
+    .compact-heading { align-items: start; flex-direction: column; }
+    .compact-heading h2 { font-size: clamp(1.55rem, 7vw, 2.05rem); }
+    .industry-heading { gap: 22px; }
+    .work-grid {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 2px 0 16px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .work-grid::-webkit-scrollbar { display: none; }
+    .work-card { flex: 0 0 min(76vw, 285px); scroll-snap-align: start; }
+    .work-art { height: 118px; }
+    .work-content { min-height: 178px; }
+    .industry-grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 430px) {
+    .work-card { flex-basis: 82vw; }
+  }
+</style>
