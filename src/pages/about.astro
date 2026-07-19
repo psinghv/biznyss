@@ -2,38 +2,150 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CTA from '../components/CTA.astro';
+import { Target, Compass, Shield, Zap, Heart, Award } from 'lucide-react';
+
+const values = [
+  { icon: Target, tone: 'blue', title: 'Outcome over output', text: 'We measure success by the business metrics that move, not the deliverables shipped.' },
+  { icon: Compass, tone: 'green', title: 'Strategy before tactics', text: 'Every engagement starts with the why. Tactics without strategy burn budget.' },
+  { icon: Zap, tone: 'orange', title: 'Speed as a discipline', text: 'We ship in weeks, not quarters. Momentum compounds; waiting does not.' },
+  { icon: Shield, tone: 'purple', title: 'Senior ownership', text: 'The team that scopes the work does the work. No handoffs, no juniors learning on your budget.' },
+  { icon: Heart, tone: 'pink', title: 'Partnership, not vendor', text: 'We invest in your outcomes. Our relationships span years, not projects.' },
+  { icon: Award, tone: 'teal', title: 'Craft at every layer', text: 'From strategy to pixel to deploy, we hold a high bar for quality.' },
+];
+
+const timeline = [
+  { year: '2020', title: 'Founded', text: 'Biznyss started as a senior collective across AI, software, and growth marketing.' },
+  { year: '2021', title: 'First scaled programs', text: 'Shipped multi-channel growth programs for B2B and e-commerce clients.' },
+  { year: '2022', title: 'AI Creative Studio', text: 'Built the AI creative production pipeline for video, CGI, and social at scale.' },
+  { year: '2023', title: 'Automation practice', text: 'Launched AI agents, chatbots, and workflow automation as a dedicated practice.' },
+  { year: '2024', title: 'Connected ecosystem', text: 'Unified all four capabilities into one accountable growth system.' },
+];
+
+const stats = [
+  { value: '40+', label: 'Projects delivered' },
+  { value: '4', label: 'Connected capabilities' },
+  { value: '9', label: 'Industries served' },
+  { value: '20+', label: 'Years leadership experience' },
+];
 ---
-<BaseLayout title="About" description="Biznyss is an AI-powered growth and innovation company connecting strategy, technology, creative production, marketing, and automation.">
-  <PageHero eyebrow="About Biznyss" title="Built for leaders who see growth as a connected system." text="We are a senior, multidisciplinary partner for organizations navigating growth, transformation, and the practical application of AI." />
-  <section class="section"><div class="container vision-grid">
-    <div><span class="eyebrow">Our vision</span><h2>Make intelligent growth accessible, practical, and transformative.</h2></div>
-    <div><span class="eyebrow">Our mission</span><p class="lead">Help ambitious businesses build, market, automate, and scale by bringing AI, technology, creative excellence, and growth strategy into one accountable ecosystem.</p></div>
-  </div></section>
-  <section class="section dark"><div class="container">
-    <div class="section-head"><div><span class="eyebrow light">Our values</span><h2>How we make decisions.</h2></div></div>
-    <div class="grid-3">{[['Clarity over theater','We make complex choices understandable and useful.'],['Outcomes over output','Work matters when it changes business performance.'],['Partnership over transactions','The best results come from context, trust, and continuity.'],['Intelligence in action','AI is valuable when it improves real work.'],['Craft with purpose','Every detail should strengthen the strategy.'],['Momentum with rigor','Move quickly without creating tomorrow’s problems.']].map(([title,text],i)=><div class="value"><span>0{i+1}</span><h3>{title}</h3><p>{text}</p></div>)}</div>
-  </div></section>
-  <section class="section section-bg"><div class="container trust-grid">
-    <div><span class="eyebrow">Leadership driven</span><h2>Senior perspective stays close to the work.</h2><p class="lead">Our model puts experienced technology and growth leadership around every engagement, from the first strategic question through execution and optimization.</p></div>
-    <div class="trust-card"><span>20+</span><strong>Years in technology leadership</strong><span>20+</span><strong>Years in growth marketing leadership</strong><span>1</span><strong>Integrated partner accountable for outcomes</strong></div>
-  </div></section>
-  <section class="section"><div class="container">
-    <div class="section-head"><div><span class="eyebrow">Why clients trust us</span><h2>Commercial thinking.<br/>Technical depth.<br/>Creative ambition.</h2></div></div>
-    <div class="grid-3">{['We begin with the business case','We connect disciplines around one roadmap','We build for adoption, not presentation','We communicate directly and transparently','We measure what matters','We stay for the next stage'].map((item)=><div class="card"><h3>{item}</h3></div>)}</div>
-  </div></section>
-  <CTA />
+
+<BaseLayout title="About Biznyss | AI-Powered Growth Company" description="Biznyss is a senior collective across AI creative, growth marketing, software, and automation — one accountable team for the systems that create growth.">
+  <PageHero
+    eyebrow="About Biznyss"
+    title="A senior collective, built to be your growth team."
+    text="We are strategists, engineers, designers, marketers, and AI specialists who believe the best work happens when disciplines connect. One team, one plan, one accountable outcome."
+    variant="accent"
+    accent="blue"
+    visual="split"
+    stats={stats}
+  />
+
+  <section class="section">
+    <div class="container story-grid">
+      <div class="story-copy">
+        <span class="eyebrow">Our story</span>
+        <h2>Built for the gap between strategy and execution.</h2>
+        <p class="lead">Most businesses don't have a strategy problem or an execution problem — they have a <strong>connection</strong> problem. The boardroom sets direction, the build team ships, and the marketing team amplifies, but nobody owns the whole arc. Biznyss was founded to close that gap.</p>
+        <p class="lead">We bring four disciplines under one roof so the strategy that gets designed is the strategy that gets built, shipped, and measured. No translation layers. No finger-pointing. Just one accountable team driving toward your business outcomes.</p>
+      </div>
+      <aside class="story-aside">
+        <div class="stat-strip">
+          {stats.map((s) => (
+            <div class="stat">
+              <span class="stat-num">{s.value}</span>
+              <span class="stat-label">{s.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="principle-card">
+          <span class="icon-chip blue"><Compass size={20} strokeWidth={1.8} /></span>
+          <strong>One team, one plan</strong>
+          <p>The people who scope the work do the work. Senior ownership from kickoff to scale.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-bg">
+    <div class="container">
+      <div class="section-head"><div>
+        <span class="eyebrow orange">What we believe</span>
+        <h2>Principles that shape every engagement.</h2>
+        <p class="lead">Six values that show up in how we scope, build, and partner.</p>
+      </div></div>
+      <div class="values-grid">
+        {values.map(({ icon: Icon, tone, title, text }) => (
+          <div class="card value-card">
+            <span class={`icon-box ${tone}`}><Icon size={24} strokeWidth={1.8} /></span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><div>
+        <span class="eyebrow green">How we got here</span>
+        <h2>A timeline of connected growth.</h2>
+        <p class="lead">From senior collective to integrated growth ecosystem.</p>
+      </div></div>
+      <div class="timeline">
+        {timeline.map((t, i) => (
+          <div class="tl-item">
+            <div class="tl-marker"><span>{t.year}</span><i></i></div>
+            <div class="tl-body">
+              <h3>{t.title}</h3>
+              <p>{t.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Let's build your growth system together." />
 </BaseLayout>
+
 <style>
-  .vision-grid,.trust-grid { display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center }
-  .vision-grid h2 { font-size:clamp(2.4rem,4.3vw,4.3rem) }
-  .value { min-height:270px;padding:30px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.035) }
-  .value span { color:#8db8ff;font-size:.72rem }
-  .value h3 { margin-top:65px }
-  .value p { margin-top:14px;color:#9fb0bd }
-  .trust-card { display:grid;grid-template-columns:110px 1fr;gap:0;padding:20px 35px;border-radius:24px;background:white;box-shadow:var(--shadow) }
-  .trust-card span,.trust-card strong { padding:25px 0;border-bottom:1px solid var(--border) }
-  .trust-card span { color:var(--orange);font-size:2.5rem;font-weight:850;letter-spacing:-.05em }
-  .trust-card strong { align-self:center;color:var(--navy) }
-  .card { min-height:160px;display:flex;align-items:end }
-  @media(max-width:800px){.vision-grid,.trust-grid{grid-template-columns:1fr;gap:45px}}
+  .story-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; align-items: start; }
+  .story-copy h2 { margin: 8px 0 24px; }
+  .story-copy p + p { margin-top: 18px; }
+  .story-copy strong { color: var(--navy); }
+  .story-aside { display: grid; gap: 24px; position: sticky; top: 120px; }
+  .principle-card { padding: 30px; border-radius: 20px; background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow); }
+  .principle-card strong { display: block; margin: 16px 0 8px; font-size: 1.2rem; }
+  .principle-card p { color: var(--muted); font-size: .92rem; }
+
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .value-card h3 { font-size: 1.15rem; }
+  .value-card p { margin-top: 12px; color: var(--muted); font-size: .92rem; }
+
+  .timeline { position: relative; display: grid; gap: 0; padding-left: 8px; }
+  .timeline::before { content: ""; position: absolute; left: 88px; top: 24px; bottom: 24px; width: 2px; background: linear-gradient(var(--blue), var(--orange), var(--green)); border-radius: 999px; }
+  .tl-item { display: grid; grid-template-columns: 80px 1fr; gap: 40px; padding: 0 0 36px; position: relative; }
+  .tl-marker { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .tl-marker span { display: grid; place-items: center; width: 80px; height: 48px; border-radius: 12px; background: var(--navy-dark); color: #fff; font-weight: 800; font-size: .9rem; z-index: 2; box-shadow: 0 8px 20px rgba(13,23,32,.2); }
+  .tl-item:nth-child(1) .tl-marker span { background: var(--blue); }
+  .tl-item:nth-child(2) .tl-marker span { background: var(--orange); }
+  .tl-item:nth-child(3) .tl-marker span { background: var(--green); }
+  .tl-item:nth-child(4) .tl-marker span { background: var(--purple); }
+  .tl-item:nth-child(5) .tl-marker span { background: var(--teal); }
+  .tl-body { padding-top: 8px; }
+  .tl-body h3 { font-size: 1.25rem; margin-bottom: 8px; }
+  .tl-body p { color: var(--muted); }
+
+  @media (max-width: 960px) {
+    .story-grid { grid-template-columns: 1fr; gap: 36px; }
+    .story-aside { position: static; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .timeline::before { left: 60px; }
+    .tl-item { grid-template-columns: 60px 1fr; gap: 24px; }
+    .tl-marker span { width: 60px; height: 40px; font-size: .8rem; }
+  }
+  @media (max-width: 680px) {
+    .values-grid { grid-template-columns: 1fr; }
+  }
 </style>

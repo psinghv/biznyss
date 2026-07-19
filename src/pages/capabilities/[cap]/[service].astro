@@ -2,7 +2,14 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import CTA from '../../../components/CTA.astro';
-import { services, getServicesForCap, getServiceBySlug, getServicesBySlugList, type ServicePage } from '../../../data/services';
+import {
+  ArrowRight, Check, ChevronRight, Plus, Minus,
+  Video, Film, PlayCircle, Sparkles, Share2,
+  Search, Megaphone, Briefcase, Target, Gauge,
+  Code2, Smartphone, Layers, Building2, Boxes,
+  Bot, MessageSquare, Headphones, Workflow, BookOpen,
+} from 'lucide-react';
+import { services, getServicesBySlugList, type ServicePage, type Deliverable } from '../../../data/services';
 import { capabilities, solutions } from '../../../data/site';
 
 export function getStaticPaths() {
@@ -13,103 +20,133 @@ export function getStaticPaths() {
 }
 
 const { service } = Astro.props as { service: ServicePage };
-const parent = capabilities.find((c) => c.slug === service.cap);
+
+const capConfig: Record<string, { accent: string; variant: 'light'|'dark'|'accent'; visual: 'dashboard'|'split'|'minimal'; icon: any; iconTone: string }> = {
+  'ai-creative-studio': { accent: 'purple', variant: 'accent', visual: 'split', icon: Film, iconTone: 'purple' },
+  'growth-marketing':   { accent: 'green',  variant: 'accent', visual: 'dashboard', icon: TrendingUp, iconTone: 'green' },
+  'software-products':  { accent: 'blue',   variant: 'accent', visual: 'dashboard', icon: Code2, iconTone: 'blue' },
+  'ai-automation':      { accent: 'orange',  variant: 'accent', visual: 'dashboard', icon: Bot, iconTone: 'orange' },
+};
+import { TrendingUp } from 'lucide-react';
+const cfg = capConfig[service.cap] ?? capConfig['software-products'];
+
+const deliverableIcons: Record<string, any> = {
+  'ai-video-advertising': [Sparkles, Video, PlayCircle, Share2, Film, Target],
+  'commercial-production': [Film, Video, PlayCircle, Sparkles, Share2, Target],
+  'product-explainers': [PlayCircle, BookOpen, Layers, Sparkles, Share2, Target],
+  'cgi-motion-graphics': [Boxes, Layers, Sparkles, Video, Film, Target],
+  'social-media-creatives': [Share2, Sparkles, Target, PlayCircle, BookOpen, Gauge],
+  'seo-content': [Search, BookOpen, Layers, Sparkles, Target, TrendingUp],
+  'google-meta-ads': [Megaphone, Target, Gauge, Search, TrendingUp, Share2],
+  'linkedin-marketing': [Briefcase, Megaphone, Target, Share2, Search, Gauge],
+  'lead-generation': [Target, Megaphone, Search, Share2, Gauge, TrendingUp],
+  'conversion-optimization': [Gauge, Target, Search, Megaphone, Share2, TrendingUp],
+  'web-development': [Code2, Layers, Building2, Smartphone, Boxes, Target],
+  'mobile-applications': [Smartphone, Code2, Layers, Boxes, Building2, Target],
+  'saas-development': [Layers, Code2, Boxes, Building2, Smartphone, Target],
+  'enterprise-solutions': [Building2, Boxes, Code2, Layers, Smartphone, Target],
+  'custom-applications': [Boxes, Code2, Layers, Smartphone, Building2, Target],
+  'ai-agents-assistants': [Bot, Sparkles, MessageSquare, Workflow, BookOpen, Target],
+  'chatbot-development': [MessageSquare, Bot, Sparkles, Workflow, Headphones, Target],
+  'support-automation': [Headphones, Bot, MessageSquare, Workflow, BookOpen, Target],
+  'workflow-automation': [Workflow, Bot, MessageSquare, Headphones, BookOpen, Target],
+  'knowledge-solutions': [BookOpen, Bot, MessageSquare, Workflow, Headphones, Target],
+};
+const dIcons = deliverableIcons[service.slug] ?? [Sparkles, Target, Layers, Search, Share2, Gauge];
+const tones = ['blue','orange','green','purple','teal','pink'];
+
 const siblings = getServicesBySlugList(service.relatedServices);
 const relatedSols = solutions.filter((s) => service.relatedSolutions.includes(s.slug));
 
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: service.title,
-  description: service.metaDescription,
-  provider: { '@type': 'Organization', name: 'Biznyss', url: 'https://biznyss.com' },
-  serviceType: service.title,
-  areaServed: 'Global',
-  category: service.capName,
-};
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: service.faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biznyss.com/' },
-    { '@type': 'ListItem', position: 2, name: 'Capabilities', item: 'https://biznyss.com/capabilities' },
-    { '@type': 'ListItem', position: 3, name: service.capName, item: `https://biznyss.com/capabilities/${service.cap}` },
-    { '@type': 'ListItem', position: 4, name: service.title, item: `https://biznyss.com/capabilities/${service.cap}/${service.slug}` },
-  ],
-};
-
-const combinedSchema = {
-  '@context': 'https://schema.org',
-  '@graph': [serviceSchema, faqSchema, breadcrumbSchema],
-};
+const serviceSchema = { '@context':'https://schema.org','@type':'Service', name: service.title, description: service.metaDescription, provider:{'@type':'Organization',name:'Biznyss',url:'https://biznyss.com'}, serviceType: service.title, areaServed:'Global', category: service.capName };
+const faqSchema = { '@context':'https://schema.org','@type':'FAQPage', mainEntity: service.faqs.map(f => ({'@type':'Question',name:f.q,acceptedAnswer:{'@type':'Answer',text:f.a}})) };
+const breadcrumbSchema = { '@context':'https://schema.org','@type':'BreadcrumbList', itemListElement:[
+  {'@type':'ListItem',position:1,name:'Home',item:'https://biznyss.com/'},
+  {'@type':'ListItem',position:2,name:'Capabilities',item:'https://biznyss.com/capabilities'},
+  {'@type':'ListItem',position:3,name: service.capName, item:`https://biznyss.com/capabilities/${service.cap}`},
+  {'@type':'ListItem',position:4,name: service.title, item:`https://biznyss.com/capabilities/${service.cap}/${service.slug}`},
+]};
+const combinedSchema = { '@context':'https://schema.org','@graph':[serviceSchema,faqSchema,breadcrumbSchema] };
 ---
 
 <BaseLayout title={service.metaTitle} description={service.metaDescription} schema={combinedSchema}>
-  <PageHero eyebrow={service.eyebrow} title={service.headline} text={service.lead} />
+  <PageHero eyebrow={service.eyebrow} title={service.headline} text={service.lead} variant={cfg.variant} accent={cfg.accent} visual={cfg.visual} stats={[
+    { value: service.benefits[0]?.stat ?? '+40%', label: service.benefits[0]?.label ?? 'Average lift' },
+    { value: '4–8 wk', label: 'Typical engagement' },
+    { value: 'Senior', label: 'Dedicated team' },
+  ]} />
 
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <div class="container">
-      <a href="/">Home</a><span>/</span>
-      <a href="/capabilities">Capabilities</a><span>/</span>
-      <a href={`/capabilities/${service.cap}`}>{service.capName}</a><span>/</span>
+      <a href="/">Home</a><ChevronRight size={13} />
+      <a href="/capabilities">Capabilities</a><ChevronRight size={13} />
+      <a href={`/capabilities/${service.cap}`}>{service.capName}</a><ChevronRight size={13} />
       <span aria-current="page">{service.title}</span>
     </div>
   </nav>
 
   <section class="section">
-    <div class="container">
-      <div class="about-block">
-        <span class="eyebrow">Overview</span>
-        <h2>What is {service.title}?</h2>
-        <p class="lead reading">{service.about}</p>
+    <div class="container overview-grid">
+      <div class="overview-copy">
+        <span class={`eyebrow ${cfg.iconTone}`}>Overview</span>
+        <h2>What is {service.title.toLowerCase()}?</h2>
+        <p class="lead">{service.about}</p>
+        <div class="kw-pills">
+          {service.keywords.slice(0,4).map((kw) => <span class="pill">{kw}</span>)}
+        </div>
       </div>
+      <aside class="overview-aside">
+        <div class={`aside-card tone-${cfg.iconTone}`}>
+          <span class="aside-icon"><cfg.icon size={26} strokeWidth={1.8} /></span>
+          <strong>{service.capName}</strong>
+          <p>Part of the Biznyss growth ecosystem.</p>
+          <a href={`/capabilities/${service.cap}`} class="text-link">Explore capability</a>
+        </div>
+      </aside>
     </div>
   </section>
 
   <section class="section section-bg">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">What's included</span>
-          <h2>Deliverables that drive outcomes.</h2>
-        </div>
-      </div>
-      <div class="grid-3">
-        {service.deliverables.map((d) => (
-          <div class="card deliverable">
-            <h3>{d.label}</h3>
-            <p>{d.detail}</p>
-          </div>
-        ))}
+      <div class="section-head"><div>
+        <span class={`eyebrow ${cfg.iconTone}`}>What's included</span>
+        <h2>Deliverables that drive outcomes.</h2>
+        <p class="lead">Every engagement is scoped to your goals. Here's what we typically deliver.</p>
+      </div></div>
+      <div class="deliverable-grid">
+        {service.deliverables.map((d, i) => {
+          const Icon = dIcons[i] ?? Sparkles;
+          const tone = tones[i % tones.length];
+          return (
+            <div class="card deliverable">
+              <span class={`icon-box ${tone}`}><Icon size={22} strokeWidth={1.8} /></span>
+              <h3>{d.label}</h3>
+              <p>{d.detail}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">How we work</span>
-          <h2>A process built for momentum.</h2>
-        </div>
-      </div>
-      <div class="process-grid">
-        {service.process.map((step) => (
-          <div class="process-step">
-            <span class="step-num">{step.n}</span>
-            <h3>{step.title}</h3>
-            <p>{step.desc}</p>
+      <div class="section-head"><div>
+        <span class={`eyebrow ${cfg.iconTone}`}>How we work</span>
+        <h2>A process built for momentum.</h2>
+        <p class="lead">Five connected phases, one accountable team.</p>
+      </div></div>
+      <div class="process-timeline">
+        {service.process.map((step, i) => (
+          <div class="timeline-step">
+            <div class="timeline-marker">
+              <span class="marker-num">{step.n}</span>
+              <span class="marker-line"></span>
+            </div>
+            <div class="timeline-body">
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -118,37 +155,44 @@ const combinedSchema = {
 
   <section class="section section-bg">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">Outcomes</span>
-          <h2>Metrics that matter to your business.</h2>
-        </div>
-      </div>
-      <div class="grid-4 benefit-grid">
-        {service.benefits.map((b) => (
-          <div class="benefit">
-            <span class="benefit-stat">{b.stat}</span>
-            <strong>{b.label}</strong>
-            <p>{b.desc}</p>
-          </div>
-        ))}
+      <div class="section-head"><div>
+        <span class={`eyebrow ${cfg.iconTone}`}>Outcomes</span>
+        <h2>Metrics that matter to your business.</h2>
+        <p class="lead">Real numbers from real engagements. Your results are scoped at kickoff.</p>
+      </div></div>
+      <div class="benefit-grid">
+        {service.benefits.map((b, i) => {
+          const tone = tones[i % tones.length];
+          return (
+            <div class={`benefit-card tone-${tone}`}>
+              <span class="benefit-stat">{b.stat}</span>
+              <strong>{b.label}</strong>
+              <p>{b.desc}</p>
+              <span class="benefit-bar"><i></i></span>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <div class="faq-wrap">
-        <span class="eyebrow">FAQ</span>
-        <h2>Common questions about {service.title.toLowerCase()}.</h2>
-        <div class="faq-list">
-          {service.faqs.map((faq) => (
-            <details class="faq-item">
-              <summary>{faq.q}</summary>
-              <p>{faq.a}</p>
-            </details>
-          ))}
-        </div>
+    <div class="container faq-layout">
+      <div class="faq-intro">
+        <span class={`eyebrow ${cfg.iconTone}`}>FAQ</span>
+        <h2>Common questions.</h2>
+        <p class="lead">Answers designed to be cited by AI search. Clear, direct, and specific.</p>
+      </div>
+      <div class="faq-list">
+        {service.faqs.map((faq) => (
+          <details class="faq-item">
+            <summary>
+              <span>{faq.q}</span>
+              <span class="faq-toggle"><Plus size={16} /></span>
+            </summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
       </div>
     </div>
   </section>
@@ -156,20 +200,23 @@ const combinedSchema = {
   {siblings.length > 0 && (
     <section class="section section-bg">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow">Related services</span>
-            <h2>Explore more in {service.capName}.</h2>
-          </div>
-        </div>
-        <div class="grid-3">
-          {siblings.map((sib) => (
-            <a class="card related-card" href={`/capabilities/${sib.cap}/${sib.slug}`}>
-              <h3>{sib.title}</h3>
-              <p>{sib.lead.slice(0, 130)}…</p>
-              <span class="text-link">Learn more</span>
-            </a>
-          ))}
+        <div class="section-head"><div>
+          <span class={`eyebrow ${cfg.iconTone}`}>Related services</span>
+          <h2>Explore more in {service.capName}.</h2>
+        </div></div>
+        <div class="related-grid">
+          {siblings.map((sib, i) => {
+            const Icon = dIcons[i] ?? Sparkles;
+            const tone = tones[i % tones.length];
+            return (
+              <a class="card related-card" href={`/capabilities/${sib.cap}/${sib.slug}`}>
+                <span class={`icon-box ${tone}`}><Icon size={22} strokeWidth={1.8} /></span>
+                <h3>{sib.title}</h3>
+                <p>{sib.lead.slice(0, 110)}…</p>
+                <span class="text-link">Learn more</span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -178,18 +225,16 @@ const combinedSchema = {
   {relatedSols.length > 0 && (
     <section class="section">
       <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow">Solutions</span>
-            <h2>Pair this with a solution.</h2>
-          </div>
-        </div>
-        <div class="grid-2">
+        <div class="section-head"><div>
+          <span class={`eyebrow ${cfg.iconTone}`}>Solutions</span>
+          <h2>Pair this with a solution.</h2>
+        </div></div>
+        <div class="solution-grid">
           {relatedSols.map((sol) => (
             <a class="card solution-link" href={`/solutions/${sol.slug}`}>
               <span class="tag">{sol.name}</span>
               <h3>{sol.summary}</h3>
-              <span class="text-link">Explore solution</span>
+              <span class="text-link">Explore solution <ArrowRight size={14} /></span>
             </a>
           ))}
         </div>
@@ -197,7 +242,7 @@ const combinedSchema = {
     </section>
   )}
 
-  <CTA title={`Put ${service.title} to work for your business.`} />
+  <CTA title={`Put ${service.title.toLowerCase()} to work.`} />
 </BaseLayout>
 
 <style>
@@ -207,42 +252,78 @@ const combinedSchema = {
   .breadcrumb a:hover { text-decoration: underline; }
   .breadcrumb span[aria-current] { color: var(--ink); }
 
-  .about-block { max-width: 820px; }
-  .about-block h2 { margin: 6px 0 18px; }
+  .overview-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 60px; align-items: start; }
+  .overview-copy h2 { margin: 8px 0 20px; }
+  .kw-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .aside-card { padding: 32px; border-radius: 20px; background: linear-gradient(145deg, var(--blue-soft), #fff); border: 1px solid var(--border); }
+  .aside-card.tone-green { background: linear-gradient(145deg, var(--green-soft), #fff); }
+  .aside-card.tone-orange { background: linear-gradient(145deg, var(--orange-soft), #fff); }
+  .aside-card.tone-purple { background: linear-gradient(145deg, var(--purple-soft), #fff); }
+  .aside-card.tone-blue { background: linear-gradient(145deg, var(--blue-soft), #fff); }
+  .aside-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: #fff; color: var(--blue); box-shadow: var(--shadow); margin-bottom: 20px; }
+  .aside-card.tone-green .aside-icon { color: var(--green); }
+  .aside-card.tone-orange .aside-icon { color: var(--orange); }
+  .aside-card.tone-purple .aside-icon { color: var(--purple); }
+  .aside-card strong { display: block; font-size: 1.3rem; }
+  .aside-card p { margin: 8px 0 18px; color: var(--muted); font-size: .9rem; }
 
-  .deliverable h3 { font-size: 1.15rem; }
-  .deliverable p { margin-top: 10px; }
+  .deliverable-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .deliverable h3 { font-size: 1.1rem; }
 
-  .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
-  .process-step { padding: 26px 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
-  .step-num { display: block; margin-bottom: 14px; color: var(--orange); font-size: 1.6rem; font-weight: 800; letter-spacing: -.03em; }
-  .process-step h3 { font-size: 1.05rem; }
-  .process-step p { margin-top: 10px; color: var(--muted); font-size: .92rem; }
+  .process-timeline { display: grid; gap: 0; }
+  .timeline-step { display: grid; grid-template-columns: 60px 1fr; gap: 24px; padding-bottom: 32px; }
+  .timeline-marker { position: relative; display: flex; flex-direction: column; align-items: center; }
+  .marker-num { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 800; font-size: 1rem; box-shadow: 0 8px 20px rgba(10,93,240,.25); z-index: 2; }
+  .marker-line { position: absolute; top: 48px; bottom: -32px; width: 2px; background: linear-gradient(var(--blue), transparent); }
+  .timeline-step:last-child .marker-line { display: none; }
+  .timeline-body { padding-top: 8px; padding-bottom: 8px; }
+  .timeline-body h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .timeline-body p { color: var(--muted); }
 
-  .benefit { padding: 28px 22px; border: 1px solid var(--border); border-radius: 18px; background: #fff; }
-  .benefit-stat { display: block; margin-bottom: 12px; color: var(--blue); font-size: 2.4rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
-  .benefit strong { display: block; margin-bottom: 10px; font-size: 1rem; }
-  .benefit p { color: var(--muted); font-size: .9rem; }
+  .benefit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .benefit-card { position: relative; overflow: hidden; padding: 30px 24px; border-radius: 18px; background: #fff; border: 1px solid var(--border); transition: transform .3s ease, box-shadow .3s ease; }
+  .benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+  .benefit-stat { display: block; font-size: 2.6rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--blue); }
+  .benefit-card.tone-orange .benefit-stat { color: var(--orange); }
+  .benefit-card.tone-green .benefit-stat { color: var(--green); }
+  .benefit-card.tone-purple .benefit-stat { color: var(--purple); }
+  .benefit-card.tone-teal .benefit-stat { color: var(--teal); }
+  .benefit-card.tone-pink .benefit-stat { color: var(--pink); }
+  .benefit-card strong { display: block; margin: 14px 0 8px; font-size: 1rem; }
+  .benefit-card p { color: var(--muted); font-size: .88rem; }
+  .benefit-bar { display: block; height: 4px; margin-top: 18px; border-radius: 999px; background: var(--section); overflow: hidden; }
+  .benefit-bar i { display: block; height: 100%; width: 70%; border-radius: 999px; background: linear-gradient(90deg, var(--blue), var(--teal)); animation: draw-bar 1.4s ease-out both; }
+  .benefit-card.tone-orange .benefit-bar i { background: linear-gradient(90deg, var(--orange), var(--amber)); }
+  .benefit-card.tone-green .benefit-bar i { background: linear-gradient(90deg, var(--green), var(--teal)); }
+  .benefit-card.tone-purple .benefit-bar i { background: linear-gradient(90deg, var(--purple), var(--pink)); }
 
-  .faq-wrap { max-width: 820px; }
-  .faq-wrap h2 { margin: 6px 0 28px; }
-  .faq-list { display: grid; gap: 14px; }
-  .faq-item { padding: 20px 24px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
-  .faq-item summary { cursor: pointer; font-weight: 700; font-size: 1.02rem; list-style: none; }
+  .faq-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start; }
+  .faq-intro h2 { margin: 8px 0 16px; }
+  .faq-list { display: grid; gap: 12px; }
+  .faq-item { padding: 22px 26px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); transition: border-color .2s ease; }
+  .faq-item[open] { border-color: var(--blue); background: #fff; box-shadow: var(--shadow); }
+  .faq-item summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; cursor: pointer; font-weight: 700; font-size: 1.02rem; list-style: none; }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary::after { float: right; content: "+"; color: var(--blue); font-weight: 800; }
-  .faq-item[open] summary::after { content: "−"; }
-  .faq-item p { margin-top: 14px; color: var(--muted); }
+  .faq-toggle { display: grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 8px; color: var(--blue); background: var(--blue-soft); transition: transform .2s ease; }
+  .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+  .faq-item p { margin-top: 16px; color: var(--muted); line-height: 1.7; }
 
-  .related-card h3 { font-size: 1.15rem; }
-  .related-card p { margin: 12px 0 18px; color: var(--muted); font-size: .92rem; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .related-card { display: flex; flex-direction: column; }
+  .related-card h3 { font-size: 1.1rem; }
+  .related-card p { margin: 12px 0 18px; color: var(--muted); font-size: .9rem; }
 
+  .solution-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
   .solution-link h3 { margin: 14px 0 18px; font-size: 1.2rem; }
 
   @media (max-width: 960px) {
-    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    .overview-grid { grid-template-columns: 1fr; gap: 32px; }
+    .deliverable-grid { grid-template-columns: repeat(2, 1fr); }
+    .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+    .faq-layout { grid-template-columns: 1fr; gap: 28px; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 680px) {
-    .process-grid { grid-template-columns: 1fr; }
+    .deliverable-grid, .benefit-grid, .related-grid, .solution-grid { grid-template-columns: 1fr; }
   }
 </style>

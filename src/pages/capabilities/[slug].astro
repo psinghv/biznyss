@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CTA from '../../components/CTA.astro';
+import { Film, TrendingUp, Code2, Bot, ArrowRight, Check, Sparkles } from 'lucide-react';
 import { capabilities, industries } from '../../data/site';
 import { getServicesForCap } from '../../data/services';
 
@@ -10,52 +11,183 @@ export function getStaticPaths() {
 }
 const { capability } = Astro.props;
 const capServices = getServicesForCap(capability.slug);
+
+const capMeta: Record<string, { accent: 'blue'|'orange'|'green'|'purple'|'teal'; tone: string; icon: any; visual: 'dashboard'|'split'|'minimal'; stat: string; statLabel: string }> = {
+  'ai-creative-studio': { accent: 'purple', tone: 'purple', icon: Film, visual: 'split', stat: '5x', statLabel: 'More creative output' },
+  'growth-marketing':   { accent: 'green',  tone: 'green',  icon: TrendingUp, visual: 'dashboard', stat: '3–5x', statLabel: 'Organic traffic growth' },
+  'software-products':  { accent: 'blue',   tone: 'blue',   icon: Code2, visual: 'dashboard', stat: '4–8 wk', statLabel: 'Typical time to launch' },
+  'ai-automation':      { accent: 'orange', tone: 'orange', icon: Bot, visual: 'dashboard', stat: '70%', statLabel: 'Manual work reduced' },
+};
+const meta = capMeta[capability.slug] ?? capMeta['software-products'];
+const Icon = meta.icon;
 ---
+
 <BaseLayout title={`${capability.name} | Biznyss`} description={capability.summary}>
-  <PageHero eyebrow={capability.eyebrow} title={capability.name} text={capability.summary} />
-  <section class="section"><div class="container grid-2 detail-grid">
-    <div><span class="eyebrow">What we do</span><h2>Expert execution, designed around the outcome.</h2><p class="lead">We combine strategic direction with hands-on delivery, creating an integrated team around the work rather than passing it between disconnected specialists.</p></div>
-    <div class="detail-list">{capability.services.map((item, i) => <div><span>0{i + 1}</span><h3>{item}</h3></div>)}</div>
-  </div></section>
+  <PageHero
+    eyebrow={capability.eyebrow}
+    title={capability.name}
+    text={capability.summary}
+    variant="accent"
+    accent={meta.accent}
+    visual={meta.visual}
+    stats={[
+      { value: meta.stat, label: meta.statLabel },
+      { value: '5', label: 'Connected services' },
+      { value: 'Senior', label: 'Dedicated team' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container cap-intro-grid">
+      <div class="cap-intro-copy">
+        <span class={`eyebrow ${meta.tone}`}>What we do</span>
+        <h2>Expert execution, designed around the outcome.</h2>
+        <p class="lead">We combine strategic direction with hands-on delivery, creating an integrated team around the work rather than passing it between disconnected specialists. Every service below is staffed by senior practitioners who own the outcome from kickoff to scale.</p>
+      </div>
+      <div class="cap-intro-aside">
+        <div class={`intro-card tone-${meta.tone}`}>
+          <span class="intro-icon"><Icon size={28} strokeWidth={1.8} /></span>
+          <strong>{capability.name}</strong>
+          <p>{capability.outcomes.length} measurable outcomes, {capability.useCases.length} use cases, {capServices.length} services.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   {capServices.length > 0 && (
-    <section class="section section-bg"><div class="container">
-      <div class="section-head"><div><span class="eyebrow">Services</span><h2>Explore every {capability.name.toLowerCase()} service.</h2></div></div>
-      <div class="grid-3">
-        {capServices.map((svc) => (
-          <a class="card svc-card" href={`/capabilities/${svc.cap}/${svc.slug}`}>
-            <h3>{svc.title}</h3>
-            <p>{svc.lead.slice(0, 140)}…</p>
-            <span class="text-link">Learn more</span>
-          </a>
-        ))}
+    <section class="section section-bg">
+      <div class="container">
+        <div class="section-head"><div>
+          <span class={`eyebrow ${meta.tone}`}>Services</span>
+          <h2>Explore every {capability.name.toLowerCase()} service.</h2>
+          <p class="lead">Five connected services, one accountable team. Each links to a dedicated page with deliverables, process, and outcomes.</p>
+        </div></div>
+        <div class="svc-grid">
+          {capServices.map((svc, i) => {
+            const tones = ['blue','orange','green','purple','teal'];
+            const t = tones[i % tones.length];
+            return (
+              <a class={`card svc-card tone-${t}`} href={`/capabilities/${svc.cap}/${svc.slug}`}>
+                <span class="svc-num">0{i + 1}</span>
+                <h3>{svc.title}</h3>
+                <p>{svc.lead.slice(0, 130)}…</p>
+                <span class="text-link">Learn more <ArrowRight size={14} /></span>
+              </a>
+            );
+          })}
+        </div>
       </div>
-    </div></section>
+    </section>
   )}
 
-  <section class="section section-bg"><div class="container">
-    <div class="section-head"><div><span class="eyebrow">Use cases</span><h2>Where this creates value.</h2></div></div>
-    <div class="grid-2">{capability.useCases.map((item) => <div class="card"><span class="tag">Use case</span><h3>{item}</h3><p>Focused strategy and delivery built around measurable commercial and operational value.</p></div>)}</div>
-  </div></section>
-  <section class="section"><div class="container">
-    <div class="section-head"><div><span class="eyebrow">Business outcomes</span><h2>Built to move the metrics that matter.</h2></div></div>
-    <div class="grid-4">{capability.outcomes.map((item, i) => <div class="outcome"><span>0{i + 1}</span><h3>{item}</h3></div>)}</div>
-    <div class="industries"><strong>Industry experience</strong><div class="pill-row">{industries.map((item) => <span class="pill">{item}</span>)}</div></div>
-  </div></section>
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><div>
+        <span class={`eyebrow ${meta.tone}`}>Use cases</span>
+        <h2>Where this creates value.</h2>
+        <p class="lead">Real scenarios where {capability.name.toLowerCase()} moves the needle.</p>
+      </div></div>
+      <div class="usecase-grid">
+        {capability.useCases.map((item, i) => {
+          const tones = ['blue','orange','green','purple'];
+          const t = tones[i % tones.length];
+          return (
+            <div class={`card usecase-card tone-${t}`}>
+              <span class="icon-chip"><Check size={18} strokeWidth={2} /></span>
+              <h3>{item}</h3>
+              <p>Focused strategy and delivery built around measurable commercial and operational value.</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-bg">
+    <div class="container">
+      <div class="section-head"><div>
+        <span class={`eyebrow ${meta.tone}`}>Business outcomes</span>
+        <h2>Built to move the metrics that matter.</h2>
+      </div></div>
+      <div class="outcome-grid">
+        {capability.outcomes.map((item, i) => (
+          <div class={`outcome-card tone-${meta.tone}`}>
+            <span class="outcome-num">0{i + 1}</span>
+            <h3>{item}</h3>
+            <span class="outcome-bar"><i></i></span>
+          </div>
+        ))}
+      </div>
+      <div class="industries">
+        <strong>Industry experience</strong>
+        <div class="pill-row">{industries.map((item) => <span class="pill">{item}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
   <CTA title={`Put ${capability.name.toLowerCase()} to work for your business.`} />
 </BaseLayout>
+
 <style>
-  .detail-grid { gap: 90px; }
-  .detail-list { border-top: 1px solid var(--border); }
-  .detail-list div { display: grid; grid-template-columns: 50px 1fr; padding: 23px 0; border-bottom: 1px solid var(--border); }
-  .detail-list span, .outcome span { color: var(--orange); font-size: .72rem; font-weight: 800; }
-  .card h3 { margin-top: 45px; }
-  .svc-card { display: flex; flex-direction: column; }
-  .svc-card h3 { margin-top: 0; }
-  .svc-card p { margin: 12px 0 18px; color: var(--muted); font-size: .92rem; }
-  .outcome { min-height: 200px; padding: 25px; border-top: 2px solid var(--blue); background: var(--surface); }
-  .outcome h3 { margin-top: 70px; }
-  .industries { margin-top: 70px; padding-top: 30px; border-top: 1px solid var(--border); }
+  .cap-intro-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 60px; align-items: start; }
+  .cap-intro-copy h2 { margin: 8px 0 20px; }
+  .intro-card { padding: 32px; border-radius: 20px; background: linear-gradient(145deg, var(--blue-soft), #fff); border: 1px solid var(--border); }
+  .intro-card.tone-green { background: linear-gradient(145deg, var(--green-soft), #fff); }
+  .intro-card.tone-orange { background: linear-gradient(145deg, var(--orange-soft), #fff); }
+  .intro-card.tone-purple { background: linear-gradient(145deg, var(--purple-soft), #fff); }
+  .intro-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: #fff; color: var(--blue); box-shadow: var(--shadow); margin-bottom: 18px; }
+  .intro-card.tone-green .intro-icon { color: var(--green); }
+  .intro-card.tone-orange .intro-icon { color: var(--orange); }
+  .intro-card.tone-purple .intro-icon { color: var(--purple); }
+  .intro-card strong { display: block; font-size: 1.3rem; }
+  .intro-card p { margin: 8px 0 0; color: var(--muted); font-size: .9rem; }
+
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .svc-card { display: flex; flex-direction: column; position: relative; }
+  .svc-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 18px 18px 0 0; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+  .svc-card.tone-orange::before { background: var(--orange); }
+  .svc-card.tone-green::before { background: var(--green); }
+  .svc-card.tone-purple::before { background: var(--purple); }
+  .svc-card.tone-teal::before { background: var(--teal); }
+  .svc-card:hover::before { transform: scaleX(1); }
+  .svc-num { color: var(--muted); font-size: .8rem; font-weight: 800; letter-spacing: .05em; }
+  .svc-card h3 { margin: 14px 0 10px; font-size: 1.2rem; }
+  .svc-card p { margin: 0 0 20px; color: var(--muted); font-size: .92rem; flex: 1; }
+
+  .usecase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .usecase-card .icon-chip { margin-bottom: 16px; }
+  .usecase-card.tone-orange .icon-chip { color: var(--orange); background: var(--orange-soft); }
+  .usecase-card.tone-green .icon-chip { color: var(--green); background: var(--green-soft); }
+  .usecase-card.tone-purple .icon-chip { color: var(--purple); background: var(--purple-soft); }
+  .usecase-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .usecase-card p { color: var(--muted); font-size: .92rem; }
+
+  .outcome-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .outcome-card { position: relative; padding: 30px 26px; border-radius: 18px; background: #fff; border: 1px solid var(--border); overflow: hidden; }
+  .outcome-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--blue); }
+  .outcome-card.tone-green::before { background: var(--green); }
+  .outcome-card.tone-orange::before { background: var(--orange); }
+  .outcome-card.tone-purple::before { background: var(--purple); }
+  .outcome-num { display: block; color: var(--blue); font-size: 2.4rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .outcome-card.tone-green .outcome-num { color: var(--green); }
+  .outcome-card.tone-orange .outcome-num { color: var(--orange); }
+  .outcome-card.tone-purple .outcome-num { color: var(--purple); }
+  .outcome-card h3 { margin: 16px 0 18px; font-size: 1.05rem; }
+  .outcome-bar { display: block; height: 4px; border-radius: 999px; background: var(--section); overflow: hidden; }
+  .outcome-bar i { display: block; height: 100%; width: 65%; border-radius: 999px; background: linear-gradient(90deg, var(--blue), var(--teal)); animation: draw-bar 1.4s ease-out both; }
+  .outcome-card.tone-green .outcome-bar i { background: linear-gradient(90deg, var(--green), var(--teal)); }
+  .outcome-card.tone-orange .outcome-bar i { background: linear-gradient(90deg, var(--orange), var(--amber)); }
+  .outcome-card.tone-purple .outcome-bar i { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+
+  .industries { margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); }
   .industries strong { display: block; margin-bottom: 18px; }
-  @media(max-width:800px){.detail-grid{gap:45px}}
+
+  @media (max-width: 960px) {
+    .cap-intro-grid { grid-template-columns: 1fr; gap: 32px; }
+    .svc-grid { grid-template-columns: repeat(2, 1fr); }
+    .outcome-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 680px) {
+    .svc-grid, .usecase-grid, .outcome-grid { grid-template-columns: 1fr; }
+  }
 </style>

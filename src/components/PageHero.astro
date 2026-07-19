@@ -1,16 +1,152 @@
 ---
 import HeroArt from './HeroArt.astro';
-interface Props { eyebrow: string; title: string; text: string; }
-const { eyebrow, title, text } = Astro.props;
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  text: string;
+  variant?: 'light' | 'dark' | 'accent';
+  accent?: 'blue' | 'orange' | 'green' | 'purple' | 'teal';
+  visual?: 'orbit' | 'dashboard' | 'split' | 'minimal';
+  stats?: { value: string; label: string }[];
+}
+
+const {
+  eyebrow,
+  title,
+  text,
+  variant = 'light',
+  accent = 'blue',
+  visual = 'orbit',
+  stats = [],
+} = Astro.props;
+
+const classes = ['page-hero'];
+if (variant === 'dark') classes.push('dark');
+if (variant === 'accent') classes.push('accent', `accent-${accent}`);
 ---
-<section class="page-hero">
+
+<section class={classes.join(' ')}>
   <div class="container page-hero-grid">
     <div class="page-hero-copy reveal">
       <span class="eyebrow">{eyebrow}</span>
       <h1>{title}</h1>
       <p class="lead">{text}</p>
-      <div class="buttons"><a class="btn btn-primary" href="/contact">Book Strategy Call</a><a class="btn btn-secondary" href="https://wa.me/919999999999">Chat on WhatsApp</a></div>
+      {stats.length > 0 && (
+        <div class="hero-stats">
+          {stats.map((s) => (
+            <div>
+              <strong>{s.value}</strong>
+              <span>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      <div class="buttons">
+        <a class="btn btn-primary" href="/contact">Book Strategy Call</a>
+        <a class="btn btn-secondary" href="https://wa.me/919999999999">Chat on WhatsApp</a>
+      </div>
     </div>
-    <HeroArt label={eyebrow} />
+
+    {visual === 'orbit' && <HeroArt label={eyebrow} />}
+    {visual === 'dashboard' && (
+      <div class="hero-mock reveal-2">
+        <div class="mock-window">
+          <div class="mock-topbar"><span></span><span></span><span></span><b>Biznyss Intelligence</b></div>
+          <div class="mock-body">
+            <div class="mock-sidebar"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="mock-dashboard">
+              <div class="mock-heading"><span>Performance</span><b>Live</b></div>
+              <div class="mock-kpis">
+                <div><span>Conversion</span><strong>+42%</strong><i></i></div>
+                <div><span>Pipeline</span><strong>3.8x</strong><i></i></div>
+                <div><span>Efficiency</span><strong>94%</strong><i></i></div>
+              </div>
+              <div class="mock-chart">
+                <div class="chart-bars">
+                  {[42, 58, 47, 73, 66, 88, 79, 96].map((h) => <i style={`--bar:${h}%`}></i>)}
+                </div>
+                <div class="chart-line"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mock-badge float"><span>●</span> Real-time</div>
+      </div>
+    )}
+    {visual === 'split' && (
+      <div class="hero-split reveal-2">
+        <div class="split-card split-card-1 float">
+          <span class="icon-chip orange">⚡</span>
+          <strong>Speed</strong>
+          <p>Shipped in weeks, not quarters.</p>
+        </div>
+        <div class="split-card split-card-2 float-slow">
+          <span class="icon-chip green">✓</span>
+          <strong>Quality</strong>
+          <p>Senior team, end-to-end ownership.</p>
+        </div>
+        <div class="split-card split-card-3 float">
+          <span class="icon-chip blue">↗</span>
+          <strong>Outcomes</strong>
+          <p>Measured against business KPIs.</p>
+        </div>
+      </div>
+    )}
+    {visual === 'minimal' && (
+      <div class="hero-minimal reveal-2">
+        <div class="ring-wrap">
+          <div class="ring">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+              <circle class="ring-track" cx="60" cy="60" r="52" fill="none" stroke-width="10"/>
+              <circle class="ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="10"
+                stroke-dasharray="327" stroke-dashoffset="49"/>
+            </svg>
+            <span class="ring-label">85%</span>
+          </div>
+          <p>Average efficiency lift across engagements.</p>
+        </div>
+      </div>
+    )}
   </div>
 </section>
+
+<style>
+  .hero-stats { display: flex; flex-wrap: wrap; gap: 36px; margin: 32px 0; }
+  .hero-stats strong { display: block; font-size: 2rem; font-weight: 800; letter-spacing: -.03em; color: var(--navy); }
+  .page-hero.dark .hero-stats strong { color: #fff; }
+  .hero-stats span { color: var(--muted); font-size: .82rem; font-weight: 600; }
+  .page-hero.dark .hero-stats span { color: #9db1c4; }
+
+  .hero-mock { position: relative; }
+  .mock-body { min-height: 340px; display: grid; grid-template-columns: 42px 1fr; }
+  .mock-sidebar { display: grid; align-content: start; gap: 14px; padding: 18px 11px; border-right: 1px solid rgba(255,255,255,.07); }
+  .mock-sidebar i { width: 14px; height: 14px; border: 1px solid #50677b; border-radius: 4px; }
+  .mock-sidebar i:first-child { border-color: #4c95ff; background: rgba(76,149,255,.2); }
+  .mock-dashboard { min-width: 0; padding: 20px; }
+  .mock-heading { display: flex; align-items: end; justify-content: space-between; }
+  .mock-heading span { font-size: .85rem; font-weight: 800; }
+  .mock-heading b { color: #6ed4a1; font-size: .5rem; text-transform: uppercase; }
+  .mock-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 18px; }
+  .mock-kpis div { position: relative; overflow: hidden; min-height: 78px; padding: 12px; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; background: rgba(255,255,255,.035); }
+  .mock-kpis span { display: block; color: #7890a5; font-size: .48rem; }
+  .mock-kpis strong { display: block; margin-top: 6px; font-size: .95rem; }
+  .mock-kpis i { position: absolute; width: 34px; height: 34px; right: -8px; bottom: -8px; border-radius: 50%; background: rgba(10,93,240,.23); }
+  .mock-chart { position: relative; height: 140px; margin-top: 14px; padding: 16px; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; }
+  .chart-bars { height: 100%; display: flex; align-items: end; justify-content: space-between; gap: 7px; }
+  .chart-bars i { width: 100%; height: var(--bar); border-radius: 3px 3px 0 0; background: linear-gradient(#268bf3,#124f6d); opacity: .76; animation: draw-bar 1.4s ease-out both; }
+  .chart-line { position: absolute; height: 2px; right: 12%; left: 10%; top: 42%; transform: rotate(-7deg); background: var(--orange); box-shadow: 0 0 12px rgba(233,113,66,.5); }
+  .mock-badge { position: absolute; top: 56px; left: -28px; display: flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; color: #0d1321; background: #fff; box-shadow: var(--shadow); font-size: .78rem; font-weight: 700; }
+  .mock-badge span { color: var(--green); }
+
+  .hero-split { position: relative; display: grid; gap: 18px; }
+  .split-card { padding: 26px; border: 1px solid var(--border); border-radius: 18px; background: #fff; box-shadow: var(--shadow); }
+  .split-card strong { display: block; margin: 14px 0 6px; font-size: 1.15rem; }
+  .split-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+  .split-card-2 { margin-left: 40px; }
+  .split-card-3 { margin-left: 12px; }
+
+  .hero-minimal { display: grid; place-items: center; }
+  .ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 280px; text-align: center; }
+  .ring-wrap p { color: var(--muted); }
+</style>
