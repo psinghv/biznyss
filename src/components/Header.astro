@@ -25,28 +25,52 @@ const capabilityGroups = [
     href: '/capabilities/ai-creative-studio',
     tone: 'purple',
     icon: Film,
-    services: ['AI Video Advertising', 'Commercial Production', 'Product Explainers', 'CGI & Motion Graphics', 'Social Media Creatives'],
+    services: [
+      { label: 'AI Video Advertising', href: '/capabilities/ai-creative-studio/ai-video-advertising' },
+      { label: 'Commercial Production', href: '/capabilities/ai-creative-studio/commercial-production' },
+      { label: 'Product Explainers', href: '/capabilities/ai-creative-studio/product-explainers' },
+      { label: 'CGI & Motion Graphics', href: '/capabilities/ai-creative-studio/cgi-motion-graphics' },
+      { label: 'Social Media Creatives', href: '/capabilities/ai-creative-studio/social-media-creatives' },
+    ],
   },
   {
     name: 'Growth Marketing',
     href: '/capabilities/growth-marketing',
     tone: 'green',
     icon: TrendingUp,
-    services: ['SEO & Content', 'Google & Meta Ads', 'LinkedIn Marketing', 'Lead Generation', 'Conversion Optimization'],
+    services: [
+      { label: 'SEO & Content', href: '/capabilities/growth-marketing/seo-content' },
+      { label: 'Google & Meta Ads', href: '/capabilities/growth-marketing/google-meta-ads' },
+      { label: 'LinkedIn Marketing', href: '/capabilities/growth-marketing/linkedin-marketing' },
+      { label: 'Lead Generation', href: '/capabilities/growth-marketing/lead-generation' },
+      { label: 'Conversion Optimization', href: '/capabilities/growth-marketing/conversion-optimization' },
+    ],
   },
   {
     name: 'Software & Products',
     href: '/capabilities/software-products',
     tone: 'blue',
     icon: CodeXml,
-    services: ['Web Development', 'Mobile Applications', 'SaaS Development', 'Enterprise Solutions', 'Custom Applications'],
+    services: [
+      { label: 'Web Development', href: '/capabilities/software-products/web-development' },
+      { label: 'Mobile Applications', href: '/capabilities/software-products/mobile-applications' },
+      { label: 'SaaS Development', href: '/capabilities/software-products/saas-development' },
+      { label: 'Enterprise Solutions', href: '/capabilities/software-products/enterprise-solutions' },
+      { label: 'Custom Applications', href: '/capabilities/software-products/custom-applications' },
+    ],
   },
   {
     name: 'AI & Automation',
     href: '/capabilities/ai-automation',
     tone: 'orange',
     icon: Bot,
-    services: ['AI Agents & Assistants', 'Chatbot Development', 'Support Automation', 'Workflow Automation', 'Knowledge Solutions'],
+    services: [
+      { label: 'AI Agents & Assistants', href: '/capabilities/ai-automation/ai-agents-assistants' },
+      { label: 'Chatbot Development', href: '/capabilities/ai-automation/chatbot-development' },
+      { label: 'Support Automation', href: '/capabilities/ai-automation/support-automation' },
+      { label: 'Workflow Automation', href: '/capabilities/ai-automation/workflow-automation' },
+      { label: 'Knowledge Solutions', href: '/capabilities/ai-automation/knowledge-solutions' },
+    ],
   },
 ];
 
@@ -131,7 +155,7 @@ const mainNav = [
                       </a>
                       <ul>
                         {group.services.map((service) => (
-                          <li><ChevronRight size={14} aria-hidden="true" /><span>{service}</span></li>
+                          <li><ChevronRight size={14} aria-hidden="true" /><a href={service.href}>{service.label}</a></li>
                         ))}
                       </ul>
                       <a class="view-all" href={group.href}>View all <ArrowRight size={15} aria-hidden="true" /></a>

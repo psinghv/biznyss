@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CTA from '../../../components/CTA.astro';
+import { services, getServicesForCap, getServiceBySlug, getServicesBySlugList, type ServicePage } from '../../../data/services';
+import { capabilities, solutions } from '../../../data/site';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { cap: service.cap, service: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props as { service: ServicePage };
+const parent = capabilities.find((c) => c.slug === service.cap);
+const siblings = getServicesBySlugList(service.relatedServices);
+const relatedSols = solutions.filter((s) => service.relatedSolutions.includes(s.slug));
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.title,
+  description: service.metaDescription,
+  provider: { '@type': 'Organization', name: 'Biznyss', url: 'https://biznyss.com' },
+  serviceType: service.title,
+  areaServed: 'Global',
+  category: service.capName,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: service.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biznyss.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Capabilities', item: 'https://biznyss.com/capabilities' },
+    { '@type': 'ListItem', position: 3, name: service.capName, item: `https://biznyss.com/capabilities/${service.cap}` },
+    { '@type': 'ListItem', position: 4, name: service.title, item: `https://biznyss.com/capabilities/${service.cap}/${service.slug}` },
+  ],
+};
+
+const combinedSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [serviceSchema, faqSchema, breadcrumbSchema],
+};
+---
+
+<BaseLayout title={service.metaTitle} description={service.metaDescription} schema={combinedSchema}>
+  <PageHero eyebrow={service.eyebrow} title={service.headline} text={service.lead} />
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="/">Home</a><span>/</span>
+      <a href="/capabilities">Capabilities</a><span>/</span>
+      <a href={`/capabilities/${service.cap}`}>{service.capName}</a><span>/</span>
+      <span aria-current="page">{service.title}</span>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-block">
+        <span class="eyebrow">Overview</span>
+        <h2>What is {service.title}?</h2>
+        <p class="lead reading">{service.about}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-bg">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">What's included</span>
+          <h2>Deliverables that drive outcomes.</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+        {service.deliverables.map((d) => (
+          <div class="card deliverable">
+            <h3>{d.label}</h3>
+            <p>{d.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">How we work</span>
+          <h2>A process built for momentum.</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        {service.process.map((step) => (
+          <div class="process-step">
+            <span class="step-num">{step.n}</span>
+            <h3>{step.title}</h3>
+            <p>{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-bg">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Outcomes</span>
+          <h2>Metrics that matter to your business.</h2>
+        </div>
+      </div>
+      <div class="grid-4 benefit-grid">
+        {service.benefits.map((b) => (
+          <div class="benefit">
+            <span class="benefit-stat">{b.stat}</span>
+            <strong>{b.label}</strong>
+            <p>{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="faq-wrap">
+        <span class="eyebrow">FAQ</span>
+        <h2>Common questions about {service.title.toLowerCase()}.</h2>
+        <div class="faq-list">
+          {service.faqs.map((faq) => (
+            <details class="faq-item">
+              <summary>{faq.q}</summary>
+              <p>{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {siblings.length > 0 && (
+    <section class="section section-bg">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Related services</span>
+            <h2>Explore more in {service.capName}.</h2>
+          </div>
+        </div>
+        <div class="grid-3">
+          {siblings.map((sib) => (
+            <a class="card related-card" href={`/capabilities/${sib.cap}/${sib.slug}`}>
+              <h3>{sib.title}</h3>
+              <p>{sib.lead.slice(0, 130)}…</p>
+              <span class="text-link">Learn more</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {relatedSols.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Solutions</span>
+            <h2>Pair this with a solution.</h2>
+          </div>
+        </div>
+        <div class="grid-2">
+          {relatedSols.map((sol) => (
+            <a class="card solution-link" href={`/solutions/${sol.slug}`}>
+              <span class="tag">{sol.name}</span>
+              <h3>{sol.summary}</h3>
+              <span class="text-link">Explore solution</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTA title={`Put ${service.title} to work for your business.`} />
+</BaseLayout>
+
+<style>
+  .breadcrumb { padding: 18px 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+  .breadcrumb .container { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--muted); font-size: .82rem; font-weight: 600; }
+  .breadcrumb a { color: var(--blue); }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span[aria-current] { color: var(--ink); }
+
+  .about-block { max-width: 820px; }
+  .about-block h2 { margin: 6px 0 18px; }
+
+  .deliverable h3 { font-size: 1.15rem; }
+  .deliverable p { margin-top: 10px; }
+
+  .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
+  .process-step { padding: 26px 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+  .step-num { display: block; margin-bottom: 14px; color: var(--orange); font-size: 1.6rem; font-weight: 800; letter-spacing: -.03em; }
+  .process-step h3 { font-size: 1.05rem; }
+  .process-step p { margin-top: 10px; color: var(--muted); font-size: .92rem; }
+
+  .benefit { padding: 28px 22px; border: 1px solid var(--border); border-radius: 18px; background: #fff; }
+  .benefit-stat { display: block; margin-bottom: 12px; color: var(--blue); font-size: 2.4rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .benefit strong { display: block; margin-bottom: 10px; font-size: 1rem; }
+  .benefit p { color: var(--muted); font-size: .9rem; }
+
+  .faq-wrap { max-width: 820px; }
+  .faq-wrap h2 { margin: 6px 0 28px; }
+  .faq-list { display: grid; gap: 14px; }
+  .faq-item { padding: 20px 24px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+  .faq-item summary { cursor: pointer; font-weight: 700; font-size: 1.02rem; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { float: right; content: "+"; color: var(--blue); font-weight: 800; }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-item p { margin-top: 14px; color: var(--muted); }
+
+  .related-card h3 { font-size: 1.15rem; }
+  .related-card p { margin: 12px 0 18px; color: var(--muted); font-size: .92rem; }
+
+  .solution-link h3 { margin: 14px 0 18px; font-size: 1.2rem; }
+
+  @media (max-width: 960px) {
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 680px) {
+    .process-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -3,18 +3,36 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import CTA from '../../components/CTA.astro';
 import { capabilities, industries } from '../../data/site';
+import { getServicesForCap } from '../../data/services';
 
 export function getStaticPaths() {
   return capabilities.map((capability) => ({ params: { slug: capability.slug }, props: { capability } }));
 }
 const { capability } = Astro.props;
+const capServices = getServicesForCap(capability.slug);
 ---
-<BaseLayout title={capability.name} description={capability.summary}>
+<BaseLayout title={`${capability.name} | Biznyss`} description={capability.summary}>
   <PageHero eyebrow={capability.eyebrow} title={capability.name} text={capability.summary} />
   <section class="section"><div class="container grid-2 detail-grid">
     <div><span class="eyebrow">What we do</span><h2>Expert execution, designed around the outcome.</h2><p class="lead">We combine strategic direction with hands-on delivery, creating an integrated team around the work rather than passing it between disconnected specialists.</p></div>
     <div class="detail-list">{capability.services.map((item, i) => <div><span>0{i + 1}</span><h3>{item}</h3></div>)}</div>
   </div></section>
+
+  {capServices.length > 0 && (
+    <section class="section section-bg"><div class="container">
+      <div class="section-head"><div><span class="eyebrow">Services</span><h2>Explore every {capability.name.toLowerCase()} service.</h2></div></div>
+      <div class="grid-3">
+        {capServices.map((svc) => (
+          <a class="card svc-card" href={`/capabilities/${svc.cap}/${svc.slug}`}>
+            <h3>{svc.title}</h3>
+            <p>{svc.lead.slice(0, 140)}…</p>
+            <span class="text-link">Learn more</span>
+          </a>
+        ))}
+      </div>
+    </div></section>
+  )}
+
   <section class="section section-bg"><div class="container">
     <div class="section-head"><div><span class="eyebrow">Use cases</span><h2>Where this creates value.</h2></div></div>
     <div class="grid-2">{capability.useCases.map((item) => <div class="card"><span class="tag">Use case</span><h3>{item}</h3><p>Focused strategy and delivery built around measurable commercial and operational value.</p></div>)}</div>
@@ -32,6 +50,9 @@ const { capability } = Astro.props;
   .detail-list div { display: grid; grid-template-columns: 50px 1fr; padding: 23px 0; border-bottom: 1px solid var(--border); }
   .detail-list span, .outcome span { color: var(--orange); font-size: .72rem; font-weight: 800; }
   .card h3 { margin-top: 45px; }
+  .svc-card { display: flex; flex-direction: column; }
+  .svc-card h3 { margin-top: 0; }
+  .svc-card p { margin: 12px 0 18px; color: var(--muted); font-size: .92rem; }
   .outcome { min-height: 200px; padding: 25px; border-top: 2px solid var(--blue); background: var(--surface); }
   .outcome h3 { margin-top: 70px; }
   .industries { margin-top: 70px; padding-top: 30px; border-top: 1px solid var(--border); }
