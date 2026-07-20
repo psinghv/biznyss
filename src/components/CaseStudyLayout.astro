@@ -1,0 +1,460 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export interface FaqItem { question: string; answer: string; }
+export interface Phase { label: string; description: string; }
+export interface Metric { value: string; label: string; icon: string; }
+
+export interface CaseStudyData {
+  slug: string;
+  title: string;
+  subtitle: string;
+  metaDescription: string;
+  category: string;
+  industry: string;
+  accent: string;
+  heroIntro: string;
+  executiveSummary: string[];
+  businessBackground: string[];
+  challenges: { title: string; description: string }[];
+  objectives: string;
+  discovery: string[];
+  strategy: string[];
+  phases: Phase[];
+  implChallenges: string[];
+  results: string[];
+  keyLearnings: string[];
+  faqs: FaqItem[];
+  finalConclusion: string;
+  callToAction: string;
+  author: { name: string; role: string; bio: string };
+  metrics: Metric[];
+  timeline: string;
+  datePublished: string;
+  dateModified: string;
+}
+
+interface Props { data: CaseStudyData; }
+const { data } = Astro.props;
+
+const accentColors: Record<string, { bg: string; text: string; border: string; gradient: string; soft: string }> = {
+  blue: { bg: '#0a5df0', text: '#0a5df0', border: '#0a5df0', gradient: 'linear-gradient(135deg, #0a5df0, #00b8d9)', soft: 'rgba(10,93,240,.08)' },
+  orange: { bg: '#ef4936', text: '#ef4936', border: '#ef4936', gradient: 'linear-gradient(135deg, #ef4936, #f6a23a)', soft: 'rgba(239,73,54,.08)' },
+  navy: { bg: '#124f6d', text: '#124f6d', border: '#124f6d', gradient: 'linear-gradient(135deg, #124f6d, #2a7fa8)', soft: 'rgba(18,79,109,.08)' },
+  teal: { bg: '#0d9488', text: '#0d9488', border: '#0d9488', gradient: 'linear-gradient(135deg, #0d9488, #2dd4bf)', soft: 'rgba(13,148,136,.08)' },
+};
+const c = accentColors[data.accent] ?? accentColors.blue;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://biznyss.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Case Studies', item: 'https://biznyss.com/case-studies' },
+    { '@type': 'ListItem', position: 3, name: data.title, item: `https://biznyss.com/case-studies/${data.slug}` },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: data.faqs.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.metaDescription,
+  datePublished: data.datePublished,
+  dateModified: data.dateModified,
+  author: { '@type': 'Person', name: data.author.name, jobTitle: data.author.role },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Biznyss Labs',
+    sameAs: ['https://biznyss.com', 'https://www.linkedin.com/company/biznyss'],
+  },
+};
+
+const combinedSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [articleSchema, breadcrumbSchema, faqSchema],
+};
+
+const sections = [
+  { id: 'summary', label: 'Summary' },
+  { id: 'background', label: 'Background' },
+  { id: 'challenges', label: 'Challenges' },
+  { id: 'strategy', label: 'Strategy' },
+  { id: 'implementation', label: 'Implementation' },
+  { id: 'results', label: 'Results' },
+  { id: 'learnings', label: 'Learnings' },
+  { id: 'faq', label: 'FAQ' },
+];
+---
+
+<BaseLayout title={data.title} description={data.metaDescription} schema={combinedSchema}>
+  <article class="cs-page" style={`--accent: ${c.bg}; --accent-text: ${c.text}; --accent-gradient: ${c.gradient}; --accent-soft: ${c.soft};`}>
+    <!-- Breadcrumb -->
+    <nav class="cs-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/case-studies">Case Studies</a>
+      <span class="sep">/</span>
+      <span class="current">{data.title}</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="cs-hero">
+      <div class="cs-hero-inner">
+        <div class="cs-hero-tags">
+          <span class="tag tag-category">{data.category}</span>
+          <span class="tag tag-industry">{data.industry}</span>
+        </div>
+        <h1>{data.title}</h1>
+        <p class="cs-hero-subtitle">{data.subtitle}</p>
+        <p class="cs-hero-intro">{data.heroIntro}</p>
+        <div class="cs-hero-meta">
+          <span class="meta-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            {data.timeline}
+          </span>
+          <span class="meta-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+            {data.author.name}
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Metrics Infographic -->
+    <section class="cs-metrics" aria-label="Key results">
+      <div class="cs-metrics-grid">
+        {data.metrics.map((m, i) => (
+          <div class="metric-card" style={`animation-delay: ${i * 0.1}s`}>
+            <div class="metric-icon" set:html={m.icon} />
+            <div class="metric-value">{m.value}</div>
+            <div class="metric-label">{m.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section Nav -->
+    <nav class="cs-section-nav" id="cs-nav">
+      <div class="cs-nav-inner">
+        {sections.map(s => (
+          <a href={`#${s.id}`} class="cs-nav-link" data-target={s.id}>{s.label}</a>
+        ))}
+      </div>
+    </nav>
+
+    <div class="cs-content">
+      <!-- Executive Summary -->
+      <section id="summary" class="cs-section">
+        <h2>Executive Summary</h2>
+        {data.executiveSummary.map(p => <p>{p}</p>)}
+      </section>
+
+      <!-- Business Background -->
+      <section id="background" class="cs-section">
+        <h2>Business Background</h2>
+        {data.businessBackground.map(p => <p>{p}</p>)}
+      </section>
+
+      <!-- Challenges -->
+      <section id="challenges" class="cs-section">
+        <h2>Challenges</h2>
+        <div class="cs-challenge-grid">
+          {data.challenges.map((ch, i) => (
+            <div class="challenge-card">
+              <div class="challenge-number">{String(i + 1).padStart(2, '0')}</div>
+              <h3>{ch.title}</h3>
+              <p>{ch.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Objectives -->
+      <section class="cs-section cs-objectives">
+        <h2>Objectives</h2>
+        <div class="objectives-box">
+          <p>{data.objectives}</p>
+        </div>
+      </section>
+
+      <!-- Discovery & Research -->
+      <section class="cs-section">
+        <h2>Discovery &amp; Research</h2>
+        {data.discovery.map(p => <p>{p}</p>)}
+      </section>
+
+      <!-- Strategy -->
+      <section id="strategy" class="cs-section">
+        <h2>Strategy</h2>
+        {data.strategy.map(p => <p>{p}</p>)}
+      </section>
+
+      <!-- Implementation -->
+      <section id="implementation" class="cs-section">
+        <h2>Implementation</h2>
+        <div class="cs-timeline">
+          {data.phases.map((phase, i) => (
+            <div class="timeline-item" style={`--i: ${i}`}>
+              <div class="timeline-marker">
+                <span class="timeline-num">{i + 1}</span>
+              </div>
+              <div class="timeline-content">
+                <h3>{phase.label}</h3>
+                <p>{phase.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Challenges During Implementation -->
+      <section class="cs-section">
+        <h2>Challenges During Implementation</h2>
+        <div class="cs-impl-challenges">
+          {data.implChallenges.map((p, i) => (
+            <div class="impl-challenge-item">
+              <div class="impl-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+              </div>
+              <p>{p}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section id="results" class="cs-section cs-results-section">
+        <h2>Results</h2>
+        <div class="cs-results-box">
+          {data.results.map(p => <p>{p}</p>)}
+        </div>
+      </section>
+
+      <!-- Key Learnings -->
+      <section id="learnings" class="cs-section">
+        <h2>Key Learnings</h2>
+        <div class="cs-learnings">
+          {data.keyLearnings.map((p, i) => (
+            <div class="learning-item">
+              <div class="learning-num">{i + 1}</div>
+              <p>{p}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Final Conclusion -->
+      <section class="cs-section cs-conclusion">
+        <h2>Final Conclusion</h2>
+        <blockquote>{data.finalConclusion}</blockquote>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="cs-section cs-faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="cs-faq-list">
+          {data.faqs.map(faq => (
+            <details class="faq-item">
+              <summary>{faq.question}</summary>
+              <div class="faq-answer"><p>{faq.answer}</p></div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <!-- Author -->
+      <section class="cs-author">
+        <div class="author-card">
+          <div class="author-avatar">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+          </div>
+          <div class="author-info">
+            <h3>{data.author.name}</h3>
+            <p class="author-role">{data.author.role}</p>
+            <p class="author-bio">{data.author.bio}</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CTA -->
+    <section class="cs-cta">
+      <div class="cs-cta-inner">
+        <h2>Ready to explore what this looks like for you?</h2>
+        <p>{data.callToAction}</p>
+        <a href="/contact" class="cs-cta-btn">Start a conversation</a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .cs-page { --max: 860px; font-family: 'Plus Jakarta Sans', sans-serif; color: #1a1a2e; }
+
+  /* Breadcrumb */
+  .cs-breadcrumb { max-width: var(--max); margin: 0 auto; padding: 24px 24px 0; font-size: 13px; color: #64748b; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .cs-breadcrumb a { color: var(--accent-text); text-decoration: none; font-weight: 500; transition: opacity .2s; }
+  .cs-breadcrumb a:hover { opacity: .7; }
+  .cs-breadcrumb .sep { color: #cbd5e1; }
+  .cs-breadcrumb .current { color: #475569; font-weight: 500; }
+
+  /* Hero */
+  .cs-hero { background: linear-gradient(180deg, var(--accent-soft) 0%, transparent 100%); padding: 40px 24px 48px; }
+  .cs-hero-inner { max-width: var(--max); margin: 0 auto; }
+  .cs-hero-tags { display: flex; gap: 10px; margin-bottom: 20px; }
+  .tag { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  .tag-category { background: var(--accent); color: #fff; }
+  .tag-industry { background: var(--accent-soft); color: var(--accent-text); }
+  .cs-hero h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 16px; }
+  .cs-hero-subtitle { font-size: 18px; color: var(--accent-text); font-weight: 600; margin: 0 0 20px; line-height: 1.4; }
+  .cs-hero-intro { font-size: 16px; line-height: 1.7; color: #475569; margin: 0 0 24px; }
+  .cs-hero-meta { display: flex; gap: 24px; flex-wrap: wrap; font-size: 14px; color: #64748b; }
+  .meta-item { display: flex; align-items: center; gap: 6px; }
+
+  /* Metrics */
+  .cs-metrics { padding: 0 24px; }
+  .cs-metrics-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+  .metric-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 28px 20px; text-align: center; transition: transform .3s, box-shadow .3s; opacity: 0; animation: fadeUp .5s ease forwards; }
+  .metric-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); border-color: var(--accent); }
+  .metric-icon { width: 48px; height: 48px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--accent-soft); color: var(--accent-text); }
+  .metric-icon :global(svg) { width: 24px; height: 24px; }
+  .metric-value { font-size: 28px; font-weight: 800; color: var(--accent-text); letter-spacing: -.02em; line-height: 1.1; }
+  .metric-label { font-size: 13px; color: #64748b; margin-top: 6px; line-height: 1.4; }
+
+  /* Section Nav */
+  .cs-section-nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; margin-top: 48px; }
+  .cs-nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .cs-nav-inner::-webkit-scrollbar { display: none; }
+  .cs-nav-link { padding: 14px 16px; font-size: 13px; font-weight: 600; color: #64748b; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+  .cs-nav-link:hover { color: var(--accent-text); }
+  .cs-nav-link.active { color: var(--accent-text); border-color: var(--accent); }
+
+  /* Content */
+  .cs-content { max-width: var(--max); margin: 0 auto; padding: 48px 24px; }
+  .cs-section { margin-bottom: 56px; scroll-margin-top: 56px; }
+  .cs-section h2 { font-size: 26px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent-soft); position: relative; }
+  .cs-section h2::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 48px; height: 2px; background: var(--accent); }
+  .cs-section h3 { font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+  .cs-section p { font-size: 16px; line-height: 1.75; color: #334155; margin: 0 0 16px; }
+
+  /* Challenge cards */
+  .cs-challenge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+  .challenge-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 24px; transition: border-color .2s, transform .2s; }
+  .challenge-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .challenge-number { font-size: 13px; font-weight: 800; color: var(--accent-text); margin-bottom: 8px; letter-spacing: .05em; }
+  .challenge-card h3 { font-size: 16px; margin: 0 0 8px; }
+  .challenge-card p { font-size: 14px; line-height: 1.6; color: #64748b; margin: 0; }
+
+  /* Objectives */
+  .cs-objectives .objectives-box { background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; padding: 24px 28px; }
+  .cs-objectives .objectives-box p { margin: 0; font-size: 16px; line-height: 1.75; color: #1e293b; }
+
+  /* Timeline */
+  .cs-timeline { position: relative; padding-left: 0; }
+  .timeline-item { display: flex; gap: 20px; padding-bottom: 32px; position: relative; }
+  .timeline-item:not(:last-child)::before { content: ''; position: absolute; left: 23px; top: 48px; bottom: 0; width: 2px; background: var(--accent-soft); }
+  .timeline-marker { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+  .timeline-num { color: #fff; font-weight: 800; font-size: 18px; }
+  .timeline-content { flex: 1; padding-top: 4px; }
+  .timeline-content h3 { font-size: 17px; margin: 0 0 8px; color: var(--accent-text); }
+  .timeline-content p { font-size: 15px; line-height: 1.7; color: #475569; margin: 0; }
+
+  /* Impl challenges */
+  .cs-impl-challenges { display: flex; flex-direction: column; gap: 16px; }
+  .impl-challenge-item { display: flex; gap: 14px; background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 18px 20px; }
+  .impl-icon { flex-shrink: 0; color: #ea580c; padding-top: 2px; }
+  .impl-challenge-item p { margin: 0; font-size: 15px; line-height: 1.65; color: #475569; }
+
+  /* Results */
+  .cs-results-box { background: linear-gradient(135deg, var(--accent-soft), rgba(255,255,255,.5)); border: 1px solid var(--accent-soft); border-radius: 16px; padding: 28px 32px; }
+  .cs-results-box p { margin: 0 0 16px; font-size: 16px; line-height: 1.75; }
+  .cs-results-box p:last-child { margin: 0; }
+
+  /* Learnings */
+  .cs-learnings { display: flex; flex-direction: column; gap: 20px; }
+  .learning-item { display: flex; gap: 16px; align-items: flex-start; }
+  .learning-num { flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px; background: var(--accent-gradient); color: #fff; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+  .learning-item p { margin: 0; font-size: 15px; line-height: 1.7; color: #334155; padding-top: 6px; }
+
+  /* Conclusion */
+  .cs-conclusion blockquote { margin: 0; padding: 28px 32px; background: #f8fafc; border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; font-size: 17px; line-height: 1.7; font-style: italic; color: #1e293b; }
+
+  /* FAQ */
+  .cs-faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
+  .faq-item[open] { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+  .faq-item summary { padding: 18px 24px; font-size: 15px; font-weight: 600; color: #1e293b; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background .2s; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 22px; color: var(--accent-text); font-weight: 300; transition: transform .2s; }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item summary:hover { background: var(--accent-soft); }
+  .faq-answer { padding: 0 24px 18px; }
+  .faq-answer p { margin: 0; font-size: 15px; line-height: 1.7; color: #475569; }
+
+  /* Author */
+  .cs-author { margin-top: 56px; padding-top: 40px; border-top: 1px solid #e2e8f0; }
+  .author-card { display: flex; gap: 20px; align-items: flex-start; }
+  .author-avatar { flex-shrink: 0; width: 72px; height: 72px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-text); display: flex; align-items: center; justify-content: center; }
+  .author-info h3 { font-size: 17px; margin: 0 0 4px; }
+  .author-role { font-size: 14px; color: var(--accent-text); font-weight: 600; margin: 0 0 8px; }
+  .author-bio { font-size: 14px; line-height: 1.6; color: #64748b; margin: 0; }
+
+  /* CTA */
+  .cs-cta { background: var(--accent-gradient); padding: 64px 24px; margin-top: 0; }
+  .cs-cta-inner { max-width: var(--max); margin: 0 auto; text-align: center; }
+  .cs-cta h2 { color: #fff; font-size: 28px; font-weight: 800; margin: 0 0 16px; border: none; }
+  .cs-cta h2::after { display: none; }
+  .cs-cta p { color: rgba(255,255,255,.9); font-size: 16px; line-height: 1.6; margin: 0 0 28px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .cs-cta-btn { display: inline-block; padding: 14px 32px; background: #fff; color: var(--accent-text); border-radius: 50px; font-size: 15px; font-weight: 700; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+  .cs-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .cs-section { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+  .cs-section.revealed { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 640px) {
+    .cs-challenge-grid { grid-template-columns: 1fr; }
+    .cs-hero-meta { gap: 16px; }
+    .author-card { flex-direction: column; }
+  }
+</style>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.cs-section').forEach(s => observer.observe(s));
+
+  // Active section nav
+  const navLinks = document.querySelectorAll('.cs-nav-link');
+  const sections = document.querySelectorAll('.cs-section[id]');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.target === id);
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-56px 0px -60% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+</script>

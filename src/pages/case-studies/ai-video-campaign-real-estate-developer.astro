@@ -1,0 +1,98 @@
+---
+import CaseStudyLayout from '../../components/CaseStudyLayout.astro';
+
+const data = {
+  slug: 'ai-video-campaign-real-estate-developer',
+  title: 'AI Video Campaign for Real Estate Developer',
+  subtitle: 'How Composite Video Generation Cut Production Costs While Lifting Qualified Leads',
+  metaDescription: 'How an AI-assisted video campaign helped a mid-size real estate developer scale property marketing, cut production costs, and lift qualified leads. Real strategy breakdown.',
+  category: 'AI Creative Studio',
+  industry: 'Real Estate',
+  accent: 'orange',
+  heroIntro: 'The scenario below is a composite drawn from patterns we see repeatedly across real estate developer engagements, presented as a single illustrative case. Aether Residences is a mid-size real estate developer building multi-unit residential communities across two metro regions, the kind of company that has five to eight active projects at any given time and a marketing budget that never quite stretches far enough to cover them all.',
+  executiveSummary: [
+    'Aether Residences moved from a video production model that supported roughly two active project launches per quarter to one that comfortably supported five to six, using an AI-assisted video pipeline layered onto their existing creative process rather than replacing it.',
+    'Within the first two quarters after rollout, the developer saw lead volume from video-driven channels increase by roughly 2x, while per-video production cost dropped by an estimated 40–55%, depending on asset complexity.',
+    'The rest of this case study walks through how that shift happened, what nearly derailed it, and what we\'d tell any developer considering something similar.',
+  ],
+  businessBackground: [
+    'Real estate development marketing has a structural problem that most other industries don\'t face in quite the same way: the product itself is temporary. A project launches, sells out or leases up over twelve to twenty-four months, and then the marketing asset library built around it becomes largely irrelevant.',
+    'That means creative investment has a short shelf life by design, which historically forced developers into one of two uncomfortable positions — underinvest in production and rely on generic stock-style content, or overinvest and accept that a meaningful chunk of that spend evaporates the moment the last unit sells.',
+    'Aether Residences sat in the first camp. Their target buyer skewed toward professionals in their thirties and forties evaluating three or four competing communities before making a decision, and video was consistently the format buyers spent the most time engaging with on listing portals and social channels.',
+  ],
+  challenges: [
+    { title: 'Production bottleneck', description: 'A single in-house editor and a rotating bench of freelance videographers could not realistically support six simultaneous project launches, each needing distinct walkthrough, lifestyle, and paid-ad creative.' },
+    { title: 'Creative staleness at launch', description: 'Because production lead time often ran six to eight weeks, sales teams were frequently marketing floor plans and finishes with renderings rather than finished-space video, which measurably softened buyer confidence at the consideration stage.' },
+    { title: 'Inconsistent brand voice across projects', description: 'With different freelancers rotating through different projects, tone, pacing, and visual grammar varied enough that the developer\'s broader brand felt fragmented across its own portfolio.' },
+    { title: 'Paid media inefficiency', description: 'Performance marketing teams were testing far fewer creative variants than the ad platforms could effectively optimize against, simply because new variants were expensive and slow to produce.' },
+    { title: 'Agent enablement gap', description: 'Sales agents had little short-form content they could personally share with prospects, which pushed more of the top-of-funnel burden onto the developer\'s own paid channels.' },
+  ],
+  objectives: 'The engagement was scoped around four measurable goals: reduce average cost per finished video asset by at least a third, cut the gap between "project ready to market" and "video assets available" from six-plus weeks to under two, increase the number of ad creative variants in active testing at any given time, and give sales agents a self-serve library of short clips they could distribute without waiting on the marketing team.',
+  discovery: [
+    'We started with a production audit — mapping every video asset type Aether actually needed against how each one currently got made, by whom, and at what cost. This mattered because AI video tooling is not a uniform substitute for traditional production; it\'s genuinely strong for certain asset types and genuinely weak for others, and building the wrong assumption in at the start wastes months.',
+    'Alongside that, we ran competitor creative analysis across the two metro regions Aether builds in, looking specifically at what video formats competing developers were using in paid social and on listing portals, and where the gaps sat.',
+    'Keyword and search-intent research on the SEO side surfaced a secondary opportunity: buyers were searching heavily for neighborhood-level content ("living near [area]," "commute from [area] to downtown") that Aether had never produced at all, since it didn\'t map neatly to any single project.',
+    'We also reviewed twelve months of paid media performance data to understand which existing video formats were actually driving cost-efficient leads versus which were just generating impressions, since the AI-assisted pipeline needed to prioritize replacing or scaling the former, not the latter.',
+  ],
+  strategy: [
+    'The strategy rested on a simple principle: use AI video generation to expand the volume and speed of lower-complexity assets, while protecting human-directed production for the assets where craft and nuance genuinely mattered to conversion — primarily hero walkthrough films and testimonial-style content.',
+    'That meant building a tiered production model. Tier one covered high-volume, template-driven assets: floor-plan animations, neighborhood explainer clips, paid ad variant testing, and social teasers built from existing photography and rendering libraries. These moved almost entirely into an AI-assisted workflow.',
+    'Tier two covered hero content — the primary walkthrough film for each project launch and any brand-level campaign work — which stayed with human videographers and editors, but now benefited from AI-assisted rough-cutting and variant generation to shorten post-production time.',
+    'On the distribution side, we restructured the paid media strategy around creative testing velocity rather than creative polish alone, since the expanded asset library meant Aether could now afford to run six or seven ad variants per campaign instead of two.',
+    'We also built a lightweight agent portal where sales agents could pull pre-approved short clips for their own social sharing, solving the enablement gap without adding review burden on the marketing team.',
+  ],
+  phases: [
+    { label: 'Phase 1 — Tier-One Asset Pipeline', description: 'Focused on the tier-one asset pipeline. We selected an AI video generation tool suited to real estate use cases specifically because it handled architectural and interior spaces without the uncanny distortion that generic video generators tend to produce on structured environments. Early tests on two smaller, already-completed projects let the team calibrate prompt structure, brand voice guardrails, and quality thresholds before touching anything live.' },
+    { label: 'Phase 2 — Live Launch Integration', description: 'Integrated the new pipeline into the live launch calendar for two upcoming projects, running it in parallel with the traditional process rather than replacing it outright. This overlap was deliberate — it let the sales and marketing teams compare output side by side and build trust in the new workflow before fully committing budget away from freelance production.' },
+    { label: 'Phase 3 — Scale & Agent Portal', description: 'Scaled the model across all active projects and built the agent-facing content portal, along with a lightweight approval workflow so brand consistency didn\'t erode as volume increased.' },
+  ],
+  implChallenges: [
+    'The first real obstacle was quality control at scale. Early AI-generated neighborhood clips occasionally produced small visual inconsistencies — a signage detail that didn\'t match reality, a lighting condition that looked slightly off. We addressed this by building a two-person review checkpoint before any asset went live, which added a small amount of time back into the pipeline but was non-negotiable given the reputational cost of a buyer noticing a factual inaccuracy in a listing video.',
+    'The second obstacle was internal, not technical: some of the freelance videographers Aether had worked with for years understandably felt threatened by the shift. We handled this by repositioning their role explicitly around tier-two hero content, where their craft was irreplaceable, and being transparent with them early rather than letting the change feel like it was happening around them.',
+    'Paid media performance also dipped briefly in month two, before it improved, largely because the ad platforms\' learning phases had to reset against the new creative volume. That\'s a normal, expected pattern with expanded creative testing, but it\'s worth naming because clients unfamiliar with it sometimes panic and want to abandon a strategy exactly when it\'s about to start working.',
+  ],
+  results: [
+    'Aether Residences went from supporting roughly two project launches per quarter with fully current video creative to comfortably supporting five to six, without adding headcount to the production team.',
+    'Average cost per tier-one video asset dropped by an estimated 40–55%, with the widest savings on high-volume formats like paid ad variants and neighborhood explainer content.',
+    'Lead volume attributed to video-driven channels increased by roughly 2x across the two quarters following full rollout, which we attribute primarily to two factors working together: video assets being available at launch rather than weeks later, and a meaningfully larger pool of ad creative variants in active testing at any given time.',
+    'Time from "project launch-ready" to "full video asset library live" dropped from six-plus weeks to under two weeks for tier-one content.',
+    'Agent-shared content also became a measurable secondary channel for the first time, with agents self-distributing short clips through their own networks rather than relying solely on the developer\'s paid channels — a gain that\'s harder to quantify precisely but was consistently cited by the sales team as a meaningful shift in day-to-day prospecting.',
+  ],
+  keyLearnings: [
+    'The most transferable insight from this engagement is that AI video tooling works best as an expansion of production capacity, not a wholesale replacement for it. Trying to push hero, brand-defining content entirely into an AI pipeline would likely have hurt Aether\'s brand rather than helped it; the value showed up specifically in the high-volume, lower-craft-sensitivity tier.',
+    'A second learning: the review checkpoint isn\'t optional overhead, it\'s the mechanism that makes scaled AI video production safe to ship. Skipping it to save time would have been a false economy given how much trust a single factual error in a listing video can cost with a skeptical buyer.',
+    'Finally, internal change management mattered as much as the technology itself. The freelancers who felt included in a redefined role stayed productive partners; treating the shift as purely a cost-cutting exercise would have created friction that slowed adoption regardless of how good the tooling was.',
+  ],
+  faqs: [
+    { question: 'Is AI-generated video good enough for real estate marketing?', answer: 'Yes, for specific asset types — floor-plan animations, neighborhood content, and ad creative variants — but it currently works best alongside human-directed production for hero walkthrough films rather than as a full replacement. The distinction matters more than the technology itself.' },
+    { question: 'How much does an AI video campaign cost compared to traditional production?', answer: 'Cost savings are highest on high-volume, template-driven assets, where developers in comparable engagements have seen reductions in the range of 40–55% per asset. Savings are smaller, and sometimes negligible, on hero content that still requires human direction and editing craft.' },
+    { question: 'Does AI video hurt brand consistency?', answer: 'It can, if deployed without guardrails, but a defined review checkpoint and brand voice framework typically prevents this. In practice, AI-assisted pipelines can improve consistency compared to rotating freelance production, since the underlying templates enforce a more uniform visual grammar.' },
+    { question: 'How long does it take to see results from an AI video campaign?', answer: 'Most developers see measurable lead volume shifts within one to two full launch cycles, roughly one to two quarters, since paid media platforms need a short learning-phase reset when creative volume changes meaningfully.' },
+    { question: 'Will AI video generation replace videographers entirely?', answer: 'Not in the near term, and not for hero content where directorial judgment and craft genuinely affect buyer perception. The more durable model repositions human production toward higher-value work while AI handles volume-driven, templated assets.' },
+    { question: 'What real estate video types are best suited to AI generation?', answer: 'Floor-plan animations, neighborhood and lifestyle explainer clips, paid ad variant testing, and short social teasers built from existing photography tend to be the strongest fits, since they rely less on nuanced human direction.' },
+    { question: 'Do buyers notice or mind that some video content is AI-assisted?', answer: 'Most buyers evaluate content on whether it\'s accurate and useful, not on how it was produced. Problems arise when quality control lapses and a factual inaccuracy slips through, not from the production method itself.' },
+    { question: 'How does this affect paid media performance?', answer: 'A larger library of creative variants generally improves paid media efficiency, since ad platforms optimize better with more testing inputs. The effect compounds over time as underperforming variants get identified and replaced faster.' },
+    { question: 'What\'s the biggest risk in adopting AI video for property marketing?', answer: 'Quality control lapses are the primary risk — small inaccuracies in generated content that damage buyer trust once noticed. A structured review checkpoint before publishing is the most effective mitigation.' },
+    { question: 'Can smaller developers use this approach, or does it require scale?', answer: 'The approach scales down reasonably well; smaller developers with only one or two active projects may see a smaller absolute time and cost benefit, but the same tiered production logic still applies.' },
+    { question: 'How do sales agents fit into an AI video strategy?', answer: 'Agents benefit from a self-serve library of short, pre-approved clips they can distribute through their own networks, which reduces reliance on the developer\'s own paid channels for top-of-funnel awareness.' },
+    { question: 'Does this require new software or platforms?', answer: 'Typically yes — a commercial AI video generation tool suited to architectural and interior spaces, plus a lightweight approval and distribution workflow, rather than a fully custom-built system for most developers.' },
+    { question: 'How do you measure ROI on an AI video campaign specifically?', answer: 'By isolating video-driven lead sources in analytics and tracking cost per asset against lead volume and quality over at least two full launch cycles, rather than judging any single video\'s performance in isolation.' },
+    { question: 'What internal change management issues typically arise?', answer: 'Existing production partners, particularly freelance videographers, often need a redefined role rather than a reduced one. Transparency early in the process tends to preserve those relationships rather than creating adversarial dynamics.' },
+    { question: 'Is this approach specific to residential developers, or does it apply to commercial real estate too?', answer: 'The core logic — tiered production, volume-driven AI use, protected human craft for hero content — applies to commercial real estate as well, though asset types and buyer research behavior differ enough that the specific content mix would shift.' },
+  ],
+  finalConclusion: 'The shift that mattered most for Aether Residences wasn\'t really about the AI tooling itself. It was about finally matching production capacity to launch velocity, something their existing model structurally couldn\'t do regardless of how talented their individual freelancers were. AI video generation gave them a way to close that gap on the assets where it made sense, while protecting the craft-driven work where it didn\'t. That distinction — knowing which content deserves AI-assisted speed and which deserves a human behind the camera — is likely to matter more over the next few years than the specific tools developers choose to use.',
+  callToAction: 'If your project launches are outpacing your production pipeline, or your marketing team is stretched thin trying to give every community the creative attention it deserves, it\'s worth a conversation about where an AI-assisted video workflow could realistically fit into your process — and just as importantly, where it shouldn\'t.',
+  author: { name: 'Priya Nataraj', role: 'Lead Video & Content Strategist, Biznyss Labs', bio: 'Biznyss Labs has run video and content engagements for real estate developers since 2016, with a focus on production workflows that scale alongside launch calendars. Outcomes described above reflect patterns observed across multiple developer engagements rather than a single isolated result.' },
+  metrics: [
+    { value: '2 → 5–6', label: 'Project launches supported per quarter', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>' },
+    { value: '40–55%', label: 'Reduction in per-video production cost', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>' },
+    { value: '~2x', label: 'Lead volume from video-driven channels', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 6l-9 9-3-3-9 9"/><path d="M17 6h6v6"/></svg>' },
+    { value: '< 2 weeks', label: 'From launch-ready to full video library (was 6+)', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>' },
+  ],
+  timeline: '4 months',
+  datePublished: '2025-02-15',
+  dateModified: '2025-07-20',
+};
+---
+
+<CaseStudyLayout data={data} />

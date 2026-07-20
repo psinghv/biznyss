@@ -1,0 +1,98 @@
+---
+import CaseStudyLayout from '../../components/CaseStudyLayout.astro';
+
+const data = {
+  slug: 'ecommerce-growth-campaign',
+  title: 'E-Commerce Growth Campaign',
+  subtitle: 'Fixing a Traffic Problem That Was Actually a Conversion Problem',
+  metaDescription: 'How an e-commerce growth campaign helped a mid-size online retailer lift conversion rate and repeat purchase revenue without increasing ad spend.',
+  category: 'Growth Marketing',
+  industry: 'E-Commerce',
+  accent: 'blue',
+  heroIntro: 'The scenario below is a composite drawn from patterns we see repeatedly across e-commerce growth engagements, presented as a single illustrative case. Harbor & Vine sells specialty kitchenware and home goods online, a business with a genuinely loyal customer base and a product line that photographed well and reviewed even better, the kind of brand that should have been growing faster than it was.',
+  executiveSummary: [
+    'Harbor & Vine\'s real constraint wasn\'t traffic volume — it was a conversion and retention problem that additional ad spend had been quietly masking rather than solving.',
+    'Rather than continuing to scale acquisition spend, we rebuilt the site\'s conversion path and restructured the retention program around existing customers, and within two quarters, conversion rate improved from roughly 1.2% to the 2–2.5% range, while repeat purchase revenue grew to account for a meaningfully larger share of total revenue than before.',
+    'The rest of this case study walks through how we diagnosed the actual bottleneck, what got deprioritized to fix it, and where the campaign nearly stalled midway through.',
+  ],
+  businessBackground: [
+    'Specialty e-commerce brands with strong products often assume their growth ceiling is a traffic ceiling, since more visitors intuitively feels like the lever most directly tied to more revenue. That assumption holds only when the site and post-purchase experience are already converting and retaining well — and for a lot of growing brands, including Harbor & Vine, they aren\'t.',
+    'Harbor & Vine\'s customer base included a meaningful segment of repeat buyers who genuinely loved the product, but the business had never built a deliberate retention strategy around them; repeat purchases happened somewhat by accident rather than by design.',
+    'Meanwhile, the brand\'s growing ad spend was increasingly funding first-time visitors who arrived, browsed, and left without buying, at a rate that suggested something in the path from landing page to checkout wasn\'t working as hard as it should have been.',
+  ],
+  challenges: [
+    { title: 'Conversion rate well below category benchmarks', description: 'Site-wide conversion sat noticeably below typical performance for comparable specialty e-commerce brands, meaning a large majority of paid traffic was arriving and leaving without purchasing.' },
+    { title: 'Checkout abandonment at a specific step', description: 'Analytics showed a disproportionate share of drop-off happening at shipping cost disclosure, a classic and fixable friction point that had gone unaddressed.' },
+    { title: 'No structured retention program', description: 'Repeat purchases happened organically among the most loyal customers, but there was no lifecycle email, loyalty, or win-back program actively encouraging a second or third purchase.' },
+    { title: 'Rising customer acquisition cost', description: 'As paid channels scaled, cost per acquired customer climbed steadily, a trend that would have continued indefinitely without a corresponding improvement in what happened after a visitor arrived.' },
+    { title: 'Weak first-to-second-purchase bridge', description: 'First-time buyers received a generic post-purchase email sequence with no meaningful incentive or personalization encouraging them to return, leaving a large share of new customers as effectively one-time transactions.' },
+  ],
+  objectives: 'The engagement was scoped around four measurable goals: lift site-wide conversion rate into a range competitive with category benchmarks, reduce checkout abandonment at the shipping-cost disclosure step specifically, build a structured retention program that measurably increased repeat purchase rate, and stabilize customer acquisition cost by improving downstream conversion rather than continuing to scale spend alone.',
+  discovery: [
+    'We started with a full funnel analysis rather than a surface-level traffic review, since the founding team\'s instinct — that the problem was insufficient traffic — needed to be tested against actual behavioral data before we accepted or rejected it.',
+    'Session recordings and checkout funnel data confirmed the hypothesis: traffic volume was healthy relative to spend, but a specific step in checkout was quietly bleeding a large share of otherwise-interested buyers.',
+    'We ran a cohort analysis on eighteen months of order history, segmenting customers by first-purchase timing and repeat purchase behavior, which revealed that the brand\'s most loyal customers were extraordinarily valuable over time, but the business had no systematic way of nurturing a first-time buyer toward that same behavior.',
+    'We also audited the existing email and SMS marketing setup and found a single generic welcome sequence with no segmentation, no loyalty mechanic, and no re-engagement logic for lapsed customers — a significant gap given how much of the cohort analysis pointed toward retention as the highest-leverage opportunity.',
+  ],
+  strategy: [
+    'The core strategic shift was reallocating effort from acquisition scaling toward conversion and retention, on the reasoning that fixing a leaking bucket delivers more sustainable growth than pouring more water into it, at least until the leak is addressed.',
+    'On conversion, we prioritized checkout redesign around the shipping-cost friction point specifically, testing upfront shipping cost disclosure on product pages against the existing checkout-stage reveal.',
+    'We also restructured product page content to front-load the trust signals — reviews, return policy, sizing or fit information — that session recordings showed visitors searching for before deciding to add to cart.',
+    'On retention, we built a segmented lifecycle program: a redesigned welcome sequence for first-time buyers with a time-bound incentive toward a second purchase, a loyalty mechanic rewarding repeat purchase behavior, and a win-back sequence targeting lapsed customers.',
+    'Paid acquisition spend was held steady rather than cut or increased during this period, deliberately isolating the effect of conversion and retention changes before making any further acquisition decisions.',
+  ],
+  phases: [
+    { label: 'Phase 1 — Checkout & Product Page Conversion', description: 'We considered a full site redesign and rejected it in favor of a targeted, funnel-specific set of changes, since the discovery data pointed to concentrated friction points rather than a broadly failing site experience, and a full redesign would have taken considerably longer to ship while addressing problems that weren\'t actually costing the business much.' },
+    { label: 'Phase 2 — Lifecycle Email & Loyalty Program', description: 'Built the lifecycle email and loyalty program, starting with the first-purchase welcome sequence since the cohort analysis had identified the first-to-second-purchase transition as the highest-leverage gap. We A/B tested incentive structures rather than assuming the strongest possible discount would perform best.' },
+    { label: 'Phase 3 — Win-back & Loyalty Rollout', description: 'Layered in the win-back sequence for lapsed customers and the loyalty mechanic for repeat buyers, sequenced last deliberately, since these programs depended on clean segmentation logic that needed the earlier phases\' data structure already in place to function reliably.' },
+  ],
+  implChallenges: [
+    'The shipping-cost disclosure test took longer to reach a clear result than expected, since initial results were noisy enough that a shorter test window would have risked a false conclusion in either direction. We extended the test period rather than calling it early, which delayed a decision the team was eager to make but avoided rolling out a change based on statistically unreliable data.',
+    'There was also internal disagreement about the welcome-sequence incentive structure — some team members wanted an aggressive first-purchase discount to maximize short-term second-purchase rate, while we argued for a more moderate incentive paired with genuine product education, given the risk of training a valuable customer base toward discount-dependent purchasing behavior. We resolved this by testing both approaches directly.',
+    'A smaller issue arose when the loyalty program\'s early segmentation logic mistakenly excluded a subset of genuinely loyal customers due to a data mapping error in how repeat purchases were being counted. We caught this within the first two weeks through a manual audit of enrolled customers against known top buyers.',
+  ],
+  results: [
+    'Site-wide conversion rate improved from roughly 1.2% to the 2–2.5% range over the two quarters following the checkout and product page changes, driven primarily by the shipping-cost disclosure fix and the trust-signal repositioning on product pages.',
+    'Checkout abandonment at the shipping-cost step dropped substantially once cost information moved earlier in the browsing experience.',
+    'Repeat purchase revenue grew to represent a meaningfully larger share of total revenue than before the lifecycle program launched, with the redesigned welcome sequence contributing the largest single gain in second-purchase rate among first-time buyers.',
+    'Customer acquisition cost stabilized despite steady ad spend, since a larger share of existing traffic was now converting and a larger share of new customers were returning, both of which improved the economics of every dollar already being spent on acquisition.',
+    'The founding team\'s original instinct — that the business needed more traffic — turned out to be only partially right; the traffic was adequate, but the site and lifecycle program hadn\'t been built to make full use of it.',
+  ],
+  keyLearnings: [
+    'The most transferable insight is that rising ad spend with flat revenue is often a conversion and retention signal disguised as a traffic problem, and testing that assumption against actual funnel data before scaling spend further can save a meaningful amount of wasted acquisition budget.',
+    'A second learning: aggressive discounting isn\'t automatically the strongest retention lever, even when it performs well on a narrow, short-term metric. Testing incentive structures directly, rather than defaulting to the deepest discount, protected margin without meaningfully sacrificing the retention gain the business was after.',
+    'Finally, sequencing matters in a multi-part growth program. Building the segmentation and data foundation through the earlier conversion and welcome-sequence work made the later loyalty and win-back programs meaningfully easier to execute reliably.',
+  ],
+  faqs: [
+    { question: 'Is more website traffic always the right growth lever for e-commerce?', answer: 'Not necessarily. When ad spend rises steadily but revenue doesn\'t grow proportionally, it\'s often a sign that conversion or retention issues are limiting how much value the business extracts from the traffic it already has.' },
+    { question: 'How do you know if a conversion problem or a traffic problem is limiting e-commerce growth?', answer: 'Funnel and cohort analysis, rather than surface-level traffic reporting, typically reveals the actual bottleneck — checking where visitors drop off in the buying journey and how repeat purchase behavior compares to industry benchmarks.' },
+    { question: 'What\'s a common cause of checkout abandonment in e-commerce?', answer: 'Shipping cost surprises revealed only at checkout are a frequent and fixable cause. Moving shipping cost information earlier in the browsing experience, such as on product pages, often reduces abandonment meaningfully.' },
+    { question: 'How much can conversion rate realistically improve from funnel optimization?', answer: 'Results vary by starting point, but businesses starting from a conversion rate well below category benchmarks have seen improvements roughly doubling their rate through targeted checkout and product page changes alone.' },
+    { question: 'What is a lifecycle email program and why does it matter for e-commerce?', answer: 'It\'s a segmented series of emails — welcome, loyalty, win-back — tailored to where a customer sits in their relationship with a brand, rather than a single generic sequence. It matters because first-time buyers, loyal repeat customers, and lapsed customers each need different messaging to move toward another purchase.' },
+    { question: 'Should e-commerce brands use deep discounts to drive repeat purchases?', answer: 'Not automatically. Aggressive discounting can train customers to wait for promotions rather than genuinely improving retention, and testing moderate incentives against deeper ones often reveals a similar conversion effect without the margin erosion.' },
+    { question: 'How long does it take to see results from an e-commerce growth campaign?', answer: 'Comparable engagements typically show measurable conversion and retention improvements within one to two quarters, though full lifecycle program effects often take longer to compound as repeat purchase cohorts build.' },
+    { question: 'What role does customer acquisition cost play in this kind of engagement?', answer: 'Rising acquisition cost alongside flat revenue is often a symptom rather than the core problem; improving downstream conversion and retention frequently stabilizes acquisition cost economics without requiring acquisition strategy changes at all.' },
+    { question: 'Should ad spend be paused while fixing a conversion problem?', answer: 'Not typically. Holding spend steady during conversion and retention work allows the effect of those specific changes to be isolated clearly, rather than conflating the results with a simultaneous spend change.' },
+    { question: 'What is a win-back email sequence?', answer: 'It\'s a targeted campaign aimed at customers who haven\'t purchased within a defined window, designed to re-engage them before they\'re considered fully lapsed, often using different messaging than a first-purchase welcome sequence.' },
+    { question: 'How do you test checkout changes without risking existing conversion rate?', answer: 'Structured A/B testing over a sufficiently long window, rather than a quick rollout based on early results, protects against acting on statistically unreliable data — even when a longer test delays a decision the team wants to make quickly.' },
+    { question: 'What data mistakes commonly derail loyalty program launches?', answer: 'Segmentation and data-mapping errors — incorrectly counting or categorizing repeat purchases — can mistakenly exclude genuinely loyal customers from a new program, making an early manual audit of enrolled customers a worthwhile safeguard.' },
+    { question: 'Does front-loading trust signals on product pages actually improve conversion?', answer: 'Yes, when session recording or behavioral data shows visitors actively searching for information like reviews, return policy, or sizing before deciding to purchase; making that information easier to find addresses a real friction point rather than a cosmetic one.' },
+    { question: 'What sequencing works best across a multi-part growth program?', answer: 'Building conversion and segmentation foundations first, before layering in loyalty and win-back programs, tends to work more reliably than launching every initiative simultaneously, since later programs often depend on data structures the earlier work establishes.' },
+    { question: 'Is a full website redesign necessary to fix e-commerce conversion problems?', answer: 'Often not. Targeted, funnel-specific changes addressing concentrated friction points identified through data tend to resolve conversion issues faster than a full redesign, which is usually better reserved for broader experience problems than isolated bottlenecks.' },
+  ],
+  finalConclusion: 'Harbor & Vine didn\'t have a traffic problem, even though that\'s what two years of rising ad spend made it look like. The business had a conversion and retention gap that more visitors could never fully compensate for, no matter how much budget kept flowing toward acquisition. Fixing the leak first, then evaluating acquisition strategy from a stronger baseline, produced growth that didn\'t depend on an ever-increasing marketing budget to sustain it — which is generally the more durable position for a growing e-commerce brand to be in.',
+  callToAction: 'If ad spend keeps climbing without a proportional lift in revenue, it\'s worth a conversation about whether the real constraint sits upstream in acquisition or downstream in conversion and retention — and what a funnel-level look at your own data might reveal.',
+  author: { name: 'Devon Marsh', role: 'Lead Growth Strategist, Biznyss Labs', bio: 'Biznyss Labs has worked across multiple e-commerce growth engagements, with particular focus on conversion rate optimization and customer retention programs. Outcomes described above reflect patterns observed across multiple client engagements rather than a single isolated result.' },
+  metrics: [
+    { value: '1.2% → 2.2%', label: 'Site-wide conversion rate lifted', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 6l-9 9-3-3-9 9"/><path d="M17 6h6v6"/></svg>' },
+    { value: 'Substantial', label: 'Drop in checkout abandonment at shipping step', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>' },
+    { value: 'Larger share', label: 'Repeat purchase revenue as share of total', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>' },
+    { value: 'Stabilized', label: 'Customer acquisition cost at steady spend', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>' },
+  ],
+  timeline: '5 months',
+  datePublished: '2025-02-01',
+  dateModified: '2025-07-20',
+};
+---
+
+<CaseStudyLayout data={data} />

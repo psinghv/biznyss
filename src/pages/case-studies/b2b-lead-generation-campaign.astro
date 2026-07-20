@@ -1,0 +1,99 @@
+---
+import CaseStudyLayout from '../../components/CaseStudyLayout.astro';
+
+const data = {
+  slug: 'b2b-lead-generation-campaign',
+  title: 'B2B Lead Generation Campaign',
+  subtitle: 'Fixing a Pipeline That Generated Volume, Not Revenue',
+  metaDescription: 'How a targeted B2B lead generation campaign helped a mid-market software vendor cut cost per qualified lead and shorten sales cycles. Full strategy breakdown.',
+  category: 'Growth Marketing',
+  industry: 'B2B SaaS',
+  accent: 'blue',
+  heroIntro: 'The scenario below is a composite drawn from patterns we see repeatedly across B2B lead generation engagements, presented as a single illustrative case. Ridgeline Analytics sells a mid-market data reporting platform to finance and operations teams at companies with 200 to 2,000 employees, the kind of vendor with a genuinely solid product and a sales team that kept complaining, reasonably, that marketing was handing them the wrong leads.',
+  executiveSummary: [
+    'Ridgeline restructured its lead generation program around intent-based targeting and a tightened marketing-to-sales handoff, moving away from a volume-first model toward one built around lead quality and fit.',
+    'Within two quarters, cost per sales-qualified lead dropped by roughly 35–45%, while the sales team\'s average time spent qualifying dead-end leads fell by an estimated half, freeing up meaningful selling time.',
+    'The rest of this case study covers how the campaign was restructured, what got cut along the way, and why some of the hardest decisions were about what to stop doing.',
+  ],
+  businessBackground: [
+    'Mid-market B2B software vendors face a particular version of the lead generation problem: the buying committee is real but small, the sales cycle is long enough that bad leads cost real selling time before anyone realizes they were never going to close, and generic top-of-funnel tactics that work for consumer or small-business audiences tend to flood the pipeline with noise rather than fit.',
+    'Ridgeline\'s existing program leaned heavily on broad content syndication and gated whitepapers, tactics that reliably produced form fills but with little signal about whether the person filling out the form actually had budget authority, a real reporting problem Ridgeline solved, or any near-term intent to buy.',
+    'Sales had, understandably, grown skeptical of marketing-sourced leads altogether, which created a quieter but more damaging problem: reps increasingly worked their own outbound lists instead of trusting the pipeline marketing built for them.',
+  ],
+  challenges: [
+    { title: 'Volume without qualification', description: 'Lead volume looked healthy on a dashboard, but a large share of leads had no real buying authority or urgency, which meant sales time went into qualification rather than selling.' },
+    { title: 'Misaligned lead scoring', description: 'The existing scoring model weighted engagement signals like content downloads heavily, without adequately accounting for firmographic fit — company size, industry, existing tooling — leaving sales unable to trust the score as a real prioritization signal.' },
+    { title: 'Sales and marketing trust gap', description: 'Repeated cycles of low-quality handoffs had eroded sales\' confidence in marketing-sourced leads, to the point where reps often deprioritized inbound leads in favor of their own prospecting.' },
+    { title: 'Long, opaque sales cycles', description: 'Deals that did progress often stalled for weeks with no clear visibility into where a prospect sat in their own internal evaluation process, making forecasting unreliable.' },
+    { title: 'Attribution blind spots', description: 'With buying committees typically involving three to five stakeholders, existing attribution models credited whichever single form fill happened first, obscuring which channels and content actually influenced the deals that closed.' },
+  ],
+  objectives: 'The engagement was scoped around four measurable goals: reduce cost per sales-qualified lead by at least a third, cut the share of marketing-sourced leads that sales rejected as unqualified, rebuild a lead scoring model that reps would actually trust and act on, and shorten the average time between first touch and sales-qualified status.',
+  discovery: [
+    'We started by interviewing the sales team directly, not just reviewing CRM data, because the gap between what the dashboard said and what reps actually experienced was itself diagnostic. Reps consistently pointed to the same handful of firmographic red flags — company size mismatches, industries where Ridgeline\'s product had a weak fit, titles without budget authority — that the existing scoring model wasn\'t weighting at all.',
+    'We then ran a closed-won deal analysis, pulling the last eighteen months of actual customer accounts and mapping the firmographic and behavioral patterns that showed up disproportionately among deals that closed versus those that didn\'t. This mattered more than any amount of persona research, since it grounded targeting decisions in what had actually converted rather than assumptions about who should theoretically want the product.',
+    'Competitor messaging analysis and keyword research on the content side surfaced a gap: Ridgeline\'s competitors were producing comparison and evaluation-stage content that addressed the specific objections finance and ops buyers raised late in the sales cycle, content Ridgeline simply didn\'t have.',
+    'We also audited the existing marketing automation setup and found scoring logic that hadn\'t been meaningfully revisited in over two years, despite the product and target market having shifted since.',
+  ],
+  strategy: [
+    'The core strategic shift was moving from a broad, volume-oriented top-of-funnel model to an account-based approach layered on top of a rebuilt lead scoring system, prioritizing fit and intent over raw engagement volume.',
+    'We rebuilt lead scoring around a combined model: firmographic fit (company size, industry, existing tech stack signals) weighted alongside intent signals (specific page visits, competitor comparison content engagement, pricing page visits) rather than generic engagement alone.',
+    'Leads below a fit threshold, regardless of engagement level, were routed to a nurture track instead of directly to sales, which meant fewer total leads reaching reps but a meaningfully higher proportion worth their time.',
+    'On the content side, we prioritized evaluation-stage assets — comparison guides, ROI calculators, implementation-readiness checklists — over the awareness-stage whitepapers the previous program leaned on, since the discovery work showed Ridgeline\'s actual bottleneck was mid-funnel, not top-of-funnel awareness.',
+    'Paid media shifted from broad content syndication toward account-based advertising targeting a defined list of companies matching the closed-won profile, accepting a smaller addressable audience in exchange for tighter fit.',
+    'We also rebuilt the marketing-to-sales handoff process itself, introducing a shared service-level agreement defining exactly what qualified as sales-ready and a joint weekly review of recently passed leads, so scoring model drift could be caught and corrected quickly.',
+  ],
+  phases: [
+    { label: 'Phase 1 — Lead Scoring Rebuild', description: 'Rebuilt the lead scoring model and reworked the automation logic behind it. We considered a simpler approach — just raising the engagement threshold required before a lead reached sales — and rejected it, since that would have reduced volume without actually fixing the underlying problem of engagement being a poor proxy for fit. The firmographic-plus-intent model took longer to build and required cleaner data hygiene than the team initially had.' },
+    { label: 'Phase 2 — Content & ABM Shift', description: 'Shifted content production toward evaluation-stage assets and stood up the account-based advertising program against the closed-won-derived target list. This required pulling back from some awareness-stage content the team had invested in for years, which was a harder internal conversation than the technical work.' },
+    { label: 'Phase 3 — Handoff Process Rebuild', description: 'Rebuilt the handoff process with sales, including the shared SLA and weekly review cadence. We ran this in parallel with the first live account-based campaigns so any scoring miscalibration could be caught against real leads rather than theoretical ones.' },
+  ],
+  implChallenges: [
+    'The most persistent obstacle was internal skepticism from parts of the marketing team who had built and defended the existing content program for years and understandably didn\'t want to hear that a meaningful share of it wasn\'t contributing to pipeline. We addressed this by anchoring every recommendation to the closed-won deal analysis rather than opinion, which made the conversation about evidence rather than whose program survived.',
+    'Data hygiene was a bigger issue than initially scoped. The firmographic data needed for the new scoring model was inconsistently populated in the CRM, and roughly six weeks went into cleaning and enriching account data before the new model could run reliably. Skipping this step would have produced a scoring model that looked sophisticated but ran on unreliable inputs.',
+    'There was also a temporary volume dip that alarmed some stakeholders in month two, since total lead count dropped noticeably as the fit threshold started filtering out poor matches. This was expected and communicated in advance, but it still required active reassurance to prevent a premature reversal before quality metrics had time to show up.',
+  ],
+  results: [
+    'Cost per sales-qualified lead dropped by roughly 35–45% over the two quarters following full rollout, driven primarily by the shift away from paying for broad engagement toward paying for qualified account-level attention.',
+    'The share of marketing-sourced leads that sales rejected as unqualified fell substantially, and reps reported, in the joint weekly reviews, a noticeably higher baseline trust in the pipeline compared to the prior year.',
+    'Average time spent by sales reps qualifying dead-end leads fell by an estimated half, freeing selling time that showed up in increased outbound activity on accounts reps actually believed in.',
+    'Average time from first touch to sales-qualified status also shortened, largely because leads reaching sales already carried stronger fit and intent signals rather than needing extensive vetting after the fact.',
+    'Total lead volume was lower than under the previous program, a deliberate trade-off rather than a shortfall, and one worth naming explicitly since a lead generation case study that only reports quality gains without acknowledging the volume trade-off would be incomplete.',
+  ],
+  keyLearnings: [
+    'The most transferable insight is that lead volume and lead quality are frequently in tension, and treating volume as the primary success metric — as many dashboards implicitly encourage — can actively work against pipeline health if scoring doesn\'t reliably separate fit from engagement. Ridgeline\'s previous program wasn\'t failing because it generated too few leads; it was failing because it couldn\'t tell good leads from noise.',
+    'A second learning: sales trust in a lead scoring model has to be earned through visible calibration, not just explained once at rollout. The weekly review cadence mattered less for catching errors, though it did that too, and more for giving sales an ongoing reason to believe the model was being actively maintained rather than left to drift.',
+    'Finally, deprioritizing existing content programs is often harder organizationally than building new ones, and grounding that conversation in closed-won data rather than opinion made it far less contentious than it could have been.',
+  ],
+  faqs: [
+    { question: 'Why do B2B lead generation campaigns generate volume but not revenue?', answer: 'Most commonly because lead scoring weights engagement signals like downloads or page visits without adequately accounting for firmographic fit, so a lead can look active without ever having real buying authority or intent.' },
+    { question: 'What\'s the difference between lead volume and lead quality in B2B marketing?', answer: 'Volume measures how many leads enter the pipeline, while quality measures how many are realistically positioned to buy based on fit and intent. Optimizing purely for volume can actively reduce pipeline quality if scoring can\'t distinguish engagement from genuine buying signal.' },
+    { question: 'How long does it take to see results from a restructured lead generation program?', answer: 'Comparable engagements typically show measurable cost-per-lead and qualification improvements within one to two quarters, though full pipeline effects often take longer to materialize given typical B2B sales cycle lengths.' },
+    { question: 'Does account-based marketing reduce total lead volume?', answer: 'Usually yes, since ABM deliberately narrows targeting to accounts matching a defined fit profile rather than pursuing the broadest possible audience. The trade-off is a smaller volume of substantially higher-fit leads.' },
+    { question: 'How do you rebuild a B2B lead scoring model?', answer: 'Effective models typically combine firmographic fit signals (company size, industry, existing tooling) with intent signals (specific content engagement, competitor comparison activity), rather than relying on generic engagement volume alone.' },
+    { question: 'Why does sales stop trusting marketing-sourced leads?', answer: 'Usually after repeated cycles of low-quality handoffs where leads passed as "qualified" turned out to lack real budget authority or urgency, causing reps to deprioritize inbound leads in favor of their own prospecting.' },
+    { question: 'What is a marketing-to-sales SLA and why does it matter?', answer: 'It\'s a shared agreement defining exactly what qualifies a lead as sales-ready, paired with a regular joint review process. It matters because it gives both teams a concrete, revisitable standard rather than relying on informal or shifting expectations.' },
+    { question: 'Should B2B companies use closed-won deal analysis for targeting?', answer: 'Generally yes — analyzing the firmographic and behavioral patterns of accounts that actually converted grounds targeting decisions in real outcomes rather than assumptions about an idealized buyer persona.' },
+    { question: 'What content works best for mid-funnel B2B buyers?', answer: 'Evaluation-stage content — comparison guides, ROI calculators, implementation-readiness checklists — tends to address the specific objections buyers raise later in a sales cycle, often more effectively than top-of-funnel awareness content for companies with an existing awareness problem elsewhere.' },
+    { question: 'How do you handle a temporary drop in lead volume during a campaign restructure?', answer: 'Setting expectations in advance that a fit-based filtering approach will reduce raw volume before quality metrics improve helps prevent stakeholders from reversing the strategy prematurely based on an early, expected dip.' },
+    { question: 'Why is B2B attribution difficult with multiple buying committee stakeholders?', answer: 'Because deals often involve three to five people engaging with different content at different times, and simple first-touch or last-touch attribution models credit a single interaction, obscuring which channels genuinely influenced the outcome.' },
+    { question: 'How much does cost per qualified lead typically improve with better targeting?', answer: 'Results vary by starting point and market, but engagements comparable to this one have seen reductions in the range of 35–45%, driven mainly by paying for qualified attention rather than broad engagement.' },
+    { question: 'What data hygiene issues commonly block better lead scoring?', answer: 'Inconsistently populated firmographic fields in the CRM are a frequent blocker, since a sophisticated scoring model built on unreliable account data can perform worse than a simpler model with clean inputs.' },
+    { question: 'How do you get sales to trust a new lead scoring model?', answer: 'Ongoing, visible calibration — such as a regular joint review of recently passed leads — tends to build trust more effectively than a one-time rollout explanation, since it signals the model is actively maintained rather than left to drift.' },
+    { question: 'Is it worth deprioritizing existing content programs to fix a lead generation problem?', answer: 'Often yes, if closed-won or engagement data shows those programs aren\'t contributing to qualified pipeline, though this tends to be an organizationally harder decision than building new programs and benefits from being grounded in data rather than opinion.' },
+  ],
+  finalConclusion: 'Ridgeline\'s problem was never really a lack of leads. It was a scoring and targeting model that couldn\'t tell the difference between someone mildly curious and someone genuinely evaluating a purchase, which quietly pushed the real qualification work onto a sales team that had stopped trusting the pipeline in the first place. Rebuilding scoring around fit and intent, and being honest that this would mean fewer total leads, restored something more valuable than volume ever was: a pipeline sales actually believed in.',
+  callToAction: 'If your lead generation program is producing steady volume but sales still spends most of their time qualifying dead ends, it\'s worth a conversation about whether your scoring model is measuring the right thing — and what it might look like to optimize for fit instead of form fills.',
+  author: { name: 'Marcus Webb', role: 'Lead Growth Strategist, Biznyss Labs', bio: 'Biznyss Labs has run B2B lead generation and marketing-sales alignment engagements since 2018, with particular focus on lead scoring and account-based targeting. Outcomes described above reflect patterns observed across multiple client engagements rather than a single isolated result.' },
+  metrics: [
+    { value: '35–45%', label: 'Reduction in cost per sales-qualified lead', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 18l-6-6-4 4-7-7"/><path d="M17 18h6v6"/></svg>' },
+    { value: '~50%', label: 'Less sales time on dead-end qualification', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>' },
+    { value: 'Shorter', label: 'Time from first touch to SQL status', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>' },
+    { value: 'Higher', label: 'Sales trust in marketing-sourced pipeline', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.39 0 4.68.94 6.36 2.64"/></svg>' },
+  ],
+  timeline: '5 months',
+  datePublished: '2025-02-10',
+  dateModified: '2025-07-20',
+};
+---
+
+<CaseStudyLayout data={data} />
