@@ -37,13 +37,20 @@ export interface CaseStudyData {
 interface Props { data: CaseStudyData; }
 const { data } = Astro.props;
 
-const accentColors: Record<string, { bg: string; text: string; border: string; gradient: string; soft: string }> = {
-  blue: { bg: '#0a5df0', text: '#0a5df0', border: '#0a5df0', gradient: 'linear-gradient(135deg, #0a5df0, #00b8d9)', soft: 'rgba(10,93,240,.08)' },
-  orange: { bg: '#ef4936', text: '#ef4936', border: '#ef4936', gradient: 'linear-gradient(135deg, #ef4936, #f6a23a)', soft: 'rgba(239,73,54,.08)' },
-  navy: { bg: '#124f6d', text: '#124f6d', border: '#124f6d', gradient: 'linear-gradient(135deg, #124f6d, #2a7fa8)', soft: 'rgba(18,79,109,.08)' },
-  teal: { bg: '#0d9488', text: '#0d9488', border: '#0d9488', gradient: 'linear-gradient(135deg, #0d9488, #2dd4bf)', soft: 'rgba(13,148,136,.08)' },
+const accentColors: Record<string, { bg: string; text: string; border: string; gradient: string; soft: string; glow: string }> = {
+  blue: { bg: '#0a5df0', text: '#0a5df0', border: '#0a5df0', gradient: 'linear-gradient(135deg, #0a5df0, #00b8d9)', soft: 'rgba(10,93,240,.08)', glow: 'rgba(10,93,240,.28)' },
+  orange: { bg: '#ef4936', text: '#ef4936', border: '#ef4936', gradient: 'linear-gradient(135deg, #ef4936, #f6a23a)', soft: 'rgba(239,73,54,.08)', glow: 'rgba(239,73,54,.28)' },
+  navy: { bg: '#124f6d', text: '#124f6d', border: '#124f6d', gradient: 'linear-gradient(135deg, #124f6d, #2a7fa8)', soft: 'rgba(18,79,109,.08)', glow: 'rgba(18,79,109,.28)' },
+  teal: { bg: '#0d9488', text: '#0d9488', border: '#0d9488', gradient: 'linear-gradient(135deg, #0d9488, #2dd4bf)', soft: 'rgba(13,148,136,.08)', glow: 'rgba(13,148,136,.28)' },
 };
 const c = accentColors[data.accent] ?? accentColors.blue;
+
+const metricPalettes = [
+  { bg: 'linear-gradient(145deg, #0a5df0, #00b8d9)', color: '#0a5df0', glow: 'rgba(10,93,240,.35)' },
+  { bg: 'linear-gradient(145deg, #ef4936, #f6a23a)', color: '#ef4936', glow: 'rgba(239,73,54,.35)' },
+  { bg: 'linear-gradient(145deg, #16b364, #65d6a0)', color: '#16b364', glow: 'rgba(22,179,100,.35)' },
+  { bg: 'linear-gradient(145deg, #0d9488, #2dd4bf)', color: '#0d9488', glow: 'rgba(13,148,136,.35)' },
+];
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -98,7 +105,7 @@ const sections = [
 ---
 
 <BaseLayout title={data.title} description={data.metaDescription} schema={combinedSchema}>
-  <article class="cs-page" style={`--accent: ${c.bg}; --accent-text: ${c.text}; --accent-gradient: ${c.gradient}; --accent-soft: ${c.soft};`}>
+  <article class="cs-page" style={`--accent: ${c.bg}; --accent-text: ${c.text}; --accent-gradient: ${c.gradient}; --accent-soft: ${c.soft}; --accent-glow: ${c.glow};`}>
     <!-- Breadcrumb -->
     <nav class="cs-breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
@@ -110,6 +117,7 @@ const sections = [
 
     <!-- Hero -->
     <header class="cs-hero">
+      <div class="cs-hero-glow" aria-hidden="true"></div>
       <div class="cs-hero-inner">
         <div class="cs-hero-tags">
           <span class="tag tag-category">{data.category}</span>
@@ -128,19 +136,30 @@ const sections = [
             {data.author.name}
           </span>
         </div>
+        <div class="cs-hero-stats">
+          {data.metrics.map((m, i) => (
+            <div class="hero-stat">
+              <span class="hero-stat-value">{m.value}</span>
+              <span class="hero-stat-label">{m.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </header>
 
     <!-- Metrics Infographic -->
     <section class="cs-metrics" aria-label="Key results">
       <div class="cs-metrics-grid">
-        {data.metrics.map((m, i) => (
-          <div class="metric-card" style={`animation-delay: ${i * 0.1}s`}>
-            <div class="metric-icon" set:html={m.icon} />
-            <div class="metric-value">{m.value}</div>
-            <div class="metric-label">{m.label}</div>
-          </div>
-        ))}
+        {data.metrics.map((m, i) => {
+          const p = metricPalettes[i % metricPalettes.length];
+          return (
+            <div class="metric-card" style={`--m-bg: ${p.bg}; --m-color: ${p.color}; --m-glow: ${p.glow}; animation-delay: ${i * 0.1}s`}>
+              <div class="metric-icon" set:html={m.icon} />
+              <div class="metric-value">{m.value}</div>
+              <div class="metric-label">{m.label}</div>
+            </div>
+          );
+        })}
       </div>
     </section>
 
@@ -293,9 +312,32 @@ const sections = [
       <div class="cs-cta-inner">
         <h2>Ready to explore what this looks like for you?</h2>
         <p>{data.callToAction}</p>
-        <a href="/contact" class="cs-cta-btn">Start a conversation</a>
+        <div class="cs-cta-options">
+          <a href="/contact" class="cs-cta-option primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Book Strategy Call
+          </a>
+          <a href="https://wa.me/919999999999" class="cs-cta-option">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Chat on WhatsApp
+          </a>
+          <a href="/case-studies" class="cs-cta-option">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Explore More Case Studies
+          </a>
+          <a href="/capabilities" class="cs-cta-option">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg>
+            View Capabilities
+          </a>
+        </div>
       </div>
     </section>
+
+    <!-- Floating scroll CTA -->
+    <aside class="cs-float-cta" id="cs-float-cta" aria-hidden="true">
+      <span class="cs-float-text">Want results like these?</span>
+      <a href="/contact" class="cs-float-btn">Book Strategy Call</a>
+    </aside>
   </article>
 </BaseLayout>
 
@@ -309,27 +351,34 @@ const sections = [
   .cs-breadcrumb .sep { color: #cbd5e1; }
   .cs-breadcrumb .current { color: #475569; font-weight: 500; }
 
-  /* Hero */
-  .cs-hero { background: linear-gradient(180deg, var(--accent-soft) 0%, transparent 100%); padding: 40px 24px 48px; }
-  .cs-hero-inner { max-width: var(--max); margin: 0 auto; }
+  /* Hero — distinctive dark panel */
+  .cs-hero { position: relative; overflow: hidden; padding: 56px 24px 64px; border-radius: 0 0 28px 28px; color: #fff; background: radial-gradient(120% 100% at 0% 0%, #163b5c 0%, #0a1a2e 60%, #060f1a 100%); box-shadow: 0 24px 60px rgba(6,15,26,.35); }
+  .cs-hero-glow { position: absolute; width: 520px; height: 520px; right: -180px; top: -220px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow), transparent 67%); pointer-events: none; }
+  .cs-hero-inner { position: relative; max-width: var(--max); margin: 0 auto; }
   .cs-hero-tags { display: flex; gap: 10px; margin-bottom: 20px; }
   .tag { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
   .tag-category { background: var(--accent); color: #fff; }
-  .tag-industry { background: var(--accent-soft); color: var(--accent-text); }
-  .cs-hero h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 16px; }
-  .cs-hero-subtitle { font-size: 18px; color: var(--accent-text); font-weight: 600; margin: 0 0 20px; line-height: 1.4; }
-  .cs-hero-intro { font-size: 16px; line-height: 1.7; color: #475569; margin: 0 0 24px; }
-  .cs-hero-meta { display: flex; gap: 24px; flex-wrap: wrap; font-size: 14px; color: #64748b; }
+  .tag-industry { background: rgba(255,255,255,.12); color: #cfe0ee; border: 1px solid rgba(255,255,255,.18); }
+  .cs-hero h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 16px; color: #fff; }
+  .cs-hero-subtitle { font-size: 18px; color: #8db8ff; font-weight: 600; margin: 0 0 20px; line-height: 1.4; }
+  .cs-hero-intro { font-size: 16px; line-height: 1.7; color: #aab9c6; margin: 0 0 24px; }
+  .cs-hero-meta { display: flex; gap: 24px; flex-wrap: wrap; font-size: 14px; color: #9db1c4; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 28px; }
   .meta-item { display: flex; align-items: center; gap: 6px; }
+  .cs-hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .hero-stat { display: flex; flex-direction: column; gap: 4px; }
+  .hero-stat-value { font-size: clamp(18px, 2.4vw, 24px); font-weight: 800; color: #fff; letter-spacing: -.02em; line-height: 1.1; }
+  .hero-stat-label { font-size: 12px; color: #9db1c4; line-height: 1.35; }
 
-  /* Metrics */
-  .cs-metrics { padding: 0 24px; }
-  .cs-metrics-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
-  .metric-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 28px 20px; text-align: center; transition: transform .3s, box-shadow .3s; opacity: 0; animation: fadeUp .5s ease forwards; }
-  .metric-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); border-color: var(--accent); }
-  .metric-icon { width: 48px; height: 48px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--accent-soft); color: var(--accent-text); }
+  /* Metrics — 3D modern infographic, distinct colors */
+  .cs-metrics { padding: 48px 24px 8px; }
+  .cs-metrics-grid { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; }
+  .metric-card { position: relative; background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 28px 20px; text-align: center; opacity: 0; animation: fadeUp .5s ease forwards; transform: perspective(800px) rotateX(0deg); transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease, border-color .35s ease; box-shadow: 0 8px 20px rgba(15,23,42,.06), inset 0 1px 0 rgba(255,255,255,.6); }
+  .metric-card::before { content: ''; position: absolute; inset: 0; border-radius: 18px; padding: 1px; background: var(--m-bg); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: .35; pointer-events: none; }
+  .metric-card::after { content: ''; position: absolute; left: 24px; right: 24px; top: 0; height: 3px; border-radius: 0 0 6px 6px; background: var(--m-bg); box-shadow: 0 0 18px var(--m-glow); }
+  .metric-card:hover { transform: translateY(-6px) perspective(800px) rotateX(4deg); box-shadow: 0 22px 44px var(--m-glow), inset 0 1px 0 rgba(255,255,255,.6); border-color: transparent; }
+  .metric-icon { width: 52px; height: 52px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; border-radius: 14px; color: #fff; background: var(--m-bg); box-shadow: 0 8px 18px var(--m-glow), inset 0 1px 0 rgba(255,255,255,.35); transform: translateZ(20px); }
   .metric-icon :global(svg) { width: 24px; height: 24px; }
-  .metric-value { font-size: 28px; font-weight: 800; color: var(--accent-text); letter-spacing: -.02em; line-height: 1.1; }
+  .metric-value { font-size: 26px; font-weight: 800; color: var(--m-color); letter-spacing: -.02em; line-height: 1.1; }
   .metric-label { font-size: 13px; color: #64748b; margin-top: 6px; line-height: 1.4; }
 
   /* Section Nav */
@@ -410,14 +459,25 @@ const sections = [
   .author-role { font-size: 14px; color: var(--accent-text); font-weight: 600; margin: 0 0 8px; }
   .author-bio { font-size: 14px; line-height: 1.6; color: #64748b; margin: 0; }
 
-  /* CTA */
+  /* CTA — multiple options */
   .cs-cta { background: var(--accent-gradient); padding: 64px 24px; margin-top: 0; }
   .cs-cta-inner { max-width: var(--max); margin: 0 auto; text-align: center; }
   .cs-cta h2 { color: #fff; font-size: 28px; font-weight: 800; margin: 0 0 16px; border: none; }
   .cs-cta h2::after { display: none; }
   .cs-cta p { color: rgba(255,255,255,.9); font-size: 16px; line-height: 1.6; margin: 0 0 28px; max-width: 600px; margin-left: auto; margin-right: auto; }
-  .cs-cta-btn { display: inline-block; padding: 14px 32px; background: #fff; color: var(--accent-text); border-radius: 50px; font-size: 15px; font-weight: 700; text-decoration: none; transition: transform .2s, box-shadow .2s; }
-  .cs-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+  .cs-cta-options { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .cs-cta-option { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.28); border-radius: 50px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform .2s, background .2s, box-shadow .2s; }
+  .cs-cta-option:hover { transform: translateY(-2px); background: rgba(255,255,255,.24); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+  .cs-cta-option.primary { background: #fff; color: var(--accent-text); border-color: #fff; box-shadow: 0 8px 20px rgba(0,0,0,.18); }
+  .cs-cta-option.primary:hover { box-shadow: 0 12px 28px rgba(0,0,0,.26); }
+
+  /* Floating scroll CTA */
+  .cs-float-cta { position: fixed; right: 22px; bottom: 22px; z-index: 60; display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 18px; background: #fff; border: 1px solid #e2e8f0; border-radius: 50px; box-shadow: 0 14px 36px rgba(15,23,42,.16); opacity: 0; transform: translateY(20px); pointer-events: none; transition: opacity .35s ease, transform .35s ease; }
+  .cs-float-cta.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .cs-float-text { font-size: 13px; font-weight: 600; color: #475569; }
+  .cs-float-btn { display: inline-flex; align-items: center; padding: 9px 18px; border-radius: 50px; background: var(--accent-gradient); color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 6px 16px var(--accent-glow); transition: transform .2s; }
+  .cs-float-btn:hover { transform: translateY(-2px); }
+  @media (max-width: 640px) { .cs-float-cta { right: 12px; bottom: 12px; padding: 8px 10px 8px 14px; } .cs-float-text { display: none; } }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -428,6 +488,7 @@ const sections = [
     .cs-challenge-grid { grid-template-columns: 1fr; }
     .cs-hero-meta { gap: 16px; }
     .author-card { flex-direction: column; }
+    .cs-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   }
 </style>
 
@@ -457,4 +518,21 @@ const sections = [
     });
   }, { threshold: 0.3, rootMargin: '-56px 0px -60% 0px' });
   sections.forEach(s => navObserver.observe(s));
+
+  // Floating scroll CTA — appears after hero, hides near footer CTA
+  const floatCta = document.getElementById('cs-float-cta');
+  const hero = document.querySelector('.cs-hero');
+  const footerCta = document.querySelector('.cs-cta');
+  if (floatCta && hero) {
+    const showObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (!e.isIntersecting) floatCta.classList.add('visible'); });
+    }, { threshold: 0 });
+    showObs.observe(hero);
+    if (footerCta) {
+      const hideObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { floatCta.classList.toggle('visible', !e.isIntersecting); });
+      }, { threshold: 0.2 });
+      hideObs.observe(footerCta);
+    }
+  }
 </script>
