@@ -171,15 +171,17 @@ const whyReasons = [
         </div>
         <p class="lead">We bring patterns from multiple industries without forcing one industry's playbook onto another.</p>
       </div>
-      <div class="industry-grid">
-        {industryItems.map(({ name, icon: Icon, bg, from, to }) => (
-          <div class="industry-card" style={`--bg:${bg};--from:${from};--to:${to}`}>
-            <span class="card-icon-wrap">
-              <Icon size={28} strokeWidth={1.7} aria-hidden="true" />
-            </span>
-            <strong>{name}</strong>
-          </div>
-        ))}
+      <div class="industry-carousel">
+        <div class="industry-track">
+          {[...industryItems, ...industryItems].map(({ name, icon: Icon, bg, from, to }) => (
+            <div class="industry-card" style={`--bg:${bg};--from:${from};--to:${to}`}>
+              <span class="card-icon-wrap">
+                <Icon size={28} strokeWidth={1.7} aria-hidden="true" />
+              </span>
+              <strong>{name}</strong>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -345,9 +347,15 @@ const whyReasons = [
   .industry-heading { display: block; max-width: 790px; margin-bottom: 30px; }
   .industry-heading h2 { font-size: clamp(2rem,3.5vw,3.45rem); }
   .industry-heading .lead { max-width: 650px; margin-top: 22px; }
-  .industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .industry-carousel { position: relative; overflow: hidden; margin: 0 -8px; padding: 8px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%); }
+  .industry-track { display: flex; gap: 18px; width: max-content; animation: industry-scroll 38s linear infinite; }
+  .industry-carousel:hover .industry-track { animation-play-state: paused; }
+  @keyframes industry-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   .industry-card {
-    display: grid; grid-template-rows: 1fr auto; align-items: center; justify-items: center; gap: 14px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    flex: 0 0 auto; width: 170px;
     padding: 26px 14px 22px;
     border: 1px solid #e8eef5;
     border-radius: 16px;
@@ -419,7 +427,6 @@ const whyReasons = [
   .why-card-pink .why-icon { background: rgba(236,72,153,.15); color: #f472b6; }
   @media (max-width: 1100px) {
     .work-grid { grid-template-columns: repeat(3, 1fr); }
-    .industry-grid { grid-template-columns: repeat(5, 1fr); }
     .process-rail { grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .process-rail::before { display: none; }
     .process-step { min-height: 160px; }
@@ -432,7 +439,6 @@ const whyReasons = [
     .leadership-panel { grid-template-columns: repeat(2,1fr); }
     .leadership-item:nth-child(3) { border-left: 0; border-top: 1px solid var(--border); }
     .leadership-item:nth-child(4) { border-top: 1px solid var(--border); }
-    .industry-grid { grid-template-columns: repeat(3,1fr); }
     .industry-heading { align-items: start; flex-direction: column; }
     .process-rail { grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .process-rail::before { display: none; }
@@ -464,7 +470,6 @@ const whyReasons = [
     .work-card { flex: 0 0 min(76vw, 285px); scroll-snap-align: start; }
     .work-art { height: 118px; }
     .work-content { min-height: 178px; }
-    .industry-grid { grid-template-columns: repeat(2,1fr); }
     .why-bento { grid-template-columns: 1fr; }
     .process-rail { grid-template-columns: 1fr; gap: 22px; }
     .process-step { min-height: 0; display: grid; grid-template-columns: 64px 1fr; align-items: center; column-gap: 16px; text-align: left; }
