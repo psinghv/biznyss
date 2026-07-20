@@ -11,6 +11,12 @@ import { capabilities } from '../data/site';
 
 const icons = [Film, TrendingUp, CodeXml, Bot];
 const shortNames = ['AI Creative', 'Growth Marketing', 'Software & Products', 'AI Automation'];
+const tabIconStyles = [
+  { bg: '#ffedd5', color: '#c2410c' },
+  { bg: '#dcfce7', color: '#15803d' },
+  { bg: '#dbeafe', color: '#1d4ed8' },
+  { bg: '#f3e8ff', color: '#7e22ce' },
+];
 const mockupLabels = [
   ['Campaign velocity', 'Creative variants', 'Performance lift'],
   ['Qualified pipeline', 'Conversion rate', 'Acquisition efficiency'],
@@ -42,7 +48,7 @@ const mockupLabels = [
                 data-tab={index}
               >
                 <span class="tab-number">0{index + 1}</span>
-                <span class="tab-icon"><Icon size={19} strokeWidth={1.8} /></span>
+                <span class="tab-icon" style={`background:${tabIconStyles[index].bg};color:${tabIconStyles[index].color}`}><Icon size={19} strokeWidth={1.8} /></span>
                 <span>{shortNames[index]}</span>
               </button>
             );
@@ -170,7 +176,8 @@ const mockupLabels = [
   .story-tab.active { padding-left: 18px; color: var(--navy); background: rgba(255,255,255,.68); }
   .story-tab.active::before { transform: scaleY(1); }
   .tab-number { color: #9aa8b4; font-size: .66rem; }
-  .tab-icon { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; color: var(--blue); background: #e8f0fd; }
+  .tab-icon { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; transition: transform .3s ease; }
+  .tab-btn:hover .tab-icon { transform: scale(1.08) rotate(-3deg); }
   .story-progress { width: 2px; height: 150px; margin: 28px 0 0 17px; overflow: hidden; background: #d6e0e8; }
   .story-progress span { width: 100%; height: 100%; display: block; transform: scaleY(.25); transform-origin: top; background: linear-gradient(var(--blue),var(--orange)); transition: transform .5s ease-out; }
   .story-right { position: relative; min-width: 0; height: 100%; }

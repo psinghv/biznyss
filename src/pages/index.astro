@@ -5,29 +5,35 @@ import CapabilitiesStory from '../components/CapabilitiesStory.astro';
 import CTA from '../components/CTA.astro';
 import {
   ArrowRight,
+  Bot,
   Building2,
   CodeXml,
+  Compass,
   Cpu,
   Factory,
   GraduationCap,
   Handshake,
   HeartPulse,
+  Layers,
   Landmark,
   Plane,
   Rocket,
   Search,
+  Shield,
   ShoppingCart,
+  Sparkles,
   Target,
   TrendingUp,
   Truck,
+  Zap,
 } from 'lucide-react';
 import { solutions } from '../data/site';
 
 const leadershipMetrics = [
-  { value: '20+', label: 'Years Technology Leadership', icon: Cpu },
-  { value: '20+', label: 'Years Growth Marketing Experience', icon: Target },
-  { value: 'Global', label: 'Client Experience', icon: Landmark },
-  { value: 'One Roof', label: 'AI, Software, Marketing & Automation', icon: Handshake },
+  { value: '20+', label: 'Years Technology Leadership', icon: Cpu, iconBg: '#dbeafe', iconColor: '#1d4ed8' },
+  { value: '20+', label: 'Years Growth Marketing Experience', icon: Target, iconBg: '#ffedd5', iconColor: '#c2410c' },
+  { value: 'Global', label: 'Client Experience', icon: Landmark, iconBg: '#dcfce7', iconColor: '#15803d' },
+  { value: 'One Roof', label: 'AI, Software, Marketing & Automation', icon: Handshake, iconBg: '#f3e8ff', iconColor: '#7e22ce' },
 ];
 
 const featuredWork = [
@@ -58,6 +64,22 @@ const processSteps = [
   { title: 'Launch', icon: Rocket, tone: 'orange', text: 'We deploy, test, optimize, and prepare your business for market execution.' },
   { title: 'Scale', icon: TrendingUp, tone: 'navy', text: 'We continuously improve performance, conversions, automation, and growth.' },
 ];
+
+const solutionMeta = [
+  { icon: Rocket, bg: '#dbeafe', color: '#1d4ed8', accent: '#3b82f6' },
+  { icon: TrendingUp, bg: '#dcfce7', color: '#15803d', accent: '#10b981' },
+  { icon: Bot, bg: '#f3e8ff', color: '#7e22ce', accent: '#a855f7' },
+  { icon: Sparkles, bg: '#ffedd5', color: '#c2410c', accent: '#f97316' },
+];
+
+const whyReasons = [
+  { icon: Compass, title: 'Strategy first', text: 'Every engagement starts with the why — not the tactics.', tone: 'blue' },
+  { icon: Bot, title: 'AI first', text: 'AI embedded in every solution, not bolted on after.', tone: 'purple' },
+  { icon: Layers, title: 'Tech + marketing together', text: 'One team across the full growth stack, end to end.', tone: 'teal' },
+  { icon: Shield, title: 'Leadership driven', text: 'Senior team, end-to-end ownership, no handoffs.', tone: 'green' },
+  { icon: Target, title: 'Outcome focused', text: 'Measured by business metrics, not deliverables.', tone: 'orange' },
+  { icon: Zap, title: 'Long-term partnership', text: 'Relationships that span years, not projects.', tone: 'pink' },
+];
 ---
 <BaseLayout title="AI-Powered Growth & Innovation Company | Biznyss" description="Biznyss helps organizations launch, scale, automate, and innovate through AI, software, creative production, and growth marketing.">
   <section class="hero">
@@ -81,7 +103,7 @@ const processSteps = [
           const Icon = metric.icon;
           return (
             <div class="leadership-item">
-              <span class="leadership-icon"><Icon size={25} strokeWidth={1.7} aria-hidden="true" /></span>
+              <span class="leadership-icon" style={`background:${metric.iconBg};color:${metric.iconColor}`}><Icon size={24} strokeWidth={1.7} aria-hidden="true" /></span>
               <div><strong>{metric.value}</strong><span>{metric.label}</span></div>
             </div>
           );
@@ -95,12 +117,22 @@ const processSteps = [
   <section class="section solutions-section">
     <div class="container">
       <div class="section-head solutions-heading"><div><span class="eyebrow">Business solutions</span><h2>Start with the outcome,<br/>not the service.</h2></div><p class="lead">Different stages demand different systems. Choose the ambition that best describes where your business needs to go.</p></div>
-      <div class="solution-list">
-        {solutions.map((solution, index) => (
-          <a href={`/solutions/${solution.slug}`} class="solution-row">
-            <span class="number">0{index + 1}</span><div><h3>{solution.name}</h3><p>{solution.summary}</p></div><span class="solution-audience">{solution.audience}</span><i>↗</i>
-          </a>
-        ))}
+      <div class="solution-grid">
+        {solutions.map((solution, index) => {
+          const Icon = solutionMeta[index].icon;
+          return (
+            <a href={`/solutions/${solution.slug}`} class="solution-card" style={`--accent:${solutionMeta[index].accent}`}>
+              <div class="solution-card-head">
+                <span class="solution-icon" style={`background:${solutionMeta[index].bg};color:${solutionMeta[index].color}`}><Icon size={28} strokeWidth={1.7} aria-hidden="true" /></span>
+                <span class="solution-num">0{index + 1}</span>
+              </div>
+              <h3>{solution.name}</h3>
+              <p>{solution.summary}</p>
+              <span class="solution-audience-tag">{solution.audience}</span>
+              <span class="solution-cta">Explore solution <ArrowRight size={14} aria-hidden="true" /></span>
+            </a>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -170,10 +202,26 @@ const processSteps = [
     </div>
   </section>
 
-  <section class="section surface">
-    <div class="container why-grid">
-      <div><span class="eyebrow">Why Biznyss</span><h2>One partner for the systems that create growth.</h2><p class="lead">Less coordination overhead. More strategic continuity from the boardroom to the build.</p></div>
-      <div class="why-list">{['Strategy first','AI first','Technology + marketing together','Leadership driven','Outcome focused','Long-term partnership'].map((item, i) => <div><span>0{i + 1}</span><strong>{item}</strong></div>)}</div>
+  <section class="section why-section">
+    <div class="container">
+      <div class="why-header">
+        <span class="eyebrow light">Why Biznyss</span>
+        <h2>One partner for the systems<br/>that create growth.</h2>
+        <p class="lead">Less coordination overhead. More strategic continuity from the boardroom to the build.</p>
+      </div>
+      <div class="why-bento">
+        {whyReasons.map((reason, i) => {
+          const Icon = reason.icon;
+          return (
+            <div class={`why-card why-card-${reason.tone}`}>
+              <span class="why-icon"><Icon size={26} strokeWidth={1.7} aria-hidden="true" /></span>
+              <h3>{reason.title}</h3>
+              <p>{reason.text}</p>
+              <span class="why-num">0{i + 1}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   </section>
   <CTA />
@@ -241,20 +289,37 @@ const processSteps = [
   .leadership-panel { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: white; box-shadow: 0 24px 60px rgba(13,23,32,.14); }
   .leadership-item { min-height: 96px; display: flex; align-items: center; gap: 15px; padding: 20px 28px; border-left: 1px solid var(--border); }
   .leadership-item:first-child { border-left: 0; }
-  .leadership-icon { width: 48px; height: 48px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #445c9c; background: #f3f5fb; }
+  .leadership-icon { width: 48px; height: 48px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; transition: transform .3s ease; }
+  .leadership-item:hover .leadership-icon { transform: translateY(-3px) scale(1.05); }
   .leadership-item strong, .leadership-item span { display: block; }
   .leadership-item strong { color: #0d5bb8; font-size: 1.35rem; font-weight: 700; line-height: 1; letter-spacing: -.025em; }
   .leadership-item div > span { max-width: 145px; margin-top: 7px; color: #374151; font-size: .68rem; font-weight: 600; line-height: 1.35; }
-  .solutions-section { padding: 78px 0 52px; }
+  .solutions-section { padding: 82px 0 72px; }
   .solutions-heading { display: block; max-width: 760px; }
   .solutions-heading .lead { max-width: 660px; margin-top: 24px; }
-  .solution-list { border-top: 1px solid var(--border); }
-  .solution-row { display: grid; grid-template-columns: 80px 1.3fr 1fr 30px; align-items: center; gap: 28px; padding: 35px 12px; border-bottom: 1px solid var(--border); transition: background .25s ease-out, padding .25s ease-out; }
-  .solution-row:hover { padding-inline: 24px; background: var(--surface); }
-  .solution-row .number { font-size: .95rem; font-weight: 700; }
-  .solution-row p, .solution-audience { color: var(--muted); font-size: .88rem; font-weight: 500; }
-  .solution-row i { color: var(--blue); font-size: 0; font-style: normal; }
-  .solution-row i::before { content: "\2197"; font-size: 1.5rem; }
+  .solution-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .solution-card {
+    position: relative; display: flex; flex-direction: column;
+    padding: 30px 26px 26px;
+    border: 1px solid var(--border); border-radius: 18px;
+    background: #fff; box-shadow: 0 4px 16px rgba(13,23,32,.04);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    overflow: hidden;
+  }
+  .solution-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .35s ease;
+  }
+  .solution-card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(13,23,32,.1); border-color: rgba(0,0,0,.06); }
+  .solution-card:hover::before { transform: scaleX(1); }
+  .solution-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .solution-icon { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 16px; transition: transform .3s ease; }
+  .solution-card:hover .solution-icon { transform: scale(1.08) rotate(-4deg); }
+  .solution-num { color: #cfd8e3; font-size: 1.6rem; font-weight: 800; letter-spacing: -.03em; }
+  .solution-card h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+  .solution-card p { margin-top: 12px; color: var(--muted); font-size: .9rem; line-height: 1.6; flex: 1; }
+  .solution-audience-tag { display: inline-block; margin-top: 16px; padding: 5px 12px; border-radius: 999px; background: var(--surface); color: var(--muted); font-size: .72rem; font-weight: 600; }
+  .solution-cta { display: flex; align-items: center; gap: 6px; margin-top: 20px; color: var(--accent); font-size: .82rem; font-weight: 700; }
   .featured-work-section { padding: 46px 0 72px; background: white; }
   .compact-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 24px; }
   .compact-heading span, .compact-kicker { display: block; color: #0a5df0; font-size: .66rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
@@ -280,13 +345,12 @@ const processSteps = [
   .industry-heading { display: block; max-width: 790px; margin-bottom: 30px; }
   .industry-heading h2 { font-size: clamp(2rem,3.5vw,3.45rem); }
   .industry-heading .lead { max-width: 650px; margin-top: 22px; }
-  .industry-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 14px; }
+  .industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .industry-card {
-    min-height: 118px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-    padding: 18px 8px 15px;
+    display: grid; grid-template-rows: 1fr auto; align-items: center; justify-items: center; gap: 14px;
+    padding: 26px 14px 22px;
     border: 1px solid #e8eef5;
-    border-radius: 14px;
+    border-radius: 16px;
     background: #fff;
     box-shadow: 0 2px 8px rgba(13,23,32,.04);
     text-align: center;
@@ -319,7 +383,7 @@ const processSteps = [
     transform: scale(1.12) rotate(-5deg);
     box-shadow: 0 10px 28px rgba(0,0,0,.32);
   }
-  .industry-card strong { color: #1e2d45; font-size: .67rem; font-weight: 600; line-height: 1.25; }
+  .industry-card strong { color: #1e2d45; font-size: .82rem; font-weight: 600; line-height: 1.25; text-align: center; }
   .process-section { padding: 92px 0 100px; background: white; }
   .process-heading { margin-bottom: 42px; text-align: center; }
   .process-heading span { display: block; margin-bottom: 7px; color: #0a5df0; font-size: .66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
@@ -334,18 +398,32 @@ const processSteps = [
   .process-step.navy .process-icon { color: #1f63b8; background: #eef5ff; }
   .process-step h3 { font-size: .98rem; font-weight: 700; letter-spacing: -.02em; }
   .process-step p { max-width: 190px; margin-top: 10px; color: var(--muted); font-size: .78rem; font-weight: 500; line-height: 1.6; }
-  .why-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 100px; }
-  .why-grid .lead { margin-top: 25px; }
-  .why-list { border-top: 1px solid var(--border); }
-  .why-list div { display: flex; gap: 28px; padding: 19px 0; border-bottom: 1px solid var(--border); }
-  .why-list span { color: var(--orange); font-size: .75rem; }
+  .why-section { padding: 90px 0 100px; background: linear-gradient(160deg, #0a1120 0%, #0d1628 50%, #0a1120 100%); position: relative; overflow: hidden; }
+  .why-section::before { position: absolute; width: 500px; height: 500px; right: -100px; top: -100px; border-radius: 50%; background: radial-gradient(circle, rgba(59,130,246,.12) 0%, transparent 65%); content: ""; pointer-events: none; }
+  .why-section::after { position: absolute; width: 400px; height: 400px; left: -120px; bottom: -80px; border-radius: 50%; background: radial-gradient(circle, rgba(233,113,66,.08) 0%, transparent 65%); content: ""; pointer-events: none; }
+  .why-header { position: relative; z-index: 1; max-width: 720px; margin-bottom: 50px; }
+  .why-header h2 { color: #f1f5f9; font-size: clamp(2rem, 3.5vw, 3rem); letter-spacing: -.03em; }
+  .why-header .lead { color: #94a3b8; margin-top: 20px; }
+  .why-bento { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .why-card { position: relative; padding: 32px 28px; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; background: rgba(255,255,255,.03); transition: transform .3s ease, border-color .3s ease, background .3s ease; overflow: hidden; }
+  .why-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+  .why-icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; margin-bottom: 18px; }
+  .why-card h3 { color: #f1f5f9; font-size: 1.1rem; font-weight: 700; }
+  .why-card p { margin-top: 10px; color: #94a3b8; font-size: .88rem; line-height: 1.6; }
+  .why-num { position: absolute; top: 16px; right: 22px; color: rgba(255,255,255,.07); font-size: 2.5rem; font-weight: 800; }
+  .why-card-blue .why-icon { background: rgba(59,130,246,.15); color: #60a5fa; }
+  .why-card-purple .why-icon { background: rgba(168,85,247,.15); color: #c084fc; }
+  .why-card-teal .why-icon { background: rgba(20,184,166,.15); color: #2dd4bf; }
+  .why-card-green .why-icon { background: rgba(34,197,94,.15); color: #4ade80; }
+  .why-card-orange .why-icon { background: rgba(249,115,22,.15); color: #fb923c; }
+  .why-card-pink .why-icon { background: rgba(236,72,153,.15); color: #f472b6; }
   @media (max-width: 1100px) {
     .work-grid { grid-template-columns: repeat(3, 1fr); }
     .industry-grid { grid-template-columns: repeat(5, 1fr); }
     .process-rail { grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .process-rail::before { display: none; }
     .process-step { min-height: 160px; }
-    .solution-row { grid-template-columns: 60px 1.3fr 1fr 28px; gap: 18px; }
+    .solution-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 960px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -359,7 +437,7 @@ const processSteps = [
     .process-rail { grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .process-rail::before { display: none; }
     .process-step { min-height: 150px; }
-    .why-grid { grid-template-columns: 1fr; gap: 45px; }
+    .why-bento { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 680px) {
     .hero { padding-top: 132px; }
@@ -367,8 +445,7 @@ const processSteps = [
     .leadership-panel { grid-template-columns: 1fr; }
     .leadership-item, .leadership-item:first-child { border-top: 1px solid var(--border); border-left: 0; }
     .leadership-item:first-child { border-top: 0; }
-    .solution-row { grid-template-columns: 45px 1fr 28px; }
-    .solution-audience { display: none; }
+    .solution-grid { grid-template-columns: 1fr; }
     .featured-work-section { padding: 40px 0 56px; overflow: hidden; }
     .compact-heading { align-items: start; flex-direction: column; }
     .compact-heading h2 { font-size: clamp(1.55rem, 7vw, 2.05rem); }
@@ -388,6 +465,7 @@ const processSteps = [
     .work-art { height: 118px; }
     .work-content { min-height: 178px; }
     .industry-grid { grid-template-columns: repeat(2,1fr); }
+    .why-bento { grid-template-columns: 1fr; }
     .process-rail { grid-template-columns: 1fr; gap: 22px; }
     .process-step { min-height: 0; display: grid; grid-template-columns: 64px 1fr; align-items: center; column-gap: 16px; text-align: left; }
     .process-icon { width: 64px; height: 64px; margin: 0; }
