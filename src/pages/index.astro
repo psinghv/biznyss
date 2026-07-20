@@ -7,15 +7,16 @@ import {
   ArrowRight,
   Bot,
   Building2,
+  CircuitBoard,
   CodeXml,
   Compass,
-  Cpu,
   Factory,
+  Globe2,
   GraduationCap,
-  Handshake,
   HeartPulse,
-  Layers,
   Landmark,
+  Layers,
+  LineChart,
   Plane,
   Rocket,
   Search,
@@ -25,15 +26,16 @@ import {
   Target,
   TrendingUp,
   Truck,
+  Users,
   Zap,
 } from 'lucide-react';
 import { solutions } from '../data/site';
 
 const leadershipMetrics = [
-  { value: '20+', label: 'Years Technology Leadership', icon: Cpu, iconBg: '#dbeafe', iconColor: '#1d4ed8' },
-  { value: '20+', label: 'Years Growth Marketing Experience', icon: Target, iconBg: '#ffedd5', iconColor: '#c2410c' },
-  { value: 'Global', label: 'Client Experience', icon: Landmark, iconBg: '#dcfce7', iconColor: '#15803d' },
-  { value: 'One Roof', label: 'AI, Software, Marketing & Automation', icon: Handshake, iconBg: '#f3e8ff', iconColor: '#7e22ce' },
+  { value: '20+', label: 'Years Technology Leadership', icon: CircuitBoard, iconBg: '#dbeafe', iconColor: '#1d4ed8' },
+  { value: '20+', label: 'Years Growth Marketing Experience', icon: LineChart, iconBg: '#ffedd5', iconColor: '#c2410c' },
+  { value: 'Global', label: 'Client Experience', icon: Globe2, iconBg: '#dcfce7', iconColor: '#15803d' },
+  { value: 'One Roof', label: 'AI, Software, Marketing & Automation', icon: Users, iconBg: '#f3e8ff', iconColor: '#7e22ce' },
 ];
 
 const featuredWork = [
@@ -291,7 +293,8 @@ const whyReasons = [
   .leadership-panel { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: white; box-shadow: 0 24px 60px rgba(13,23,32,.14); }
   .leadership-item { min-height: 96px; display: flex; align-items: center; gap: 15px; padding: 20px 28px; border-left: 1px solid var(--border); }
   .leadership-item:first-child { border-left: 0; }
-  .leadership-icon { width: 48px; height: 48px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 50%; transition: transform .3s ease; }
+  .leadership-icon { width: 48px; height: 48px; display: flex; flex: 0 0 auto; align-items: center; justify-content: center; line-height: 0; border-radius: 50%; transition: transform .3s ease; }
+  .leadership-icon :global(svg) { display: block; }
   .leadership-item:hover .leadership-icon { transform: translateY(-3px) scale(1.05); }
   .leadership-item strong, .leadership-item span { display: block; }
   .leadership-item strong { color: #0d5bb8; font-size: 1.35rem; font-weight: 700; line-height: 1; letter-spacing: -.025em; }
