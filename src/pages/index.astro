@@ -339,6 +339,14 @@ const processSteps = [
   .why-list { border-top: 1px solid var(--border); }
   .why-list div { display: flex; gap: 28px; padding: 19px 0; border-bottom: 1px solid var(--border); }
   .why-list span { color: var(--orange); font-size: .75rem; }
+  @media (max-width: 1100px) {
+    .work-grid { grid-template-columns: repeat(3, 1fr); }
+    .industry-grid { grid-template-columns: repeat(5, 1fr); }
+    .process-rail { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .process-rail::before { display: none; }
+    .process-step { min-height: 160px; }
+    .solution-row { grid-template-columns: 60px 1.3fr 1fr 28px; gap: 18px; }
+  }
   @media (max-width: 960px) {
     .hero-grid { grid-template-columns: 1fr; }
     .hero-copy { max-width: 780px; }
@@ -348,11 +356,9 @@ const processSteps = [
     .leadership-item:nth-child(4) { border-top: 1px solid var(--border); }
     .industry-grid { grid-template-columns: repeat(3,1fr); }
     .industry-heading { align-items: start; flex-direction: column; }
-    .process-rail { grid-template-columns: 1fr; gap: 24px; }
-    .process-rail::before { width: 1px; height: auto; left: 39px; right: auto; top: 36px; bottom: 36px; border-top: 0; border-left: 1px dashed #c7d3df; }
-    .process-step { min-height: 112px; display: grid; grid-template-columns: 78px 1fr; align-items: center; column-gap: 18px; text-align: left; }
-    .process-icon { margin: 0; }
-    .process-step p { max-width: 520px; }
+    .process-rail { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .process-rail::before { display: none; }
+    .process-step { min-height: 150px; }
     .why-grid { grid-template-columns: 1fr; gap: 45px; }
   }
   @media (max-width: 680px) {
@@ -382,6 +388,11 @@ const processSteps = [
     .work-art { height: 118px; }
     .work-content { min-height: 178px; }
     .industry-grid { grid-template-columns: repeat(2,1fr); }
+    .process-rail { grid-template-columns: 1fr; gap: 22px; }
+    .process-step { min-height: 0; display: grid; grid-template-columns: 64px 1fr; align-items: center; column-gap: 16px; text-align: left; }
+    .process-icon { width: 64px; height: 64px; margin: 0; }
+    .process-icon svg { width: 24px; height: 24px; }
+    .process-step p { max-width: 520px; }
   }
   @media (max-width: 430px) {
     .work-card { flex-basis: 82vw; }
