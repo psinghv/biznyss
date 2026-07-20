@@ -47,23 +47,35 @@ import { capabilities, solutions } from '../data/site';
     </div>
 
     <div class="world-map" aria-label="Global client experience">
-      <svg class="map-svg" viewBox="0 0 560 280" role="img" aria-label="World map">
-        <g class="continent-map">
-          <path class="north-america" d="M27 69 45 49 77 38 112 42 139 55 157 74 148 88 124 91 110 106 95 107 84 126 67 123 62 105 45 99 35 87Z"/>
-          <path class="south-america" d="m120 119 22 10 17 20 8 27-5 30-15 37-13 20-11-22 3-26-11-22-8-28 4-25Z"/>
-          <path class="europe" d="m178 57 18-15 29-5 15 10-7 14-25 5-18 12-13-7Z"/>
-          <path class="asia" d="m243 59 19-14 36-5 35 8 23-7 50 7 35 14 40 1 36 18-10 20-31 4-18 17-31-4-23 11-17-7-19 12-16-5-8-18-26-4-12-17-26-7-21-13Z"/>
-          <path class="africa" d="m273 120 27 3 22 18 7 25-8 44-18 38-22-5-6-29-15-25 5-37Z"/>
-          <path class="australia" d="m431 182 21-12 32 5 21 18-9 22-27 7-25-11-18-15Z"/>
-          <path class="asia" d="m477 113 12-10 9 6-4 14-13 3Z"/>
-          <path class="europe" d="m221 89 9-5 8 7-6 9-10-2Z"/>
+      <svg class="map-svg" viewBox="0 0 1000 500" role="img" aria-label="World map">
+        <defs>
+          <pattern id="dotPattern" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r="2.1" fill="#2471c8" opacity=".55" />
+          </pattern>
+          <pattern id="dotPatternAccent" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r="2.6" fill="#0a5df0" opacity=".9" />
+          </pattern>
+        </defs>
+        <g>
+          <path fill="url(#dotPattern)" d="M150 180 C160 165 175 155 195 152 L215 150 L240 155 L255 165 L262 175 L258 188 L248 195 L230 198 L215 205 L200 210 L185 208 L170 200 L155 190 Z" />
+          <path fill="url(#dotPattern)" d="M270 160 L285 155 L300 158 L310 168 L305 178 L292 182 L278 178 Z" />
+          <path fill="url(#dotPattern)" d="M330 155 L350 150 L375 155 L390 165 L395 180 L388 195 L375 200 L360 198 L345 190 L335 175 Z" />
+          <path fill="url(#dotPattern)" d="M410 145 L435 140 L465 145 L490 155 L510 165 L530 160 L555 165 L575 175 L590 185 L595 200 L585 210 L560 213 L535 210 L510 215 L485 210 L460 200 L440 190 L420 180 L410 165 Z" />
+          <path fill="url(#dotPattern)" d="M600 155 L625 150 L650 155 L670 165 L680 180 L675 195 L660 205 L640 208 L620 200 L605 185 Z" />
+          <path fill="url(#dotPattern)" d="M700 170 L730 165 L770 170 L800 180 L820 195 L825 210 L815 225 L790 230 L760 225 L730 215 L710 200 L695 185 Z" />
+          <path fill="url(#dotPattern)" d="M830 210 L855 205 L880 210 L895 220 L900 235 L888 248 L865 250 L845 245 L832 235 Z" />
+          <path fill="url(#dotPattern)" d="M340 220 L365 215 L385 225 L395 245 L390 270 L375 295 L355 305 L335 300 L325 280 L330 255 Z" />
+          <path fill="url(#dotPattern)" d="M460 225 L485 220 L510 230 L520 250 L515 275 L500 295 L480 305 L460 300 L450 280 L455 255 Z" />
+          <path fill="url(#dotPattern)" d="M580 340 L605 335 L630 345 L640 365 L635 390 L620 410 L600 415 L580 410 L570 390 L575 365 Z" />
+          <path fill="url(#dotPattern)" d="M780 350 L800 345 L825 350 L845 360 L850 375 L840 390 L820 395 L795 390 L780 375 Z" />
         </g>
         <g class="map-points">
-          <circle cx="91" cy="89" r="4"/>
-          <circle cx="282" cy="82" r="4"/>
-          <circle cx="358" cy="91" r="4"/>
-          <circle cx="448" cy="90" r="4"/>
-          <circle cx="466" cy="196" r="4"/>
+          <circle cx="220" cy="185" r="5" fill="url(#dotPatternAccent)" />
+          <circle cx="450" cy="170" r="5" fill="url(#dotPatternAccent)" />
+          <circle cx="560" cy="180" r="5" fill="url(#dotPatternAccent)" />
+          <circle cx="750" cy="195" r="5" fill="url(#dotPatternAccent)" />
+          <circle cx="860" cy="225" r="5" fill="url(#dotPatternAccent)" />
+          <circle cx="600" cy="375" r="5" fill="url(#dotPatternAccent)" />
         </g>
       </svg>
       <span>Global client experience</span>
@@ -110,15 +122,14 @@ import { capabilities, solutions } from '../data/site';
   .contact-col svg { flex: 0 0 auto; color: var(--navy); }
   .world-map { position: relative; min-height: 190px; display: flex; align-items: end; justify-content: center; padding: 0 12px 14px; border: 1px solid #dfe7f0; border-radius: 18px; background: #eef3fb; }
   .world-map span { position: relative; z-index: 2; color: #52687b; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-  .map-svg { position: absolute; width: calc(100% - 24px); max-width: 360px; height: auto; left: 50%; top: 10px; transform: translateX(-50%); }
-  .continent-map path { stroke: rgba(255,255,255,.78); stroke-width: 2.5; stroke-linejoin: round; }
-  .north-america { fill: #ef4936; }
-  .south-america { fill: #f28a32; }
-  .europe { fill: #48add9; }
-  .asia { fill: #72c943; }
-  .africa { fill: #f6a23a; }
-  .australia { fill: #3f9851; }
-  .map-points { fill: #0a5df0; opacity: .75; }
+  .map-svg { position: absolute; width: calc(100% - 24px); max-width: 420px; height: auto; left: 50%; top: 14px; transform: translateX(-50%); }
+  .map-points circle { animation: pulse 2.4s ease-in-out infinite; }
+  .map-points circle:nth-child(2) { animation-delay: .4s; }
+  .map-points circle:nth-child(3) { animation-delay: .8s; }
+  .map-points circle:nth-child(4) { animation-delay: 1.2s; }
+  .map-points circle:nth-child(5) { animation-delay: 1.6s; }
+  .map-points circle:nth-child(6) { animation-delay: 2s; }
+  @keyframes pulse { 0%,100% { opacity: .5; r: 4; } 50% { opacity: 1; r: 6; } }
   .footer-bottom { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 25px; margin-top: 46px; padding-top: 20px; border-top: 1px solid #d5dfe8; color: #687a8a; font-size: .72rem; }
   .footer-bottom div { display: flex; gap: 30px; }
   .footer-bottom a:hover { color: var(--blue); }

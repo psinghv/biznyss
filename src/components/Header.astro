@@ -305,7 +305,8 @@ const mainNav = [
   .brand-name::first-letter { color: #0d1321; }
   .brand-tagline { margin-top: 5px; color: #64748b; font-size: .58rem; font-weight: 600; letter-spacing: .005em; }
   .desktop-nav { height: 100%; display: flex; align-items: center; gap: clamp(18px, 1.45vw, 28px); margin-left: auto; }
-  .nav-item { height: 100%; display: flex; align-items: center; }
+  .nav-item { position: relative; height: 100%; display: flex; align-items: center; }
+  .has-mega::after { content: ""; position: absolute; top: 100%; left: -12px; right: -12px; height: 28px; }
   .nav-item > a { position: relative; height: 100%; display: flex; align-items: center; gap: 6px; color: #1e2433; font-size: .95rem; font-weight: 600; letter-spacing: -.015em; white-space: nowrap; transition: color .2s ease-out; }
   .nav-item > a:hover, .has-mega:hover > a, .has-mega:focus-within > a, .nav-item.is-active > a { color: #111318; }
   .nav-item.is-active > a svg { transform: rotate(180deg); }
