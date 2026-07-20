@@ -90,7 +90,7 @@ const whyReasons = [
         <span class="eyebrow">AI-powered growth ecosystem</span>
         <h1>Transforming businesses through <em>AI, technology</em> & growth</h1>
         <p class="lead">Biznyss helps organizations launch digital products, create AI-powered marketing campaigns, automate operations, and accelerate growth through intelligent technology and performance-driven execution.</p>
-        <div class="buttons"><a class="btn btn-primary" href="/contact">Book Strategy Call</a><a class="btn btn-secondary" href="/case-studies">Explore Case Studies</a></div>
+        <div class="buttons"><a class="btn btn-primary" href="/contact">Book Strategy Call</a><a class="btn btn-secondary" href="/work">Explore Case Studies</a></div>
       </div>
       <div class="hero-visual">
         <HeroVisual />
@@ -143,11 +143,11 @@ const whyReasons = [
     <div class="container">
       <div class="compact-heading">
         <div><span>Featured Case Studies</span><h2>Work Designed to Deliver Business Impact</h2></div>
-        <a href="/case-studies">View All Case Studies <ArrowRight size={15} aria-hidden="true" /></a>
+        <a href="/work">View All Case Studies <ArrowRight size={15} aria-hidden="true" /></a>
       </div>
       <div class="work-grid">
         {featuredWork.map((study) => (
-          <a class="work-card" href={`/case-studies/${study.slug}`}>
+          <a class="work-card" href={`/work/${study.slug}`}>
             <div class="work-art">
               <img src={study.image} alt={study.title} loading="lazy" decoding="async" />
             </div>

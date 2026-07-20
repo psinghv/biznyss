@@ -137,7 +137,7 @@ export const nav = [
   { label: 'Home', href: '/' },
   { label: 'Capabilities', href: '/capabilities' },
   { label: 'Solutions', href: '/solutions' },
-  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Work', href: '/work' },
   { label: 'About', href: '/about' },
   { label: 'Insights', href: '/insights' },
   { label: 'Contact', href: '/contact' },

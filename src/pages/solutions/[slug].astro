@@ -23,7 +23,7 @@ const related = caseStudies.slice(0,2);
   </div></section>
   <section class="section"><div class="container">
     <div class="section-head"><div><span class="eyebrow">Relevant work</span><h2>See the system in action.</h2></div></div>
-    <div class="grid-2">{related.map((study) => <a class="card" href={`/case-studies/${study.slug}`}><span class="tag">{study.category}</span><h3>{study.title}</h3><p>{study.impact}</p><strong class="text-link">View case study</strong></a>)}</div>
+    <div class="grid-2">{related.map((study) => <a class="card" href={`/work/${study.slug}`}><span class="tag">{study.category}</span><h3>{study.title}</h3><p>{study.impact}</p><strong class="text-link">View case study</strong></a>)}</div>
   </div></section>
   <CTA title={`Ready to ${solution.name.toLowerCase()}?`} />
 </BaseLayout>

@@ -13,7 +13,7 @@ export default function CaseStudyFilter() {
       </div>
       <div className="case-grid">
         {filtered.map((study) => (
-          <a className="case-card" href={`/case-studies/${study.slug}`} key={study.slug}>
+          <a className="case-card" href={`/work/${study.slug}`} key={study.slug}>
             <div className="case-art"><span>{study.category}</span><b>{study.title.slice(0, 1)}</b></div>
             <div className="case-content"><small>{study.industry}</small><h2>{study.title}</h2><p>{study.impact}</p><strong>{study.metrics[0]} <ArrowUpRight aria-hidden="true" size={18} /></strong></div>
           </a>
